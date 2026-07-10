@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+@theme {
+  /* Typography Scale */
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-jakarta);
+  --font-serif: var(--font-playfair);
+
+  /* Colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* Brand Colors: Obsidian Navy (#030712), Space Gray (#1e293b), Champagne Gold (#d4af37) */
+  --color-brand-obsidian: #030712;
+  --color-brand-space: #1e293b;
+  --color-brand-champagne: #d4af37;
+  
+  --color-primary: var(--color-brand-obsidian);
+  --color-primary-foreground: #ffffff;
+  
+  --color-secondary: var(--color-brand-space);
+  --color-secondary-foreground: #ffffff;
+  
+  --color-accent: var(--color-brand-champagne);
+  --color-accent-foreground: #000000;
+  
+  --color-border: var(--color-brand-space);
+
+  /* Spacing Scale (Cohesive metric grid) */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-24: 96px;
+
+  /* Radius Scale */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Animations */
+  --animate-fade-up: fade-up 0.5s ease-out forwards;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #030712;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #030712;
+    --foreground: #ffffff;
+  }
+}
+
+.dark {
+  --background: #030712;
+  --foreground: #ffffff;
+}
+
+@layer base {
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@keyframes fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
