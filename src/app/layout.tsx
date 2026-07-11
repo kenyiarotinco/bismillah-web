@@ -18,25 +18,36 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "BISMILLAH | Centro de Bienestar Digital & Suplementos Premium",
-  description: "Descubre programas de bienestar personalizados recomendados por nuestra Inteligencia Artificial. Citrato de Magnesio, Ashwagandha y péptidos bioactivos hidrolizados con asesoría de expertos en el Perú.",
-  keywords: ["citrato de magnesio", "bienestar digital", "suplementos naturales", "ashwagandha peru", "colageno hidrolizado", "salud inteligente"],
+  metadataBase: new URL("https://bismillah.com.pe"),
+  title: "BISMILLAH | Centro de Bienestar Digital",
+  description: "Suplementos premium con respaldo científico y programas personalizados para el bienestar integral.",
+  keywords: ["Bismillah", "suplementos", "bienestar", "magnesio", "ashwagandha", "omega 3", "salud", "Perú"],
   authors: [{ name: "BISMILLAH Wellness OS" }],
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     title: "BISMILLAH | Centro de Bienestar Digital",
-    description: "Plataforma inteligente de nutrición de precisión. Realiza tu diagnóstico de salud gratuito y recibe planes personalizados.",
-    url: "https://bismillah.pe",
+    description: "Suplementos premium con respaldo científico y programas personalizados para el bienestar integral.",
+    url: "https://bismillah.com.pe",
     siteName: "BISMILLAH",
     locale: "es_PE",
     type: "website",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "BISMILLAH | Bienestar de Precisión",
-    description: "Suplementos de grado farmacéutico con asesoramiento clínico de por vida.",
+    images: ["/og-image.jpg"],
   },
   alternates: {
-    canonical: "https://bismillah.pe",
+    canonical: "https://bismillah.com.pe",
   }
 };
 
