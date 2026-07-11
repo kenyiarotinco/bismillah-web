@@ -5,6 +5,7 @@ import { Menu, X, MessageCircle } from 'lucide-react';
 import { Button } from '../uikit';
 import { MagneticButton } from '../animations/motion-elements';
 import { cn } from '../uikit/utils';
+import { buildWhatsAppUrl } from '../../config/whatsapp';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,7 +28,7 @@ export default function Navbar() {
   ];
 
   const handleWhatsApp = () => {
-    window.open('https://wa.me/51938128411?text=Hola%20BISMILLAH,%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa.', '_blank');
+    window.open(buildWhatsAppUrl(), '_blank');
   };
 
   return (

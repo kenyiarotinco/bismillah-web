@@ -4,6 +4,7 @@ import React from 'react';
 import { Moon, Activity, Heart, ArrowRight } from 'lucide-react';
 import { Button } from '../uikit';
 import { FadeUp, HoverGlowCard } from '../animations/motion-elements';
+import { buildWhatsAppUrl } from '../../config/whatsapp';
 
 const programs = [
   {
@@ -37,7 +38,7 @@ const programs = [
 
 export default function ProgramsList() {
   const handleWhatsApp = (programName: string) => {
-    window.open(`https://wa.me/51938128411?text=Hola%20BISMILLAH,%20me%20interesa%20el%20Programa%20${encodeURIComponent(programName)}`, '_blank');
+    window.open(buildWhatsAppUrl(`Hola BISMILLAH, me interesa el Programa ${programName}`), '_blank');
   };
 
   return (

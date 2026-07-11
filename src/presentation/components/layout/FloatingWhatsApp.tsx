@@ -3,10 +3,11 @@
 import React from 'react';
 import { MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { buildWhatsAppUrl } from '../../config/whatsapp';
 
 export default function FloatingWhatsApp() {
   const handleWhatsApp = () => {
-    window.open('https://wa.me/51938128411?text=Hola%20BISMILLAH,%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa.', '_blank');
+    window.open(buildWhatsAppUrl(), '_blank');
   };
 
   return (
