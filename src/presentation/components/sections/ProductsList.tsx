@@ -6,59 +6,129 @@ import { FadeUp, HoverGlowCard } from '../animations/motion-elements';
 const products = [
   {
     id: 1,
-    name: "Citrato de Magnesio",
-    brand: "Magnesium Citrate",
-    desc: "Polvo soluble en agua, fórmula alemana. Alta absorción para el sistema nervioso.",
-    image: "/images/productos/citrato-magnesio.jpeg"
+    name: "Pro Vita Sabor Vainilla",
+    brand: "Power Factor",
+    desc: "Fórmula proteica al 40% con calostro bovino, DHA y prebióticos. Nutrición de grado clínico para una recuperación superior.",
+    image: "/assets/productos_raw/ProVita_Vainilla_PowerFactor.png"
   },
   {
     id: 2,
-    name: "Glicinato de Magnesio",
-    brand: "Nanita Foods",
-    desc: "Polvo instantáneo premium sin azúcar. Ideal para relajación y sueño profundo.",
-    image: "/images/productos/glicinato-magnesio.jpeg"
+    name: "Citrato de Magnesio",
+    brand: "Magnesium Citrate",
+    desc: "Polvo soluble en agua de fórmula alemana. Máxima biodisponibilidad para calmar el sistema nervioso sin efecto laxante.",
+    image: "/assets/productos_raw/Citrato_Magnesio_Powder.png"
   },
   {
     id: 3,
-    name: "Treonato de Magnesio",
-    brand: "Nanita Foods",
-    desc: "100 unidades de 500mg, sin preservantes. Diseñado para la salud cognitiva y memoria.",
-    image: "/images/productos/treonato-magnesio.jpeg"
+    name: "Sulfato de Magnesio",
+    brand: "Kallpa Luz",
+    desc: "Cristales premium Epsom importados de Alemania. Relajación física y mental profunda en cada baño terapéutico.",
+    image: "/assets/productos_raw/Sulfato_Magnesio_KallpaLuz.png"
   },
   {
     id: 4,
-    name: "Sulfato de Magnesio",
-    brand: "Kallpa Luz",
-    desc: "Cristales premium Epsom para baños relajantes. Relajación física y mental.",
-    image: "/images/productos/sulfato-magnesio.jpeg"
+    name: "Treonato de Magnesio",
+    brand: "Nanita Foods",
+    desc: "Fórmula de máxima biodisponibilidad diseñada para potenciar la función cognitiva y el descanso profundo. Calidad farmacéutica innegociable.",
+    image: "/assets/productos_raw/Treonato_Magnesio_NanitaFoods.png"
   },
   {
     id: 5,
     name: "Sal de Epsom Maxx",
     brand: "Natural Maxx",
-    desc: "100 cápsulas 100% naturales para el sistema nervioso y bienestar diario.",
-    image: "/images/productos/sal-epsom.jpeg"
+    desc: "Cápsulas 100% naturales con Vitamina C y Magnesio. Soporte diario para tu sistema nervioso, grado premium sin aditivos.",
+    image: "/assets/productos_raw/Sal_Epsom_NaturalMaxx.png"
   },
   {
     id: 6,
     name: "ResverAge",
     brand: "NNF Novoamérica",
-    desc: "Antioxidante a base de uva borgoña, maíz morado, arándanos y açaí berry. Sin azúcar añadida.",
-    image: "/images/productos/resverage.jpeg"
+    desc: "Antioxidante premium a base de uva borgoña, camu camu y açaí berry. Combate el estrés oxidativo célula a célula, sin azúcar añadida.",
+    image: "/assets/productos_raw/ResverAge_NNF.png"
   },
   {
     id: 7,
-    name: "Multivitamínicos en Gomitas",
-    brand: "TMX Wellness",
-    desc: "70 unidades sabor a fresa con graviola, moringa, camu camu y complejo de vitaminas B1-B12, A, C, D, E.",
-    image: "/images/productos/multivitaminicos-gomitas.jpeg"
+    name: "Glicinato de Magnesio",
+    brand: "Nanita Foods",
+    desc: "Polvo instantáneo premium sin azúcar. La forma más suave y absorbible de magnesio para una relajación y sueño profundo.",
+    image: "/assets/productos_raw/Glicinato_Magnesio_NanitaFoods.png"
   },
   {
     id: 8,
+    name: "Multivitamínicos en Gomitas",
+    brand: "TMX Wellness",
+    desc: "70 gomitas sabor fresa con graviola, moringa y complejo B1-B12, A, C, D, E. Nutrición completa en formato delicioso, sin azúcar.",
+    image: "/assets/productos_raw/Multivitaminas_Gomitas_TMX.png"
+  },
+  {
+    id: 9,
     name: "BioVit C Maxx",
     brand: "Natural Maxx",
-    desc: "Vitamina C concentrada, antioxidante natural para fortalecer tu sistema inmune.",
-    image: "/images/productos/biovit-c.jpeg"
+    desc: "Vitamina C concentrada de alta pureza. Antioxidante natural que fortalece tu sistema inmune día a día.",
+    image: "/assets/productos_raw/BioVitC_VitaminaC_NaturalMaxx.png"
+  },
+  {
+    id: 10,
+    name: "Propóleo Tutuma + Ajos",
+    brand: "Natural Maxx",
+    desc: "Bebida herbal a base de propóleo, tutuma y ajos con camu camu y miel de abejas. Blindaje natural para tus defensas.",
+    image: "/assets/productos_raw/Propoleo_Tutuma_Ajos_NaturalMaxx.png"
+  },
+  {
+    id: 11,
+    name: "Gomitas Probióticas",
+    brand: "Nanita Foods",
+    desc: "Gomitas con tocish, muña y cultivos probióticos vivos. Equilibra tu flora intestinal con sabor a fresa, sin azúcar añadida.",
+    image: "/assets/productos_raw/Probiotico_Gomitas_NanitaFoods.png"
+  },
+  {
+    id: 12,
+    name: "Xtreme Moringa Gummies",
+    brand: "Pharma Xtreme",
+    desc: "Gomitas de moringa potenciadas con Omega 3, 6 y 9. Energía vegetal y protección celular en cada dosis diaria.",
+    image: "/assets/productos_raw/Moringa_Gummies_XtremeFX.png"
+  },
+  {
+    id: 13,
+    name: "Savia de Plátano Herbal",
+    brand: "Natural Maxx",
+    desc: "Bebida herbal a base de savia de plátano, camu camu y propóleo. Equilibrio digestivo con pureza 100% vegetal.",
+    image: "/assets/productos_raw/SaviaPlatano_Herbal_NaturalMaxx.png"
+  },
+  {
+    id: 14,
+    name: "Sábila Herbal",
+    brand: "Natural Maxx",
+    desc: "Extracto herbal de sábila, uña de gato y propóleo. Regeneración natural para tu sistema digestivo y tus defensas.",
+    image: "/assets/productos_raw/Sabila_Herbal_NaturalMaxx.png"
+  },
+  {
+    id: 15,
+    name: "Gummix Relax",
+    brand: "Gummix",
+    desc: "Gomitas con glicinato de magnesio, L-teanina y B6 sabor limón. Calma el estrés y serena tu mente sin efecto sedante.",
+    image: "/assets/productos_raw/Gummix_Relax_GlicinatoMagnesio.png"
+  },
+  {
+    id: 16,
+    name: "Aceite de Coco",
+    brand: "CocoLife",
+    desc: "Aceite de coco 100% extra virgen, prensado en frío. Pureza amazónica para tu piel, cabello y bienestar diario.",
+    image: "/assets/productos_raw/AceiteCoco_CocoLife_BioSelva.png"
+  },
+  {
+    id: 17,
+    name: "Vitatrum Multivitamin",
+    brand: "Mason Natural",
+    desc: "Fórmula multivitamínica y multimineral en tableta reducida. Bienestar general respaldado desde 1967.",
+    image: "/assets/productos_raw/Vitatrum_Multivitamin_MasonNatural.png"
+  },
+  {
+    id: 18,
+    name: "Helix Original",
+    brand: "Colágeno Hidrolizado",
+    desc: "Colágeno hidrolizado enriquecido con magnesio. Regeneración articular y muscular para cuerpos en movimiento constante.",
+    image: "/assets/productos_raw/Colageno_HelixOriginal_Magnesio.png"
   }
 ];
 
