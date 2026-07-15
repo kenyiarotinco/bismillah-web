@@ -25,7 +25,7 @@ export default function InfraestructuraB2B() {
         <FadeUp>
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-gray-300 uppercase tracking-widest backdrop-blur-sm mb-6">
-              <span className="w-2 h-2 rounded-full bg-emerald-500" /> Infraestructura y Mayoristas B2B
+              <span className="w-2 h-2 rounded-full bg-[#d4af37]" /> Infraestructura y Mayoristas B2B
             </div>
             <h2 className="text-3xl md:text-5xl font-black text-white font-display mb-6 leading-tight">
               Infraestructura que Respalda tu Demanda.

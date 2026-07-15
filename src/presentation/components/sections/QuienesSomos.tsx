@@ -19,10 +19,10 @@ export default function QuienesSomos() {
 
         <FadeUp delay={0.15}>
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-gray-300 uppercase tracking-widest backdrop-blur-sm mb-6">
-            <span className="w-2 h-2 rounded-full bg-emerald-500" /> Quiénes Somos
+            <span className="w-2 h-2 rounded-full bg-[#d4af37]" /> Quiénes Somos
           </div>
           <h2 className="text-3xl md:text-5xl font-black text-white font-display mb-6 leading-tight">
-            Decisiones Respaldadas por la <span className="text-emerald-400">Ciencia</span> y la Transparencia.
+            Decisiones Respaldadas por la <span className="text-[#d4af37]">Ciencia</span> y la Transparencia.
           </h2>
           <p className="text-gray-400 text-lg leading-relaxed">
             No somos simples intermediarios, somos los arquitectos de tu bienestar. Cada fórmula de BISMILLAH nace en nuestras instalaciones con un único objetivo: entregar una pureza innegociable. Operamos sin filtros, controlando nuestra cadena de valor para garantizar que lo que promete la etiqueta, es exactamente lo que recibe tu cuerpo.

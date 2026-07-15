@@ -74,13 +74,15 @@ export default function FAQAccordion() {
                 </button>
                 <div
                   className={cn(
-                    "overflow-hidden transition-all duration-300",
-                    openIndex === index ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
+                    "grid transition-all duration-300 ease-in-out",
+                    openIndex === index ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                   )}
                 >
-                  <p className="px-6 pb-6 text-gray-400 leading-relaxed">
-                    {faq.a}
-                  </p>
+                  <div className="overflow-hidden">
+                    <p className="px-6 pb-6 text-gray-400 leading-relaxed">
+                      {faq.a}
+                    </p>
+                  </div>
                 </div>
               </HoverGlowCard>
             </FadeUp>
