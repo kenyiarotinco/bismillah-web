@@ -36,13 +36,13 @@ export default function Hero() {
 
           <FadeUp delay={0.2}>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] font-display max-w-2xl">
-              Tu bienestar comienza con decisiones <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-[#d4af37]">inteligentes.</span>
+              Pureza que transforma. <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-[#d4af37]">Calidad que exige resultados.</span>
             </h1>
           </FadeUp>
 
           <FadeUp delay={0.3}>
             <p className="text-lg md:text-xl text-gray-400 leading-relaxed max-w-lg font-sans">
-              Programas de bienestar basados en suplementos premium.
+              Suplementación de grado farmacéutico diseñada para quienes no negocian su bienestar y exigen lo mejor.
             </p>
           </FadeUp>
 
@@ -54,7 +54,7 @@ export default function Hero() {
                 onClick={handlePrograms}
                 className="w-full sm:w-auto justify-center"
               >
-                Ver Programas
+                Eleva tu Estándar Hoy
               </Button>
               <Button
                 variant="outline"
@@ -103,10 +103,14 @@ export default function Hero() {
                 </FloatingElement>
               </div>
 
-              {/* Core Badge central logo bubble */}
-              <div className="w-40 h-40 rounded-full bg-gradient-to-br from-[#d4af37]/20 to-emerald-500/5 border border-[#d4af37]/30 flex flex-col items-center justify-center text-center shadow-[0_0_50px_rgba(212,175,55,0.15)] relative">
-                <div className="absolute inset-0 rounded-full bg-[#d4af37]/10 animate-ping opacity-30" />
-                <span className="text-5xl font-black text-white leading-none mt-1 font-display">B</span>
+              {/* Core product showcase bubble */}
+              <div className="w-56 h-56 rounded-full overflow-hidden border border-[#d4af37]/30 shadow-[0_0_50px_rgba(212,175,55,0.15)] relative">
+                <img
+                  src="/images/secciones/hero-omega3.png"
+                  alt="Suplemento premium Omega 3 grado farmacéutico Bismillah"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-white/10" />
               </div>
             </div>
           </FadeLeft>
