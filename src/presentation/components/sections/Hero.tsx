@@ -30,7 +30,7 @@ export default function Hero() {
         <div className="lg:col-span-7 flex flex-col items-start gap-6">
           <FadeUp delay={0.1}>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-gray-300 uppercase tracking-widest backdrop-blur-sm">
-              <span className="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse" /> Wellness Tech
+              <span className="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse" /> Suplementación Premium
             </div>
           </FadeUp>
 
