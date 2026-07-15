@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import { SITE_CONFIG } from '../../config/site';
 
 export default function Footer() {
   return (
@@ -8,9 +9,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#d4af37] to-amber-600 flex items-center justify-center">
-              <span className="text-white font-bold text-xs font-display">B</span>
-            </div>
+            <img src="/images/brand/bismillah-icon.png" alt="BISMILLAH" className="w-6 h-6 rounded-full object-cover" />
             <span className="font-display font-bold text-lg tracking-wide text-white">BISMILLAH</span>
           </div>
           <p className="text-sm text-gray-400">
@@ -39,15 +38,15 @@ export default function Footer() {
         <div>
           <h4 className="text-white font-semibold mb-4">Contacto</h4>
           <ul className="flex flex-col gap-2 text-sm text-gray-400">
-            <li>Lima, Perú</li>
-            <li>contacto@bismillah.pe</li>
-            <li>+51 938 128 411</li>
+            <li>{SITE_CONFIG.city}</li>
+            <li>{SITE_CONFIG.email}</li>
+            <li>{SITE_CONFIG.phoneDisplay}</li>
           </ul>
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-6 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
         <p className="text-xs text-gray-500">
-          © {new Date().getFullYear()} BISMILLAH Wellness. Todos los derechos reservados.
+          © {new Date().getFullYear()} {SITE_CONFIG.businessName}. Todos los derechos reservados.
         </p>
         <div className="flex items-center gap-4 text-gray-500 text-xs">
           Diseñado para el bienestar integral.

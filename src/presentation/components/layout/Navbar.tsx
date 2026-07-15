@@ -43,9 +43,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#d4af37] to-amber-600 flex items-center justify-center">
-            <span className="text-white font-bold text-lg font-display">B</span>
-          </div>
+          <img src="/images/brand/bismillah-icon.png" alt="BISMILLAH" className="w-8 h-8 rounded-full object-cover" />
           <span className="font-display font-bold text-xl tracking-wide text-white">BISMILLAH</span>
         </div>
 

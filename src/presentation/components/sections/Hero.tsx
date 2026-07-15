@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { MessageCircle, ArrowDown } from 'lucide-react';
+import { MessageCircle, ArrowDown, ShieldCheck, Truck } from 'lucide-react';
 import { Button } from '../uikit';
 import { FadeUp, FadeLeft, FloatingElement } from '../animations/motion-elements';
 import { buildWhatsAppUrl } from '../../config/whatsapp';
@@ -18,8 +18,8 @@ export default function Hero() {
 
   return (
     <section id="inicio" className="relative min-h-screen pt-28 pb-16 flex items-center bg-[#030712] overflow-hidden">
-      {/* Background ambient lighting - Emerald & Gold */}
-      <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] rounded-full bg-emerald-500/10 blur-[120px] pointer-events-none" />
+      {/* Background ambient lighting - Champagne Gold */}
+      <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] rounded-full bg-[#d4af37]/10 blur-[120px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-[#d4af37]/10 blur-[150px] pointer-events-none" />
       
       {/* Modern dotted grid pattern */}
@@ -30,13 +30,13 @@ export default function Hero() {
         <div className="lg:col-span-7 flex flex-col items-start gap-6">
           <FadeUp delay={0.1}>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-gray-300 uppercase tracking-widest backdrop-blur-sm">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" /> Wellness Tech
+              <span className="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse" /> Wellness Tech
             </div>
           </FadeUp>
 
           <FadeUp delay={0.2}>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] font-display max-w-2xl">
-              Pureza que transforma. <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-[#d4af37]">Calidad que exige resultados.</span>
+              Pureza que transforma. <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d4af37] to-amber-200">Calidad que exige resultados.</span>
             </h1>
           </FadeUp>
 
@@ -64,6 +64,20 @@ export default function Hero() {
               >
                 <MessageCircle className="w-4 h-4" /> WhatsApp
               </Button>
+            </div>
+          </FadeUp>
+
+          <FadeUp delay={0.5}>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mt-2 pt-6 border-t border-white/10 w-full">
+              <div className="flex items-center gap-2 text-sm text-gray-400">
+                <ShieldCheck className="w-4 h-4 text-[#d4af37]" /> 100% Natural
+              </div>
+              <div className="flex items-center gap-2 text-sm text-gray-400">
+                <Truck className="w-4 h-4 text-[#d4af37]" /> Envíos a Todo el Perú
+              </div>
+              <div className="flex items-center gap-2 text-sm text-gray-400">
+                <MessageCircle className="w-4 h-4 text-[#d4af37]" /> Asesoría Personalizada
+              </div>
             </div>
           </FadeUp>
         </div>

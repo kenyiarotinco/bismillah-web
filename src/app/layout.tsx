@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
+import Script from "next/script";
+import { SITE_CONFIG } from "../presentation/config/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -56,37 +58,29 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Global JSON-LD Schema for Local Wellness Center business SEO optimization
-  const jsonLd = {
+  // Global JSON-LD Schema for Local Wellness Center business SEO optimization.
+  // Only real, known fields are included — see src/presentation/config/site.ts.
+  // No street address is published unless NEXT_PUBLIC_BUSINESS_STREET_ADDRESS is set.
+  const jsonLd: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "MedicalBusiness",
     "name": "BISMILLAH Centro de Bienestar",
-    "image": "https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&q=80&w=400",
-    "@id": "https://bismillah.pe/#organization",
-    "url": "https://bismillah.pe",
-    "telephone": "+51987654321",
-    "priceRange": "$$",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Av. Javier Prado Este 1200",
-      "addressLocality": "San Isidro, Lima",
-      "postalCode": "15046",
-      "addressCountry": "PE"
-    },
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday"
-      ],
-      "opens": "08:00",
-      "closes": "20:00"
-    }
+    "image": `${SITE_CONFIG.siteUrl}/images/brand/bismillah-icon.png`,
+    "@id": `${SITE_CONFIG.siteUrl}/#organization`,
+    "url": SITE_CONFIG.siteUrl,
+    "telephone": SITE_CONFIG.phoneDisplay,
+    "email": SITE_CONFIG.email,
   };
+
+  if (SITE_CONFIG.streetAddress) {
+    jsonLd.address = {
+      "@type": "PostalAddress",
+      "streetAddress": SITE_CONFIG.streetAddress,
+      "addressLocality": SITE_CONFIG.city,
+      ...(SITE_CONFIG.postalCode ? { postalCode: SITE_CONFIG.postalCode } : {}),
+      "addressCountry": SITE_CONFIG.country,
+    };
+  }
 
   return (
     <html
@@ -98,29 +92,42 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        
-        {/* Mock integrations pre-loaded for Meta Pixel & Google Analytics (GA4) */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              // DataLayer initialization
-              window.dataLayer = window.dataLayer || [];
-              window.gtag = function(){ dataLayer.push(arguments); };
-              window.gtag('js', new Date());
-              window.gtag('config', 'GA_MEASUREMENT_ID');
-              
-              // Meta Pixel Mock init
-              window.fbq = function(){
-                if(window.fbq.callMethod) {
-                  window.fbq.callMethod.apply(window.fbq, arguments);
-                } else {
-                  window.fbq.queue.push(arguments);
-                }
-              };
-              window.fbq.queue = [];
-            `
-          }}
-        />
+
+        {/* Google Analytics 4 — only loads when NEXT_PUBLIC_GA_MEASUREMENT_ID is configured */}
+        {SITE_CONFIG.gaMeasurementId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${SITE_CONFIG.gaMeasurementId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', '${SITE_CONFIG.gaMeasurementId}');
+              `}
+            </Script>
+          </>
+        )}
+
+        {/* Meta Pixel — only loads when NEXT_PUBLIC_META_PIXEL_ID is configured */}
+        {SITE_CONFIG.metaPixelId && (
+          <Script id="meta-pixel-init" strategy="afterInteractive">
+            {`
+              !function(f,b,e,v,n,t,s)
+              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+              n.queue=[];t=b.createElement(e);t.async=!0;
+              t.src=v;s=b.getElementsByTagName(e)[0];
+              s.parentNode.insertBefore(t,s)}(window, document,'script',
+              'https://connect.facebook.net/en_US/fbevents.js');
+              fbq('init', '${SITE_CONFIG.metaPixelId}');
+              fbq('track', 'PageView');
+            `}
+          </Script>
+        )}
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
         {children}
