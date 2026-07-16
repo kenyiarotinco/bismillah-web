@@ -7,7 +7,7 @@ import { FadeUp, HoverGlowCard } from '../animations/motion-elements';
 const testimonials = [
   {
     name: "María Fernanda T.",
-    role: "Cliente Verificada",
+    role: "Cliente Bismillah",
     content: "Desde que empecé el programa de Sueño & Recuperación con Citrato de Magnesio y Ashwagandha, mi descanso es profundo y continuo. Despierto con energía real.",
     rating: 5,
     avatar: "/images/testimonios/maria-fernanda.png"
@@ -21,10 +21,10 @@ const testimonials = [
   },
   {
     name: "Lucía M.",
-    role: "Cliente Verificada",
+    role: "Cliente Bismillah",
     content: "La asesoría por WhatsApp es excelente. Me guiaron para elegir el suplemento exacto que necesitaba para mi ritmo de trabajo.",
     rating: 5,
-    avatar: "/images/testimonios/lucia-m.png"
+    initials: "LM"
   }
 ];
 
@@ -38,7 +38,7 @@ export default function Testimonials() {
               Resultados <span className="text-[#d4af37]">Reales</span>
             </h2>
             <p className="text-gray-400 text-lg">
-              Descubre cómo nuestros programas han transformado vidas.
+              Conoce la experiencia de clientes que confiaron en Bismillah Wellness para cuidar su bienestar.
             </p>
           </div>
         </FadeUp>
@@ -54,11 +54,17 @@ export default function Testimonials() {
                 </div>
                 <p className="font-serif text-gray-300 text-lg mb-8 italic flex-1 leading-relaxed">&ldquo;{testimonial.content}&rdquo;</p>
                 <div className="flex items-center gap-3">
-                  <img
-                    src={testimonial.avatar}
-                    alt={testimonial.name}
-                    className="w-11 h-11 rounded-full object-cover border border-[#d4af37]/30"
-                  />
+                  {testimonial.avatar ? (
+                    <img
+                      src={testimonial.avatar}
+                      alt={testimonial.name}
+                      className="w-11 h-11 rounded-full object-cover border border-[#d4af37]/30"
+                    />
+                  ) : (
+                    <div className="w-11 h-11 rounded-full border border-[#d4af37]/30 bg-[#d4af37]/10 flex items-center justify-center shrink-0">
+                      <span className="text-sm font-bold text-[#d4af37] font-display">{testimonial.initials}</span>
+                    </div>
+                  )}
                   <div>
                     <h4 className="text-white font-bold font-display">{testimonial.name}</h4>
                     <p className="text-xs text-gray-500 uppercase tracking-wider mt-1">{testimonial.role}</p>
