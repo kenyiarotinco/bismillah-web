@@ -40,10 +40,10 @@ describe("RENÖVA+ configuration", () => {
 
   it("registers the approved black and white jar assets", () => {
     expect(RENOVA_CONFIG.images.blackJar).toBe(
-      "/images/renova-plus/renova-frasco-negro-referencia-fwp.webp",
+      "/images/renova-plus/renova-frasco-negro-referencia-fwp.png",
     );
     expect(RENOVA_CONFIG.images.whiteJar).toBe(
-      "/images/renova-plus/renova-frasco-blanco-referencia-fwp.webp",
+      "/images/renova-plus/renova-frasco-blanco-referencia-fwp.png",
     );
   });
 
