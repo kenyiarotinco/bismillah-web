@@ -1,9 +1,18 @@
 "use client";
 
 import React from 'react';
+import Link from 'next/link';
 import { FadeUp, HoverGlowCard } from '../animations/motion-elements';
 
 const products = [
+  {
+    id: 0,
+    name: "BioProst Premium",
+    brand: "BioProst",
+    desc: "Suplemento nutricional masculino de fórmula multicomponente en presentación de 60 tabletas.",
+    image: "/images/bioprost-premium/bioprost-front.png",
+    href: "/bioprost-premium"
+  },
   {
     id: 1,
     name: "Pro Vita Sabor Vainilla",
@@ -148,8 +157,8 @@ export default function ProductsList() {
         </FadeUp>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {products.map((product, index) => (
-            <FadeUp key={product.id} delay={index * 0.08}>
+          {products.map((product, index) => {
+            const card = (
               <HoverGlowCard className="bg-[#0b0f19] flex flex-col h-full">
                 <div className="aspect-square w-full overflow-hidden bg-[#050810]">
                   <img
@@ -165,8 +174,20 @@ export default function ProductsList() {
                   <p className="text-sm text-gray-400 leading-relaxed">{product.desc}</p>
                 </div>
               </HoverGlowCard>
-            </FadeUp>
-          ))}
+            );
+
+            return (
+              <FadeUp key={product.id} delay={index * 0.08}>
+                {product.href ? (
+                  <Link href={product.href} className="block h-full">
+                    {card}
+                  </Link>
+                ) : (
+                  card
+                )}
+              </FadeUp>
+            );
+          })}
         </div>
       </div>
     </section>
