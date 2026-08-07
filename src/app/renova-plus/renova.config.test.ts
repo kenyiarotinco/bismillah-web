@@ -37,4 +37,14 @@ describe("RENÖVA+ configuration", () => {
   it("keeps the recommended package deterministic", () => {
     expect(getRenovaPackage("continuity").recommended).toBe(true);
   });
+
+  it("registers the approved black and white jar assets", () => {
+    expect(RENOVA_CONFIG.images.blackJar).toBe(
+      "/images/renova-plus/renova-frasco-negro-referencia-fwp.png",
+    );
+    expect(RENOVA_CONFIG.images.whiteJar).toBe(
+      "/images/renova-plus/renova-frasco-blanco-referencia-fwp.png",
+    );
+  });
+
 });

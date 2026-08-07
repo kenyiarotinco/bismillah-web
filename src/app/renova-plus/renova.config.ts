@@ -8,6 +8,8 @@ export const RENOVA_CONFIG = {
   heroMessage: "Tu ritual diario de belleza comienza desde dentro.",
   images: {
     front: "/images/renova-plus/renova-front-authentic.png",
+    blackJar: "/images/renova-plus/renova-frasco-negro-referencia-fwp.png",
+    whiteJar: "/images/renova-plus/renova-frasco-blanco-referencia-fwp.png",
     nutrition: "/images/renova-plus/renova-nutrition-authentic.png",
     label: "/images/renova-plus/renova-label-authentic.png",
   },
