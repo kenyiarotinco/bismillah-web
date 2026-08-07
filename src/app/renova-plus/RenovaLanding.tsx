@@ -1,4 +1,5 @@
-"use client";
+
+  "use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -79,7 +80,8 @@ const faqs = [
 ] as const;
 
 const gallery: { key: ImageKey; label: string; alt: string }[] = [
-  { key: "front", label: "Envase", alt: "Vista frontal auténtica del envase de RENÖVA+." },
+  { key: "blackJar", label: "Frasco negro", alt: "Frasco negro auténtico de RENÖVA+." },
+  { key: "whiteJar", label: "Frasco blanco", alt: "Frasco blanco auténtico de RENÖVA+." },
   { key: "nutrition", label: "Información", alt: "Información nutricional auténtica del envase de RENÖVA+." },
   { key: "label", label: "Uso", alt: "Etiqueta auténtica con preparación y conservación de RENÖVA+." },
 ];
@@ -99,7 +101,7 @@ function trackRenovaEvent(event: string, detail?: Record<string, string>) {
 
 export default function RenovaLanding() {
   const [selectedPackage, setSelectedPackage] = useState<RenovaPackageId>("continuity");
-  const [activeImage, setActiveImage] = useState<ImageKey>("front");
+  const [activeImage, setActiveImage] = useState<ImageKey>("blackJar");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [order, setOrder] = useState<OrderState>({
     name: "",
@@ -256,7 +258,15 @@ export default function RenovaLanding() {
               sizes="(max-width: 880px) 82vw, (max-width: 1280px) 44vw, 520px"
               className={styles.heroProductImage}
             />
-            <p className={styles.imageCaption}>Fotografía auténtica del producto. Etiqueta sin alteraciones.</p>
+            <Image
+              src={RENOVA_CONFIG.images.whiteJar}
+              alt="Frasco blanco auténtico de RENÖVA+."
+              width={230}
+              height={345}
+              sizes="(max-width: 880px) 30vw, 160px"
+              className={styles.heroWhiteJarImage}
+            />
+            <p className={styles.imageCaption}>Presentaciones auténticas con etiquetas sin alteraciones.</p>
           </div>
         </section>
 
@@ -381,7 +391,11 @@ export default function RenovaLanding() {
                 width={941}
                 height={1672}
                 sizes="(max-width: 880px) 90vw, 460px"
-                className={styles.galleryImage}
+                className={
+                  activeImage === "blackJar" || activeImage === "whiteJar"
+                    ? `${styles.galleryImage} ${styles.galleryImageContain}`
+                    : styles.galleryImage
+                }
               />
             </div>
             <div className={styles.galleryControls} role="group" aria-label="Vistas del producto">

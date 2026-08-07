@@ -351,6 +351,22 @@
   box-shadow: 0 2rem 5.5rem rgba(0, 0, 0, 0.55);
 }
 
+.heroWhiteJarImage {
+  position: absolute;
+  z-index: 2;
+  right: clamp(-1.3rem, -2vw, -0.25rem);
+  bottom: 3.8rem;
+  width: clamp(7.25rem, 17vw, 10.5rem);
+  height: auto;
+  filter: drop-shadow(0 1.25rem 1.35rem rgba(0, 0, 0, 0.38));
+  transform: rotate(2.5deg);
+  transition: transform 0.5s ease;
+}
+
+.heroWhiteJarImage:hover {
+  transform: translateY(-0.35rem) rotate(2.5deg);
+}
+
 .imageCaption {
   position: absolute;
   right: -1rem;
@@ -747,6 +763,13 @@
   height: 100%;
   object-fit: cover;
   object-position: center top;
+}
+
+.galleryImageContain {
+  padding: 1.25rem;
+  object-fit: contain;
+  object-position: center;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.12), transparent 68%), var(--graphite);
 }
 
 .galleryControls {
@@ -1276,6 +1299,7 @@
   .heroContent { order: 2; }
   .heroProduct { order: 1; min-height: 30rem; width: min(100%, 25rem); }
   .heroProductImage { width: min(100%, 21rem); height: 30rem; }
+  .heroWhiteJarImage { right: 0.1rem; bottom: 1.2rem; width: clamp(6.6rem, 26vw, 9.5rem); }
   .imageCaption { right: 0; bottom: -0.15rem; }
   .intro, .formula, .ritual, .support, .closing { grid-template-columns: 1fr; }
   .intro { align-items: start; }
@@ -1302,6 +1326,7 @@
   .hero h1 { font-size: clamp(3rem, 14vw, 4.1rem); }
   .heroProduct { min-height: 27rem; }
   .heroProductImage { height: 27rem; }
+  .heroWhiteJarImage { bottom: 1.5rem; width: 7.1rem; }
   .heroActions { display: grid; grid-template-columns: 1fr; }
   .primaryButton, .secondaryButton { width: 100%; }
   .benefitGrid { grid-template-columns: 1fr; }
