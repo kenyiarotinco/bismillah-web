@@ -15,15 +15,16 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "RENÖVA+ | Ritual de belleza desde el interior | BISMILLAH",
+  title: "RENÖVA+ | Colágeno Doblemente Hidrolizado con Biopéptidos | Bismillah",
   description:
-    "Conoce RENÖVA+, una mezcla en polvo sabor berries con información de etiqueta y acompañamiento comercial por WhatsApp.",
+    "RENÖVA+: 11,4 g de colágeno doblemente hidrolizado con biopéptidos activos por toma, Resveratrol, CoQ10, vitaminas, minerales y fibra. Sabor Berries, 315 g.",
   alternates: {
     canonical: "/renova-plus",
   },
   openGraph: {
-    title: "RENÖVA+ | BISMILLAH Wellness",
-    description: "Tu ritual diario de belleza comienza desde dentro.",
+    title: "RENÖVA+ | Colágeno Doblemente Hidrolizado con Biopéptidos",
+    description:
+      "11,4 g de colágeno doblemente hidrolizado con biopéptidos activos por toma, Resveratrol, CoQ10, vitaminas, minerales y fibra. Belleza, vitalidad y bienestar desde el interior.",
     url: "/renova-plus",
     siteName: "BISMILLAH Wellness",
     locale: "es_PE",
@@ -39,8 +40,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "RENÖVA+ | BISMILLAH Wellness",
-    description: "Tu ritual diario de belleza comienza desde dentro.",
+    title: "RENÖVA+ | Colágeno Doblemente Hidrolizado con Biopéptidos",
+    description:
+      "11,4 g de colágeno doblemente hidrolizado con biopéptidos activos por toma, Resveratrol, CoQ10, vitaminas, minerales y fibra.",
     images: ["/images/renova-plus/renova-front-authentic.png"],
   },
 };

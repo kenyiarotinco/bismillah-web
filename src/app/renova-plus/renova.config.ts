@@ -4,8 +4,11 @@ export const RENOVA_CONFIG = {
   route: "/renova-plus",
   productName: "RENÖVA+",
   parentBrand: "BISMILLAH Wellness",
-  concept: "Belleza estructural desde el interior.",
-  heroMessage: "Tu ritual diario de belleza comienza desde dentro.",
+  concept: "Belleza, vitalidad y bienestar desde el interior.",
+  heroMessage: "Belleza, vitalidad y bienestar desde el interior.",
+  heroSubhead:
+    "RENÖVA+ va más allá de un colágeno tradicional. Cada toma aporta 11,4 g de colágeno doblemente hidrolizado con biopéptidos activos, complementados con Resveratrol, CoQ10, vitaminas, minerales y fibra.",
+  microClaim: "NO ES SOLO COLÁGENO. ES RENÖVA+.",
   images: {
     front: "/images/renova-plus/renova-front-authentic.png",
     blackJar: "/images/renova-plus/renova-frasco-negro-referencia-fwp.png",
@@ -17,45 +20,66 @@ export const RENOVA_CONFIG = {
     netWeightGrams: 315,
     servingSizeGrams: 15,
     servingCount: 21,
+    collagenPerServingGrams: 11.4,
     preparation: "Mezcla una porción de 15 g en un vaso con 250 ml de agua.",
     storage: "Conserva el envase cerrado en un lugar fresco y seco, lejos de fuentes de calor.",
     flavor: "Berries",
+    zeroClaims: {
+      fats: "0 g",
+      sugar: "0 g",
+      carbs: "0 g",
+    },
+    composition: {
+      base: "11,4 g de colágeno doblemente hidrolizado con biopéptidos activos",
+      antioxidants: ["Resveratrol", "Coenzima Q10"],
+      vitamins: ["A", "C", "D3", "E", "K1", "B2", "B3", "B6", "B9", "B12"],
+      minerals: ["Magnesio", "Zinc", "Hierro"],
+      other: ["Biotina", "Fibra"],
+    },
     components: [
-      "Colágeno hidrolizado",
-      "Vitamina C",
+      "11,4 g Colágeno doblemente hidrolizado",
+      "Biopéptidos activos",
       "Resveratrol",
       "Coenzima Q10",
-      "Zinc",
+      "Vitamina C",
+      "Biotina",
       "Magnesio",
+      "Zinc",
+      "Hierro",
+      "Fibra",
     ],
   },
   packages: [
     {
-      id: "discovery",
-      name: "Descubrimiento",
+      id: "individual",
+      name: "1 Unidad",
       units: 1,
-      description: "Una unidad para incorporar RENÖVA+ a tu ritual.",
+      price: 159,
+      unitPrice: 159,
+      priceDisplay: "S/159",
+      unitPriceDisplay: undefined as string | undefined,
+      description: "1 unidad de RENÖVA+ (315 g) para tu ritual diario de belleza y bienestar.",
       recommended: false,
+      badge: null,
     },
     {
-      id: "continuity",
-      name: "Continuidad",
-      units: 2,
-      description: "Dos unidades para planificar tu continuidad.",
-      recommended: true,
-    },
-    {
-      id: "transformation",
-      name: "Transformación",
+      id: "pack-3",
+      name: "Pack 3 Unidades",
       units: 3,
-      description: "Tres unidades para organizar tu siguiente etapa.",
-      recommended: false,
+      price: 327,
+      unitPrice: 109,
+      priceDisplay: "S/327 total",
+      unitPriceDisplay: "S/109 c/u" as string | undefined,
+      description: "3 unidades de RENÖVA+ a S/109 c/u. El pack más conveniente para tu continuidad.",
+      recommended: true,
+      badge: "MÁS CONVENIENTE",
     },
   ],
   commercial: {
-    approvedPricesAvailable: false,
+    approvedPricesAvailable: true,
     whatsappNumber: WHATSAPP_CONFIG.phoneNumber,
-    availabilityLabel: "Consultar disponibilidad",
+    paymentOnDelivery: "Pago contra entrega disponible",
+    availabilityLabel: "Stock disponible para envío inmediato",
   },
 } as const;
 
@@ -71,20 +95,27 @@ export type RenovaOrderDetails = {
 };
 
 export function getRenovaPackage(packageId: RenovaPackageId) {
-  return RENOVA_CONFIG.packages.find((item) => item.id === packageId) ?? RENOVA_CONFIG.packages[0];
+  return RENOVA_CONFIG.packages.find((item) => item.id === packageId) ?? RENOVA_CONFIG.packages[1];
 }
 
 export function buildRenovaWhatsAppUrl(details: RenovaOrderDetails): string {
   const selectedPackage = getRenovaPackage(details.packageId);
+  const isPack3 = selectedPackage.id === "pack-3";
+
+  const introLine = isPack3
+    ? `Hola, vi ${RENOVA_CONFIG.productName} en Bismillah y quiero pedir el pack de 3 unidades por S/327 (S/109 c/u).`
+    : `Hola, vi ${RENOVA_CONFIG.productName} en Bismillah y quiero pedir 1 unidad a S/159.`;
+
   const lines = [
-    `Hola, vi ${RENOVA_CONFIG.productName} en bismillah.com.pe${RENOVA_CONFIG.route}.`,
-    `Deseo consultar disponibilidad del paquete ${selectedPackage.name} (${selectedPackage.units} ${selectedPackage.units === 1 ? "unidad" : "unidades"}).`,
-    details.name ? `Nombre: ${details.name}.` : undefined,
-    details.phone ? `Celular: ${details.phone}.` : undefined,
-    details.district ? `Distrito: ${details.district}.` : undefined,
-    details.address ? `Dirección: ${details.address}.` : undefined,
-    `Origen: ${details.source}.`,
+    introLine,
+    "¿Me confirman disponibilidad y cobertura para pago contra entrega?",
+    details.name?.trim() ? `Nombre: ${details.name.trim()}.` : undefined,
+    details.phone?.trim() ? `Celular: ${details.phone.trim()}.` : undefined,
+    details.district?.trim() ? `Distrito: ${details.district.trim()}.` : undefined,
+    details.address?.trim() ? `Dirección: ${details.address.trim()}.` : undefined,
+    details.source ? `Origen: ${details.source}.` : undefined,
   ].filter(Boolean);
 
   return buildWhatsAppUrl(lines.join("\n"));
 }
+

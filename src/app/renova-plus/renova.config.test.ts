@@ -5,24 +5,43 @@ import {
   RENOVA_CONFIG,
 } from "./renova.config";
 
-describe("RENÖVA+ configuration", () => {
-  it("uses only the existing central WhatsApp number", () => {
+describe("RENÖVA+ V2.1 configuration", () => {
+  it("uses only the central corporate WhatsApp number", () => {
     expect(RENOVA_CONFIG.commercial.whatsappNumber).toBe("51938128411");
   });
 
-  it("keeps commercial pricing unavailable until approved", () => {
-    expect(RENOVA_CONFIG.commercial.approvedPricesAvailable).toBe(false);
+  it("enables approved commercial pricing", () => {
+    expect(RENOVA_CONFIG.commercial.approvedPricesAvailable).toBe(true);
   });
 
-  it("contains label-confirmed serving information", () => {
+  it("contains label-confirmed composition and serving information", () => {
     expect(RENOVA_CONFIG.verifiedLabelData.netWeightGrams).toBe(315);
     expect(RENOVA_CONFIG.verifiedLabelData.servingSizeGrams).toBe(15);
     expect(RENOVA_CONFIG.verifiedLabelData.servingCount).toBe(21);
+    expect(RENOVA_CONFIG.verifiedLabelData.collagenPerServingGrams).toBe(11.4);
+    expect(RENOVA_CONFIG.verifiedLabelData.flavor).toBe("Berries");
   });
 
-  it("creates an encoded WhatsApp consultation URL with package context", () => {
+  it("configures approved commercial packages and pricing rules", () => {
+    const individual = RENOVA_CONFIG.packages.find((p) => p.id === "individual");
+    const pack3 = RENOVA_CONFIG.packages.find((p) => p.id === "pack-3");
+
+    expect(individual).toBeDefined();
+    expect(individual?.price).toBe(159);
+    expect(individual?.units).toBe(1);
+
+    expect(pack3).toBeDefined();
+    expect(pack3?.price).toBe(327);
+    expect(pack3?.unitPrice).toBe(109);
+    expect(pack3?.units).toBe(3);
+
+    // Verify S/109 is never assigned as single unit price
+    expect(individual?.unitPrice).not.toBe(109);
+  });
+
+  it("creates encoded WhatsApp URLs for individual package", () => {
     const url = buildRenovaWhatsAppUrl({
-      packageId: "continuity",
+      packageId: "individual",
       source: "Formulario RENÖVA+",
       name: "Ana Pérez",
     });
@@ -30,21 +49,31 @@ describe("RENÖVA+ configuration", () => {
 
     expect(parsed.origin).toBe("https://wa.me");
     expect(parsed.pathname).toBe("/51938128411");
-    expect(parsed.searchParams.get("text")).toContain("Continuidad");
-    expect(url).toContain("%20");
+    expect(parsed.searchParams.get("text")).toContain("1 unidad a S/159");
+    expect(parsed.searchParams.get("text")).toContain("Ana Pérez");
   });
 
-  it("keeps the recommended package deterministic", () => {
-    expect(getRenovaPackage("continuity").recommended).toBe(true);
+  it("creates encoded WhatsApp URLs for pack 3 package", () => {
+    const url = buildRenovaWhatsAppUrl({
+      packageId: "pack-3",
+      source: "Hero CTA",
+    });
+    const parsed = new URL(url);
+
+    expect(parsed.searchParams.get("text")).toContain("pack de 3 unidades por S/327 (S/109 c/u)");
+    expect(parsed.searchParams.get("text")).toContain("Hero CTA");
   });
 
-  it("registers the approved black and white jar assets", () => {
-    expect(RENOVA_CONFIG.images.blackJar).toBe(
-      "/images/renova-plus/renova-frasco-negro-referencia-fwp.png",
-    );
-    expect(RENOVA_CONFIG.images.whiteJar).toBe(
-      "/images/renova-plus/renova-frasco-blanco-referencia-fwp.png",
-    );
+  it("keeps pack-3 as the recommended package for continuity", () => {
+    expect(getRenovaPackage("pack-3").recommended).toBe(true);
+    expect(getRenovaPackage("pack-3").badge).toBe("MÁS CONVENIENTE");
   });
 
+  it("registers approved authentic image assets", () => {
+    expect(RENOVA_CONFIG.images.front).toBe("/images/renova-plus/renova-front-authentic.png");
+    expect(RENOVA_CONFIG.images.blackJar).toBe("/images/renova-plus/renova-frasco-negro-referencia-fwp.png");
+    expect(RENOVA_CONFIG.images.whiteJar).toBe("/images/renova-plus/renova-frasco-blanco-referencia-fwp.png");
+    expect(RENOVA_CONFIG.images.nutrition).toBe("/images/renova-plus/renova-nutrition-authentic.png");
+    expect(RENOVA_CONFIG.images.label).toBe("/images/renova-plus/renova-label-authentic.png");
+  });
 });
