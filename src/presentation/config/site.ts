@@ -15,8 +15,8 @@
 
 export const SITE_CONFIG = {
   siteUrl: "https://bismillah.com.pe",
-  businessName: "BISMILLAH Wellness",
-  email: "contacto@bismillah.pe",
+  businessName: "Bismillah Mayorista",
+  email: "gerencia@bismillah.com.pe",
   // Same number used for the WhatsApp CTA (see whatsapp.ts), formatted for display.
   phoneDisplay: "+51 938 128 411",
   city: "Lima, Perú",

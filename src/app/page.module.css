@@ -1,0 +1,851 @@
+.page {
+  --ink: #18251f;
+  --forest: #213c31;
+  --moss: #55705f;
+  --sand: #dfc7a2;
+  --copper: #bd794b;
+  --ivory: #f5f1e9;
+  --paper: #fcfaf5;
+  --muted: #68746b;
+  --line: rgba(24, 37, 31, 0.14);
+  min-height: 100svh;
+  overflow: clip;
+  background: var(--ivory);
+  color: var(--ink);
+}
+
+.page *,
+.page *::before,
+.page *::after {
+  box-sizing: border-box;
+}
+
+.page a,
+.page button,
+.page summary {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.page a:focus-visible,
+.page summary:focus-visible {
+  outline: 3px solid var(--copper);
+  outline-offset: 4px;
+}
+
+.skipLink {
+  position: fixed;
+  z-index: 100;
+  top: 0.9rem;
+  left: 0.9rem;
+  transform: translateY(-220%);
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: var(--paper);
+  color: var(--forest);
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 12px 28px rgba(12, 28, 21, 0.22);
+}
+
+.skipLink:focus {
+  transform: translateY(0);
+}
+
+.header {
+  position: sticky;
+  z-index: 40;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 4.8rem;
+  padding: 0.75rem clamp(1rem, 4vw, 4.75rem);
+  border-bottom: 1px solid rgba(245, 241, 233, 0.14);
+  background: color-mix(in srgb, var(--forest) 93%, transparent);
+  backdrop-filter: blur(15px);
+}
+
+.brand,
+.footerBrand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--paper);
+  text-decoration: none;
+}
+
+.brandMark {
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.brand span {
+  display: grid;
+  gap: 0.08rem;
+}
+
+.brand strong,
+.footerBrand {
+  font-family: var(--font-jakarta), Arial, sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.14em;
+}
+
+.brand small {
+  color: rgba(245, 241, 233, 0.67);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+}
+
+.navigation {
+  display: none;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2rem);
+}
+
+.navigation a {
+  color: rgba(245, 241, 233, 0.8);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.navigation a:hover {
+  color: var(--sand);
+}
+
+.headerCta,
+.primaryAction,
+.secondaryAction,
+.productLink,
+.wholesaleCopy a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform 180ms ease, background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.headerCta {
+  min-height: 2.7rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 0.8rem;
+  background: var(--sand);
+  color: var(--ink);
+  font-size: 0.8rem;
+}
+
+.headerCta:hover,
+.primaryAction:hover,
+.wholesaleCopy a:hover {
+  transform: translateY(-2px);
+  background: #ecd5b0;
+}
+
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.98fr) minmax(24rem, 0.92fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 7rem);
+  min-height: min(44rem, calc(100svh - 4.8rem));
+  padding: clamp(4rem, 7vw, 8rem) clamp(1rem, 7vw, 9rem);
+  background: var(--forest);
+  color: var(--paper);
+}
+
+.hero::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: radial-gradient(circle at 6% 8%, rgba(223, 199, 162, 0.16), transparent 27%), radial-gradient(circle at 76% 80%, rgba(189, 121, 75, 0.19), transparent 32%);
+  pointer-events: none;
+}
+
+.heroContent,
+.heroVisual {
+  position: relative;
+  z-index: 1;
+}
+
+.heroContent {
+  max-width: 42rem;
+}
+
+.heroBrand {
+  margin: 0 0 1.2rem;
+  color: var(--sand);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hero h1,
+.sectionHeading h2,
+.processHeading h2,
+.wholesale h2 {
+  margin: 0;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.hero h1 {
+  max-width: 11ch;
+  font-size: clamp(3.5rem, 6.7vw, 6.45rem);
+}
+
+.heroCopy {
+  max-width: 37rem;
+  margin: 1.6rem 0 0;
+  color: rgba(245, 241, 233, 0.82);
+  font-size: clamp(1.03rem, 1.6vw, 1.22rem);
+  line-height: 1.65;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 2rem;
+}
+
+.primaryAction,
+.secondaryAction {
+  min-height: 3.25rem;
+  padding: 0.85rem 1.1rem;
+  border-radius: 0.85rem;
+  font-size: 0.92rem;
+}
+
+.primaryAction {
+  background: var(--sand);
+  color: var(--ink);
+}
+
+.secondaryAction {
+  border: 1px solid rgba(245, 241, 233, 0.35);
+  color: var(--paper);
+}
+
+.secondaryAction:hover {
+  transform: translateY(-2px);
+  border-color: var(--sand);
+  color: var(--sand);
+}
+
+.heroReassurance {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 1.1rem;
+  margin: 2.2rem 0 0;
+  padding: 1.2rem 0 0;
+  border-top: 1px solid rgba(245, 241, 233, 0.2);
+  list-style: none;
+}
+
+.heroReassurance li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  color: rgba(245, 241, 233, 0.74);
+  font-size: 0.8rem;
+}
+
+.heroReassurance svg {
+  color: var(--sand);
+}
+
+.heroVisual {
+  min-height: clamp(27rem, 46vw, 40rem);
+}
+
+.heroGlow {
+  position: absolute;
+  top: 7%;
+  right: 6%;
+  bottom: 11%;
+  left: 5%;
+  border-radius: 48% 48% 44% 44% / 39% 38% 55% 56%;
+  background: #e4d5c0;
+  box-shadow: 0 2rem 4.6rem rgba(7, 22, 15, 0.28);
+}
+
+.renovaFrame {
+  position: absolute;
+  z-index: 2;
+  top: 3%;
+  right: 7%;
+  bottom: 0;
+  left: 14%;
+  overflow: hidden;
+  border-radius: 2rem 2rem 1rem 1rem;
+  background: linear-gradient(150deg, #f9f4ed 0%, #ebd5c4 100%);
+  box-shadow: 0 2rem 4rem rgba(7, 22, 15, 0.31);
+}
+
+.renovaCopy {
+  position: absolute;
+  z-index: 2;
+  top: 1.4rem;
+  left: 1.4rem;
+  display: grid;
+  gap: 0.14rem;
+  color: #512943;
+}
+
+.renovaCopy span {
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.renovaCopy strong {
+  font-family: var(--font-jakarta), Arial, sans-serif;
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  letter-spacing: -0.06em;
+}
+
+.renovaCopy small {
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.renovaImage {
+  object-fit: contain;
+  object-position: 55% 60%;
+  transform: scale(1.13);
+}
+
+.bioprostFrame {
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  bottom: 8%;
+  width: min(46%, 13rem);
+  aspect-ratio: 0.82;
+  overflow: hidden;
+  border: 1px solid rgba(245, 241, 233, 0.65);
+  border-radius: 1.1rem;
+  background: #d6d1be;
+  box-shadow: 0 1.2rem 2.6rem rgba(7, 22, 15, 0.3);
+}
+
+.bioprostImage {
+  object-fit: contain;
+  object-position: center 38%;
+  transform: scale(1.18);
+}
+
+.bioprostFrame span {
+  position: absolute;
+  z-index: 2;
+  right: 0.7rem;
+  bottom: 0.7rem;
+  color: #f9f7ef;
+  font-size: 0.63rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-align: right;
+}
+
+.serviceStrip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.serviceStrip p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 5.4rem;
+  margin: 0;
+  padding: 1rem 1.5rem;
+  background: var(--paper);
+  color: var(--forest);
+  font-size: 0.88rem;
+  font-weight: 750;
+  text-align: center;
+}
+
+.serviceStrip svg {
+  flex: 0 0 auto;
+  color: var(--copper);
+}
+
+.products,
+.faq {
+  padding: clamp(5rem, 9vw, 8.5rem) clamp(1rem, 7vw, 9rem);
+}
+
+.products {
+  background: var(--paper);
+}
+
+.sectionHeading {
+  max-width: 45rem;
+}
+
+.sectionHeading h2,
+.processHeading h2,
+.wholesale h2 {
+  color: var(--forest);
+  font-size: clamp(2.55rem, 5.2vw, 5.3rem);
+}
+
+.sectionHeading p,
+.processHeading p {
+  max-width: 42rem;
+  margin: 1.35rem 0 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2.5rem);
+  margin-top: clamp(2.4rem, 5vw, 4rem);
+}
+
+.productCard {
+  display: grid;
+  grid-template-rows: minmax(20rem, 31rem) auto;
+  overflow: hidden;
+  border-radius: 1.1rem;
+  box-shadow: 0 1.2rem 3rem rgba(19, 36, 27, 0.12);
+}
+
+.productVisual {
+  position: relative;
+  overflow: hidden;
+}
+
+.productRenova .productVisual {
+  background: linear-gradient(150deg, #f8eeea 0%, #e6c2b6 100%);
+}
+
+.productBioprost .productVisual {
+  background: linear-gradient(150deg, #17372e 0%, #8fa084 100%);
+}
+
+.productImage {
+  object-fit: contain;
+  object-position: center;
+  padding: clamp(1rem, 4vw, 3.5rem);
+  transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.productCard:hover .productImage {
+  transform: scale(1.05);
+}
+
+.productContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 20rem;
+  padding: clamp(1.45rem, 3vw, 2.35rem);
+  background: #fffdf9;
+}
+
+.productContent h3 {
+  margin: 0;
+  color: var(--forest);
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: clamp(2rem, 3vw, 3rem);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.productContent p {
+  max-width: 36rem;
+  margin: 1rem 0 0;
+  color: #48554d;
+  font-size: 0.97rem;
+  line-height: 1.65;
+}
+
+.productContent small {
+  margin-top: 1rem;
+  color: var(--moss);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.productLink {
+  margin-top: auto;
+  padding-top: 2rem;
+  color: var(--copper);
+  font-size: 0.83rem;
+  letter-spacing: 0.04em;
+}
+
+.productLink:hover {
+  color: var(--forest);
+  transform: translateX(3px);
+}
+
+.process {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(2.5rem, 9vw, 10rem);
+  padding: clamp(5rem, 9vw, 8.5rem) clamp(1rem, 7vw, 9rem);
+  background: #e7dfd3;
+}
+
+.processList {
+  display: grid;
+  gap: 1.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: buying-process;
+}
+
+.processList li {
+  position: relative;
+  padding: 1.3rem 0 0.1rem 4.8rem;
+  border-top: 1px solid rgba(33, 60, 49, 0.25);
+  counter-increment: buying-process;
+}
+
+.processList li::before {
+  position: absolute;
+  top: 1.15rem;
+  left: 0;
+  color: var(--copper);
+  content: "0" counter(buying-process);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.processList span {
+  color: var(--forest);
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+
+.processList p {
+  max-width: 35rem;
+  margin: 0.55rem 0 0;
+  color: #526158;
+  line-height: 1.6;
+}
+
+.wholesale {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 9vw, 10rem);
+  align-items: end;
+  padding: clamp(5rem, 9vw, 8rem) clamp(1rem, 7vw, 9rem);
+  background: var(--forest);
+  color: var(--paper);
+}
+
+.wholesale > div:first-child svg {
+  margin-bottom: 1.4rem;
+  color: var(--sand);
+}
+
+.wholesale h2 {
+  color: var(--paper);
+}
+
+.wholesaleCopy {
+  max-width: 35rem;
+}
+
+.wholesaleCopy p {
+  margin: 0;
+  color: rgba(245, 241, 233, 0.82);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.wholesaleCopy a {
+  min-height: 3.2rem;
+  margin-top: 1.6rem;
+  padding: 0.8rem 1rem;
+  border-radius: 0.8rem;
+  background: var(--sand);
+  color: var(--ink);
+  font-size: 0.9rem;
+}
+
+.faq {
+  background: var(--ivory);
+}
+
+.faqList {
+  margin-top: 3rem;
+  border-top: 1px solid var(--line);
+}
+
+.faqList details {
+  border-bottom: 1px solid var(--line);
+}
+
+.faqList summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  color: var(--forest);
+  cursor: pointer;
+  font-family: var(--font-jakarta), Arial, sans-serif;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  font-weight: 750;
+  list-style: none;
+}
+
+.faqList summary::-webkit-details-marker {
+  display: none;
+}
+
+.faqList summary svg {
+  flex: 0 0 auto;
+  color: var(--copper);
+  transition: transform 180ms ease;
+}
+
+.faqList details[open] summary svg {
+  transform: rotate(45deg);
+}
+
+.faqList details p {
+  max-width: 52rem;
+  margin: 0;
+  padding: 0 2rem 1.45rem 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2rem 4rem;
+  padding: 3rem clamp(1rem, 7vw, 9rem) 2.4rem;
+  background: #15261e;
+  color: var(--paper);
+}
+
+.footer > div:first-child p {
+  max-width: 27rem;
+  margin: 0.8rem 0 0;
+  color: rgba(245, 241, 233, 0.68);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.footerLinks {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: flex-end;
+  gap: 0.8rem 1.4rem;
+  max-width: 29rem;
+}
+
+.footerLinks a {
+  color: rgba(245, 241, 233, 0.75);
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+
+.footerLinks a:hover {
+  color: var(--sand);
+}
+
+.footerLegal {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(245, 241, 233, 0.15);
+  color: rgba(245, 241, 233, 0.48);
+  font-size: 0.72rem;
+}
+
+.floatingWhatsApp {
+  position: fixed;
+  z-index: 30;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 0.8rem 2rem rgba(10, 56, 28, 0.3);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.floatingWhatsApp:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 1.1rem 2.4rem rgba(10, 56, 28, 0.4);
+}
+
+@media (min-width: 920px) {
+  .navigation {
+    display: flex;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero,
+  .process,
+  .wholesale {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    min-height: auto;
+  }
+
+  .heroVisual {
+    width: min(100%, 35rem);
+    margin: 0 auto;
+  }
+
+  .process,
+  .wholesale {
+    gap: 3.5rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .header {
+    min-height: 4.35rem;
+  }
+
+  .headerCta {
+    min-height: 2.45rem;
+    font-size: 0.74rem;
+  }
+
+  .hero {
+    gap: 2.4rem;
+    padding-top: 3.6rem;
+  }
+
+  .hero h1 {
+    max-width: 10.5ch;
+    font-size: clamp(3.15rem, 15vw, 4.6rem);
+  }
+
+  .heroCopy {
+    font-size: 1rem;
+  }
+
+  .heroVisual {
+    min-height: 28rem;
+  }
+
+  .renovaFrame {
+    top: 3%;
+    right: 6%;
+    left: 5%;
+  }
+
+  .bioprostFrame {
+    right: 0;
+    bottom: 6%;
+    width: 37%;
+  }
+
+  .serviceStrip,
+  .productGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .serviceStrip p {
+    min-height: 4.4rem;
+  }
+
+  .productCard {
+    grid-template-rows: minmax(18rem, 72vw) auto;
+  }
+
+  .productContent {
+    min-height: 16rem;
+  }
+
+  .footer {
+    grid-template-columns: 1fr;
+  }
+
+  .footerLinks {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 430px) {
+  .brandMark {
+    width: 2.1rem;
+    height: 2.1rem;
+  }
+
+  .brand strong {
+    font-size: 0.78rem;
+  }
+
+  .brand small {
+    font-size: 0.58rem;
+  }
+
+  .headerCta svg {
+    display: none;
+  }
+
+  .heroActions {
+    display: grid;
+  }
+
+  .heroActions a {
+    width: 100%;
+  }
+
+  .heroReassurance {
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .heroVisual {
+    min-height: 24rem;
+  }
+
+  .processList li {
+    padding-left: 3.6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page *,
+  .page *::before,
+  .page *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

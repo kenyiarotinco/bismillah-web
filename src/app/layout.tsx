@@ -21,17 +21,17 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bismillah.com.pe"),
-  title: "BISMILLAH | Centro de Bienestar Digital",
-  description: "Suplementos premium con respaldo científico y programas personalizados para el bienestar integral.",
-  keywords: ["Bismillah", "suplementos", "bienestar", "magnesio", "ashwagandha", "omega 3", "salud", "Perú"],
-  authors: [{ name: "BISMILLAH Wellness OS" }],
+  title: "Bismillah Mayorista | Fórmulas de bienestar y atención por WhatsApp",
+  description: "Conoce las fórmulas seleccionadas de Bismillah Mayorista, revisa sus presentaciones y consulta disponibilidad por WhatsApp.",
+  keywords: ["Bismillah", "suplementos", "bienestar", "RENÖVA+", "BioProst", "mayorista", "Perú"],
+  authors: [{ name: "Bismillah Mayorista" }],
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: "BISMILLAH | Centro de Bienestar Digital",
-    description: "Suplementos premium con respaldo científico y programas personalizados para el bienestar integral.",
+    title: "Bismillah Mayorista | Fórmulas de bienestar y atención por WhatsApp",
+    description: "Conoce las fórmulas seleccionadas de Bismillah Mayorista, revisa sus presentaciones y consulta disponibilidad por WhatsApp.",
     url: "https://bismillah.com.pe",
     siteName: "BISMILLAH",
     locale: "es_PE",
@@ -58,13 +58,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Global JSON-LD Schema for Local Wellness Center business SEO optimization.
+  // Global JSON-LD Schema for the Bismillah commercial organization.
   // Only real, known fields are included — see src/presentation/config/site.ts.
   // No street address is published unless NEXT_PUBLIC_BUSINESS_STREET_ADDRESS is set.
   const jsonLd: Record<string, unknown> = {
     "@context": "https://schema.org",
-    "@type": "MedicalBusiness",
-    "name": "BISMILLAH Centro de Bienestar",
+    "@type": "Organization",
+    "name": SITE_CONFIG.businessName,
     "image": `${SITE_CONFIG.siteUrl}/images/brand/bismillah-icon.png`,
     "@id": `${SITE_CONFIG.siteUrl}/#organization`,
     "url": SITE_CONFIG.siteUrl,
