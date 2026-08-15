@@ -8,6 +8,8 @@ import {
   ArrowRight,
   Check,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   CircleHelp,
   Clock3,
   Droplet,
@@ -32,7 +34,9 @@ import styles from "./renova.module.css";
 type OrderField = "name" | "phone" | "district" | "address";
 type OrderState = Record<OrderField, string> & { consent: boolean };
 type OrderErrors = Partial<Record<OrderField | "consent", string>>;
-type ImageKey = keyof typeof RENOVA_CONFIG.images;
+type ImageKey = "blackJar" | "whiteJar" | "nutrition" | "label";
+
+const dailyRitualSlides = RENOVA_CONFIG.images.dailyRitualSlides;
 
 const benefits = [
   {
@@ -145,6 +149,7 @@ function trackRenovaEvent(event: string, detail?: Record<string, string>) {
 export default function RenovaLanding() {
   const [selectedPackage, setSelectedPackage] = useState<RenovaPackageId>("pack-3");
   const [activeImage, setActiveImage] = useState<ImageKey>("blackJar");
+  const [activeDailyRitualSlide, setActiveDailyRitualSlide] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [order, setOrder] = useState<OrderState>({
     name: "",
@@ -205,8 +210,14 @@ export default function RenovaLanding() {
     document.getElementById("oferta")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const scrollToFormula = () => {
-    document.getElementById("diferenciador")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const scrollToGallery = () => {
+    document.getElementById("etiqueta")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const moveDailyRitualSlide = (direction: 1 | -1) => {
+    setActiveDailyRitualSlide(
+      (current) => (current + direction + dailyRitualSlides.length) % dailyRitualSlides.length,
+    );
   };
 
   const updateField = (field: OrderField) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -279,24 +290,27 @@ export default function RenovaLanding() {
           <div className={styles.heroContent}>
             <p className={styles.eyebrow}>BISMILLAH WELLNESS PRESENTA</p>
             <h1 id="renova-title">
-              Belleza, vitalidad y bienestar <em>desde el interior.</em>
+              Tu ritual de bienestar, <em>ahora más cerca.</em>
             </h1>
             <p className={styles.heroSubhead}>
-              RENÖVA+ va más allá de un colágeno tradicional. Cada toma aporta <strong>11,4 g de colágeno doblemente hidrolizado con biopéptidos activos</strong>, complementados con Resveratrol, CoQ10, vitaminas, minerales y fibra.
+              RENÖVA+ Berries combina <strong>11,4 g de colágeno doblemente hidrolizado</strong> por toma con una fórmula sabor Berries en un envase de 315 g.
             </p>
 
-            <div className={styles.microClaimBadge}>
-              <Sparkles aria-hidden="true" />
-              <span>{RENOVA_CONFIG.microClaim}</span>
+            <div className={styles.heroOffer} aria-label="Precios de RENÖVA+">
+              <div>
+                <span>1 frasco</span>
+                <strong>S/159</strong>
+              </div>
+              <div>
+                <span>Desde 3 unidades</span>
+                <strong>S/109 <small>c/u</small></strong>
+              </div>
             </div>
 
-            <ul className={styles.heroChips} aria-label="Beneficios principales de RENÖVA+">
-              <li><Check aria-hidden="true" /> <strong>11,4 g</strong> de colágeno*</li>
-              <li><Check aria-hidden="true" /> Doble hidrólisis</li>
-              <li><Check aria-hidden="true" /> Biopéptidos activos</li>
-              <li><Check aria-hidden="true" /> Resveratrol + CoQ10</li>
+            <ul className={styles.heroChips} aria-label="Información del producto RENÖVA+">
+              <li><Check aria-hidden="true" /> <strong>11,4 g</strong> por toma*</li>
+              <li><Check aria-hidden="true" /> {RENOVA_CONFIG.verifiedLabelData.netWeightGrams} g · {RENOVA_CONFIG.verifiedLabelData.servingCount} porciones</li>
               <li><Check aria-hidden="true" /> Sabor Berries</li>
-              <li><Check aria-hidden="true" /> {RENOVA_CONFIG.verifiedLabelData.netWeightGrams} g netos</li>
             </ul>
             <p className={styles.microNote}>*por toma de 15 g.</p>
 
@@ -311,36 +325,65 @@ export default function RenovaLanding() {
               <button
                 className={styles.secondaryButton}
                 type="button"
-                onClick={scrollToFormula}
+                onClick={scrollToGallery}
               >
-                DESCUBRIR LA FÓRMULA <ArrowRight aria-hidden="true" />
+                VER FOTOS REALES <ArrowRight aria-hidden="true" />
               </button>
             </div>
             <p className={styles.heroGuaranteeNote}>
-              <ShieldCheck aria-hidden="true" /> Pago contra entrega disponible · Envío directo a domicilio
+              <ShieldCheck aria-hidden="true" /> {RENOVA_CONFIG.commercial.paymentOnDelivery}.
             </p>
           </div>
 
-          <div className={styles.heroProduct}>
-            <div className={styles.productAura} aria-hidden="true" />
+          <div className={styles.heroVisual}>
             <Image
-              src={RENOVA_CONFIG.images.front}
-              alt="Envase auténtico de RENÖVA+ en su presentación de 315g."
-              width={941}
-              height={1671}
-              priority
-              sizes="(max-width: 880px) 82vw, (max-width: 1280px) 44vw, 520px"
-              className={styles.heroProductImage}
+              src={RENOVA_CONFIG.images.hero}
+              alt="Frasco negro de RENÖVA+ Berries junto a berries y polvo sabor berries."
+              fill
+              preload
+              unoptimized
+              sizes="(max-width: 1024px) 100vw, 48vw"
+              className={styles.heroVisualImage}
             />
-            <Image
-              src={RENOVA_CONFIG.images.whiteJar}
-              alt="Frasco blanco de referencia auténtico de RENÖVA+."
-              width={230}
-              height={345}
-              sizes="(max-width: 880px) 30vw, 160px"
-              className={styles.heroWhiteJarImage}
-            />
-            <p className={styles.imageCaption}>Presentación auténtica original (315 g netos · 21 porciones).</p>
+            <p className={styles.imageCaption}>Presentación de referencia: frasco negro RENÖVA+ Berries · 315 g netos.</p>
+          </div>
+        </section>
+
+        {/* GALERÍA REAL: UBICADA TEMPRANO PARA RESPALDAR LA OFERTA */}
+        <section id="etiqueta" className={styles.labelSection} aria-labelledby="label-title">
+          <div className={styles.sectionHeading}>
+            <p className={styles.sectionEyebrow}>GALERÍA Y TRANSPARENCIA</p>
+            <h2 id="label-title">Conoce el producto antes de pedirlo.</h2>
+            <p>Revisa el frasco, la tabla nutricional y la etiqueta original antes de coordinar tu pedido.</p>
+          </div>
+          <div className={styles.galleryLayout}>
+            <div className={styles.galleryImageFrame}>
+              <Image
+                src={RENOVA_CONFIG.images[activeImage]}
+                alt={gallery.find((image) => image.key === activeImage)?.alt ?? "Envase auténtico de RENÖVA+."}
+                width={941}
+                height={1672}
+                sizes="(max-width: 880px) 90vw, 460px"
+                className={`${styles.galleryImage} ${styles.galleryImageContain}`}
+              />
+            </div>
+            <div className={styles.galleryControls} role="group" aria-label="Vistas del producto">
+              {gallery.map((image) => (
+                <button
+                  className={activeImage === image.key ? styles.galleryButtonActive : styles.galleryButton}
+                  key={image.key}
+                  type="button"
+                  onClick={() => setActiveImage(image.key)}
+                  aria-pressed={activeImage === image.key}
+                >
+                  <span>{image.label}</span>
+                  <ArrowRight aria-hidden="true" />
+                </button>
+              ))}
+              <p className={styles.galleryNotice}>
+                <Info aria-hidden="true" /> Porción de 15 g · 21 porciones por envase · 315 g de contenido neto total.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -350,7 +393,7 @@ export default function RenovaLanding() {
             <p className={styles.sectionEyebrow}>UNA FÓRMULA QUE VA MÁS ALLÁ</p>
             <h2 id="diferenciador-title">¿Qué hace diferente a RENÖVA+?</h2>
             <p className={styles.sectionLeadText}>
-              No es solo colágeno. RENÖVA+ combina <strong>11,4 g de colágeno doblemente hidrolizado con biopéptidos activos</strong> con una fórmula enriquecida con antioxidantes, vitaminas, minerales y fibra.
+              Una fórmula que reúne <strong>11,4 g de colágeno doblemente hidrolizado</strong> con vitaminas, minerales, fibra y componentes declarados en su etiqueta.
             </p>
           </div>
 
@@ -362,7 +405,7 @@ export default function RenovaLanding() {
               <h3>COLÁGENO DOBLEMENTE HIDROLIZADO</h3>
               <p className={styles.coreSubtitle}>+ BIOPÉPTIDOS ACTIVOS</p>
               <p className={styles.coreDesc}>
-                Micro-fragmentación enzimática dirigida para asegurar la máxima biodisponibilidad y asimilación corporal en cada toma.
+                Una presentación práctica para integrar a tu rutina: una porción de 15 g por toma.
               </p>
             </div>
 
@@ -373,7 +416,7 @@ export default function RenovaLanding() {
                   <Sparkles aria-hidden="true" className={styles.cardIcon} />
                   <h4>Resveratrol</h4>
                 </div>
-                <p>Antioxidante natural de alta pureza para la protección celular.</p>
+                <p>Componente declarado en la fórmula de RENÖVA+.</p>
               </article>
 
               <article className={styles.surroundingCard}>
@@ -381,7 +424,7 @@ export default function RenovaLanding() {
                   <Zap aria-hidden="true" className={styles.cardIcon} />
                   <h4>Coenzima Q10</h4>
                 </div>
-                <p>Nutriente bioactivo que acompaña la bioenergía celular y la vitalidad.</p>
+                <p>Componente declarado en la fórmula de RENÖVA+.</p>
               </article>
 
               <article className={styles.surroundingCard}>
@@ -389,7 +432,7 @@ export default function RenovaLanding() {
                   <Sun aria-hidden="true" className={styles.cardIcon} />
                   <h4>10 Vitaminas</h4>
                 </div>
-                <p>A, C, D3, E, K1 y Complejo B completo (B2, B3, B6, B9, B12).</p>
+                <p>A, C, D3, E, K1 y Complejo B: información declarada en etiqueta.</p>
               </article>
 
               <article className={styles.surroundingCard}>
@@ -397,7 +440,7 @@ export default function RenovaLanding() {
                   <Layers aria-hidden="true" className={styles.cardIcon} />
                   <h4>3 Minerales Clave</h4>
                 </div>
-                <p>Magnesio, Zinc y Hierro para el soporte metabólico y estructural.</p>
+                <p>Magnesio, Zinc y Hierro: información declarada en etiqueta.</p>
               </article>
 
               <article className={styles.surroundingCard}>
@@ -405,7 +448,7 @@ export default function RenovaLanding() {
                   <Heart aria-hidden="true" className={styles.cardIcon} />
                   <h4>Biotina</h4>
                 </div>
-                <p>Micronutriente clave en la rutina diaria de cuidado personal.</p>
+                <p>Parte de los componentes declarados en la fórmula.</p>
               </article>
 
               <article className={styles.surroundingCard}>
@@ -413,7 +456,7 @@ export default function RenovaLanding() {
                   <Droplet aria-hidden="true" className={styles.cardIcon} />
                   <h4>Fibra</h4>
                 </div>
-                <p>Aporte de fibra para complementar el equilibrio digestivo diario.</p>
+                <p>Parte de los componentes declarados en la fórmula.</p>
               </article>
             </div>
           </div>
@@ -582,75 +625,6 @@ export default function RenovaLanding() {
             <span><Clock3 aria-hidden="true" /> {RENOVA_CONFIG.verifiedLabelData.servingCount} porciones</span>
             <span><Heart aria-hidden="true" /> Sabor {RENOVA_CONFIG.verifiedLabelData.flavor}</span>
             <span><ShieldCheck aria-hidden="true" /> Conservar en lugar fresco y seco</span>
-          </div>
-        </section>
-
-        {/* COMPARATIVA PRUDENTE */}
-        <section className={styles.comparison} aria-labelledby="comparison-title">
-          <div className={styles.sectionHeading}>
-            <p className={styles.sectionEyebrow}>ELECCIÓN CONSCIENTE</p>
-            <h2 id="comparison-title">DE UN SOLO INGREDIENTE A UNA FÓRMULA INTEGRAL.</h2>
-          </div>
-          <div className={styles.comparisonGrid}>
-            <article className={styles.comparisonStandard}>
-              <p className={styles.cardEyebrow}>COLÁGENO CONVENCIONAL</p>
-              <h3>Colágeno como ingrediente protagonista único.</h3>
-              <ul>
-                <li><Check aria-hidden="true" /> Enfocado principalmente en una sola fuente proteica.</li>
-                <li><Check aria-hidden="true" /> Requiere comprar vitaminas y suplementos adicionales por separado.</li>
-                <li><Check aria-hidden="true" /> Sin biopéptidos específicos ni antioxidantes complementarios.</li>
-              </ul>
-            </article>
-
-            <article className={styles.comparisonFeatured}>
-              <div className={styles.featuredBadge}>FÓRMULA RENÖVA+</div>
-              <p className={styles.cardEyebrow}>RENÖVA+</p>
-              <h3>Una mezcla integral multicomponente con biopéptidos.</h3>
-              <ul>
-                <li><Check aria-hidden="true" /> <strong>11,4 g de colágeno doblemente hidrolizado</strong> + biopéptidos activos por toma.</li>
-                <li><Check aria-hidden="true" /> Enriquecido con Resveratrol, Coenzima Q10, 10 Vitaminas y 3 Minerales.</li>
-                <li><Check aria-hidden="true" /> Aporte adicional de Biotina y Fibra con delicioso sabor Berries.</li>
-                <li><Check aria-hidden="true" /> Formato de 315 g (21 porciones) con opción de Pago Contra Entrega.</li>
-              </ul>
-            </article>
-          </div>
-        </section>
-
-        {/* SECCIÓN DE ETIQUETA AUTÉNTICA (GALERÍA FOTOGRÁFICA) */}
-        <section id="etiqueta" className={styles.labelSection} aria-labelledby="label-title">
-          <div className={styles.sectionHeading}>
-            <p className={styles.sectionEyebrow}>GALERÍA Y TRANSPARENCIA</p>
-            <h2 id="label-title">Fotografías reales del producto físico.</h2>
-            <p>Consulta la etiqueta auténtica y las presentaciones reales sin filtros ni alteraciones digitales.</p>
-          </div>
-          <div className={styles.galleryLayout}>
-            <div className={styles.galleryImageFrame}>
-              <Image
-                src={RENOVA_CONFIG.images[activeImage]}
-                alt={gallery.find((image) => image.key === activeImage)?.alt ?? "Envase auténtico de RENÖVA+."}
-                width={941}
-                height={1672}
-                sizes="(max-width: 880px) 90vw, 460px"
-                className={`${styles.galleryImage} ${styles.galleryImageContain}`}
-              />
-            </div>
-            <div className={styles.galleryControls} role="group" aria-label="Vistas del producto">
-              {gallery.map((image) => (
-                <button
-                  className={activeImage === image.key ? styles.galleryButtonActive : styles.galleryButton}
-                  key={image.key}
-                  type="button"
-                  onClick={() => setActiveImage(image.key)}
-                  aria-pressed={activeImage === image.key}
-                >
-                  <span>{image.label}</span>
-                  <ArrowRight aria-hidden="true" />
-                </button>
-              ))}
-              <p className={styles.galleryNotice}>
-                <Info aria-hidden="true" /> Porción de 15 g · 21 porciones por envase · 315 g de contenido neto total.
-              </p>
-            </div>
           </div>
         </section>
 
@@ -870,14 +844,60 @@ export default function RenovaLanding() {
               </button>
             </div>
           </div>
-          <Image
-            src={RENOVA_CONFIG.images.front}
-            alt="Envase auténtico de RENÖVA+ al cierre."
-            width={941}
-            height={1671}
-            sizes="(max-width: 880px) 60vw, 360px"
-            className={styles.closingImage}
-          />
+          <div className={styles.closingCarousel} aria-roledescription="carrusel" aria-label="Inspiración para tu ritual diario">
+            {dailyRitualSlides.map((slide, index) => (
+              <div
+                className={index === activeDailyRitualSlide ? styles.closingCarouselSlideActive : styles.closingCarouselSlide}
+                key={slide.src}
+                aria-hidden={index !== activeDailyRitualSlide}
+              >
+                {/* Creatividades locales proporcionadas por Bismillah para el ritual RENÖVA+. */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={slide.src}
+                  alt={slide.alt}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                  className={styles.closingCarouselImage}
+                  style={{ objectPosition: slide.objectPosition }}
+                />
+              </div>
+            ))}
+
+            <p className={styles.closingCarouselCaption} aria-live="polite">
+              {dailyRitualSlides[activeDailyRitualSlide].label}
+            </p>
+            <div className={styles.closingCarouselControls} aria-label="Controles del carrusel">
+              <button
+                className={styles.closingCarouselArrow}
+                type="button"
+                onClick={() => moveDailyRitualSlide(-1)}
+                aria-label="Ver imagen anterior"
+              >
+                <ChevronLeft aria-hidden="true" />
+              </button>
+              <div className={styles.closingCarouselDots} role="group" aria-label="Seleccionar imagen">
+                {dailyRitualSlides.map((slide, index) => (
+                  <button
+                    className={index === activeDailyRitualSlide ? styles.closingCarouselDotActive : styles.closingCarouselDot}
+                    key={slide.src}
+                    type="button"
+                    onClick={() => setActiveDailyRitualSlide(index)}
+                    aria-label={`Ver imagen ${index + 1}: ${slide.label}`}
+                    aria-pressed={index === activeDailyRitualSlide}
+                  />
+                ))}
+              </div>
+              <button
+                className={styles.closingCarouselArrow}
+                type="button"
+                onClick={() => moveDailyRitualSlide(1)}
+                aria-label="Ver siguiente imagen"
+              >
+                <ChevronRight aria-hidden="true" />
+              </button>
+            </div>
+          </div>
         </section>
       </div>
 

@@ -10,6 +10,21 @@ export const RENOVA_CONFIG = {
     "RENÖVA+ va más allá de un colágeno tradicional. Cada toma aporta 11,4 g de colágeno doblemente hidrolizado con biopéptidos activos, complementados con Resveratrol, CoQ10, vitaminas, minerales y fibra.",
   microClaim: "NO ES SOLO COLÁGENO. ES RENÖVA+.",
   images: {
+    hero: "/images/renova-plus/00-portada/renova-plus-hero-berries-v2.png",
+    dailyRitualSlides: [
+      {
+        src: "/images/renova-plus/00-portada/renova-carousel-02-preparacion.png",
+        alt: "Bebida rosa sabor berries de RENÖVA+ en preparación.",
+        label: "11,4 g de colágeno + biopéptidos",
+        objectPosition: "center center",
+      },
+      {
+        src: "/images/renova-plus/00-portada/renova-carousel-03-ritual.png",
+        alt: "Ritual diario de bienestar con RENÖVA+ Berries.",
+        label: "Tu ritual diario RENÖVA+",
+        objectPosition: "center center",
+      },
+    ],
     front: "/images/renova-plus/renova-front-authentic.png",
     blackJar: "/images/renova-plus/renova-frasco-negro-referencia-fwp.png",
     whiteJar: "/images/renova-plus/renova-frasco-blanco-referencia-fwp.png",
@@ -78,7 +93,7 @@ export const RENOVA_CONFIG = {
   commercial: {
     approvedPricesAvailable: true,
     whatsappNumber: WHATSAPP_CONFIG.phoneNumber,
-    paymentOnDelivery: "Pago contra entrega disponible",
+    paymentOnDelivery: "Pago contra entrega sujeto a cobertura y condiciones logísticas según provincia",
     availabilityLabel: "Stock disponible para envío inmediato",
   },
 } as const;

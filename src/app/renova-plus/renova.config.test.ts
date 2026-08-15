@@ -70,6 +70,16 @@ describe("RENÖVA+ V2.1 configuration", () => {
   });
 
   it("registers approved authentic image assets", () => {
+    expect(RENOVA_CONFIG.images.hero).toBe(
+      "/images/renova-plus/00-portada/renova-plus-hero-berries-v2.png",
+    );
+    expect(RENOVA_CONFIG.images.dailyRitualSlides).toHaveLength(2);
+    expect(RENOVA_CONFIG.images.dailyRitualSlides[0].src).toBe(
+      "/images/renova-plus/00-portada/renova-carousel-02-preparacion.png",
+    );
+    expect(RENOVA_CONFIG.images.dailyRitualSlides[1].src).toBe(
+      "/images/renova-plus/00-portada/renova-carousel-03-ritual.png",
+    );
     expect(RENOVA_CONFIG.images.front).toBe("/images/renova-plus/renova-front-authentic.png");
     expect(RENOVA_CONFIG.images.blackJar).toBe("/images/renova-plus/renova-frasco-negro-referencia-fwp.png");
     expect(RENOVA_CONFIG.images.whiteJar).toBe("/images/renova-plus/renova-frasco-blanco-referencia-fwp.png");
