@@ -5,13 +5,14 @@ import Link from "next/link";
 import { type ChangeEvent, type FormEvent, useEffect, useState } from "react";
 import {
   ArrowRight,
+  Check,
   ChevronDown,
   CircleHelp,
   MessageCircle,
   ShieldCheck,
   Truck,
 } from "lucide-react";
-import { BIOPROST_CONFIG, buildBioProstWhatsAppUrl } from "./bioprost.config";
+import { BIOPROST_CONFIG, type BioProstPackageId, buildBioProstWhatsAppUrl } from "./bioprost.config";
 import styles from "./bioprost.module.css";
 
 type OrderField = "name" | "phone" | "district" | "address";
@@ -89,6 +90,16 @@ export default function BioProstLanding() {
     document.getElementById("pedido")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  const scrollToFormula = () => {
+    document.getElementById("formula")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const openWhatsAppPackage = (packageId: BioProstPackageId, source: string) => {
+    const url = buildBioProstWhatsAppUrl({ source, packageId });
+    trackBioProstEvent("click_bioprost_whatsapp", { cta_location: source, package: packageId });
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
   const updateField = (field: OrderField) => (event: ChangeEvent<HTMLInputElement>) => {
     setOrder((current) => ({ ...current, [field]: event.target.value }));
     setErrors((current) => ({ ...current, [field]: undefined }));
@@ -145,40 +156,96 @@ export default function BioProstLanding() {
       <div id="contenido">
         <section className={styles.hero} aria-labelledby="bioprost-title">
           <div className={styles.heroInner}>
-            <div className={styles.heroContent}>
-              <p className={styles.eyebrow}>Bienestar masculino</p>
-              <h1 id="bioprost-title">Bio Prost</h1>
-              <p className={styles.heroCopy}>
-                Una fórmula de bienestar masculino en presentación de {BIOPROST_CONFIG.verifiedProductData.units}{" "}
-                tabletas para acompañar una rutina consciente de cuidado y vitalidad.
-              </p>
-              <ul className={styles.heroChips} aria-label="Datos clave de BioProst Premium">
-                <li className={styles.chip}>{BIOPROST_CONFIG.verifiedProductData.units} tabletas</li>
-                <li className={styles.chip}>Nueva fórmula</li>
-                <li className={styles.chip}>Bienestar masculino</li>
-              </ul>
-              <div className={styles.heroActions}>
-                <button className={styles.primaryButton} type="button" onClick={scrollToOffer}>
-                  Consultar Bio Prost <ArrowRight aria-hidden="true" size={16} />
-                </button>
-                <a className={styles.secondaryButton} href="#formula">
-                  Conocer la fórmula
-                </a>
-              </div>
-              <p className={styles.heroNote}>
-                Disponibilidad, precio vigente, entrega y medios de pago se confirman antes de coordinar el pedido.
-              </p>
-            </div>
+            <p className={styles.eyebrow}>Bienestar masculino</p>
+            <h1 id="bioprost-title">Bio Prost</h1>
+            <p className={styles.heroCopy}>
+              Una fórmula de bienestar masculino en presentación de {BIOPROST_CONFIG.verifiedProductData.units}{" "}
+              tabletas para acompañar una rutina consciente de cuidado y vitalidad.
+            </p>
+
             <div className={styles.heroVisual}>
               <Image
                 src={BIOPROST_CONFIG.images.front}
                 alt="Frasco Bio Prost de 30 tabletas."
-                width={320}
-                height={320}
+                fill
                 priority
-                sizes="(max-width: 900px) 70vw, 320px"
-                className={styles.heroImage}
+                sizes="(max-width: 960px) 72vw, 45vw"
+                className={styles.heroVisualImage}
               />
+            </div>
+
+            <ul className={styles.heroChips} aria-label="Datos clave de Bio Prost">
+              <li className={styles.chip}>{BIOPROST_CONFIG.verifiedProductData.units} tabletas</li>
+              <li className={styles.chip}>Nueva fórmula</li>
+              <li className={styles.chip}>Bienestar masculino</li>
+            </ul>
+
+            <div className={styles.heroCommercial} aria-label="Precios de Bio Prost">
+              <p className={styles.regularPrice}>
+                Precio regular <s>S/{BIOPROST_CONFIG.commercial.regularPrice}</s>
+              </p>
+              <div className={styles.offerGridHero}>
+                <div className={styles.offerCard}>
+                  <span className={styles.offerLabel}>{BIOPROST_CONFIG.packages[0].name}</span>
+                  <strong className={styles.offerPrice}>S/{BIOPROST_CONFIG.packages[0].price}</strong>
+                  <span className={styles.offerSavings}>Ahorras S/{BIOPROST_CONFIG.packages[0].savings}</span>
+                </div>
+                <div className={`${styles.offerCard} ${styles.offerCardFeatured}`}>
+                  {BIOPROST_CONFIG.packages[1].badge && (
+                    <span className={styles.offerBadge}>{BIOPROST_CONFIG.packages[1].badge}</span>
+                  )}
+                  <span className={styles.offerLabel}>{BIOPROST_CONFIG.packages[1].name}</span>
+                  <strong className={styles.offerPrice}>
+                    S/{BIOPROST_CONFIG.packages[1].price} <small>total</small>
+                  </strong>
+                  <span className={styles.offerUnit}>S/{BIOPROST_CONFIG.packages[1].unitPrice.toFixed(2)} c/u</span>
+                  <span className={styles.offerSavings}>Ahorras S/{BIOPROST_CONFIG.packages[1].savings}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.heroWholesale}>
+              <p className={styles.wholesaleEyebrow}>Mayorista</p>
+              <p className={styles.wholesaleDetail}>
+                Desde {BIOPROST_CONFIG.wholesale.minUnits} unidades — {BIOPROST_CONFIG.wholesale.minUnits} por S/
+                {BIOPROST_CONFIG.wholesale.totalPrice}{" "}
+                <span>(S/{BIOPROST_CONFIG.wholesale.unitPrice} c/u)</span>
+              </p>
+              <button
+                className={styles.wholesaleButton}
+                type="button"
+                onClick={() => openWhatsAppPackage("wholesale", "Mayorista hero")}
+              >
+                Consultar mayorista <ArrowRight aria-hidden="true" size={14} />
+              </button>
+            </div>
+
+            <div className={styles.heroActions}>
+              <button
+                className={styles.heroPrimaryButton}
+                type="button"
+                onClick={() => openWhatsAppPackage("double", "Hero Bio Prost")}
+              >
+                <MessageCircle aria-hidden="true" size={16} /> Pedir Bio Prost
+              </button>
+              <button className={styles.heroSecondaryButton} type="button" onClick={scrollToFormula}>
+                Conocer la fórmula <ArrowRight aria-hidden="true" size={16} />
+              </button>
+            </div>
+
+            <div className={styles.heroTrust}>
+              <ul className={styles.trustListHero}>
+                <li>
+                  <Check aria-hidden="true" size={15} /> Pago contra entrega
+                </li>
+                <li>
+                  <Check aria-hidden="true" size={15} /> Delivery gratis según cobertura
+                </li>
+                <li>
+                  <Check aria-hidden="true" size={15} /> Atención directa por WhatsApp
+                </li>
+              </ul>
+              <p className={styles.fineprint}>{BIOPROST_CONFIG.commercial.disclaimer}</p>
             </div>
           </div>
         </section>
@@ -187,7 +254,7 @@ export default function BioProstLanding() {
           <div className={styles.stripInner}>
             <div className={styles.stripItem}>
               <strong>{BIOPROST_CONFIG.verifiedProductData.units}</strong>
-              <span>Tabletas por frasco</span>
+              <span>Tabletas</span>
             </div>
             <div className={styles.stripItem}>
               <strong>100%</strong>
@@ -198,22 +265,35 @@ export default function BioProstLanding() {
               <span>Fórmula</span>
             </div>
             <div className={styles.stripItem}>
-              <strong>{BIOPROST_CONFIG.verifiedProductData.origin}</strong>
-              <span>Elaborado en</span>
+              <strong>USA</strong>
+              <span>Origen declarado</span>
             </div>
           </div>
         </section>
 
         <section className={styles.section} aria-labelledby="context-title">
-          <p className={styles.eyebrow}>Bienestar masculino</p>
-          <div className={styles.sectionHeading}>
-            <h2 id="context-title">Hay partes de tu bienestar que no deberían quedarse para después.</h2>
+          <div className={`${styles.grid} ${styles.editorialGrid}`}>
+            <div>
+              <p className={styles.eyebrow}>Bienestar masculino</p>
+              <div className={styles.sectionHeading}>
+                <h2 id="context-title">Hay partes de tu bienestar que no deberían quedarse para después.</h2>
+              </div>
+              <p className={styles.body}>
+                Entre trabajo, responsabilidades y rutina, el cuidado personal masculino suele quedar en segundo
+                plano. BioProst Premium propone algo más sencillo: incorporar una decisión consciente dentro de tus
+                hábitos diarios.
+              </p>
+            </div>
+            <div className={styles.editorialImageWrap}>
+              <Image
+                src={BIOPROST_CONFIG.images.editorial}
+                alt="Bio Prost como parte de una rutina de cuidado masculino."
+                fill
+                sizes="(max-width: 700px) 100vw, 40vw"
+                className={styles.editorialImage}
+              />
+            </div>
           </div>
-          <p className={styles.body}>
-            Entre trabajo, responsabilidades y rutina, el cuidado personal masculino suele quedar en segundo plano.
-            BioProst Premium propone algo más sencillo: incorporar una decisión consciente dentro de tus hábitos
-            diarios.
-          </p>
         </section>
 
         <section id="formula" className={styles.section} aria-labelledby="formula-title">
@@ -316,9 +396,7 @@ export default function BioProstLanding() {
                   {BIOPROST_CONFIG.productName} · {BIOPROST_CONFIG.verifiedProductData.units} tabletas
                 </h2>
               </div>
-              {BIOPROST_CONFIG.commercial.approvedPricesAvailable && (
-                <p className={styles.price}>S/ {BIOPROST_CONFIG.commercial.price.toFixed(2)}</p>
-              )}
+              <p className={styles.price}>Desde S/{BIOPROST_CONFIG.packages[1].unitPrice.toFixed(2)} c/u</p>
               <span className={styles.availability}>{BIOPROST_CONFIG.commercial.availabilityLabel}</span>
               <p className={styles.body}>
                 Precio referencial aprobado. Disponibilidad, entrega y medios de pago se confirman por WhatsApp

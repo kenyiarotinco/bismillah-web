@@ -8,6 +8,7 @@ export const BIOPROST_CONFIG = {
   images: {
     front: "/images/bioprost-premium/bioprost-front-official.png",
     pack: "/images/bioprost-premium/bioprost-pack-2-official.png",
+    editorial: "/images/bioprost-premium/bioprost-editorial-lifestyle.png",
   },
   verifiedProductData: {
     presentation: "Frasco Premium",
@@ -104,16 +105,49 @@ export const BIOPROST_CONFIG = {
         "Mediante el canal oficial de WhatsApp de Bismillah. El equipo confirma disponibilidad, precio vigente, cobertura y condiciones antes de coordinar.",
     },
   ],
+  packages: [
+    {
+      id: "single",
+      name: "1 frasco",
+      units: 1,
+      price: 89,
+      unitPrice: 89,
+      savings: 70,
+      badge: null as string | null,
+    },
+    {
+      id: "double",
+      name: "2 frascos",
+      units: 2,
+      price: 149,
+      unitPrice: 74.5,
+      savings: 169,
+      badge: "Más conveniente" as string | null,
+    },
+  ],
+  wholesale: {
+    minUnits: 5,
+    totalPrice: 295,
+    unitPrice: 59,
+  },
   commercial: {
-    approvedPricesAvailable: true,
-    price: 99.0,
+    regularPrice: 159,
     whatsappNumber: WHATSAPP_CONFIG.phoneNumber,
     availabilityLabel: "Consultar disponibilidad",
+    paymentOnDelivery: "Pago contra entrega",
+    disclaimer: "Promociones, entrega y cobertura sujetas a disponibilidad.",
   },
 } as const;
 
+export type BioProstPackageId = (typeof BIOPROST_CONFIG.packages)[number]["id"] | "wholesale";
+
+export function getBioProstPackage(packageId: string) {
+  return BIOPROST_CONFIG.packages.find((item) => item.id === packageId);
+}
+
 export type BioProstOrderDetails = {
   source: string;
+  packageId?: BioProstPackageId;
   name?: string;
   phone?: string;
   district?: string;
@@ -122,8 +156,21 @@ export type BioProstOrderDetails = {
 };
 
 export function buildBioProstWhatsAppUrl(details: BioProstOrderDetails): string {
+  const selectedPackage = details.packageId && details.packageId !== "wholesale"
+    ? getBioProstPackage(details.packageId)
+    : undefined;
+
+  const introLine =
+    details.packageId === "wholesale"
+      ? `Hola, vi ${BIOPROST_CONFIG.productName} en bismillah.com.pe${BIOPROST_CONFIG.route} y quiero consultar el precio mayorista desde ${BIOPROST_CONFIG.wholesale.minUnits} unidades.`
+      : selectedPackage
+        ? `Hola, vi ${BIOPROST_CONFIG.productName} en bismillah.com.pe${BIOPROST_CONFIG.route} y quiero pedir ${selectedPackage.name} (S/${selectedPackage.price}${
+            selectedPackage.units > 1 ? ` · S/${selectedPackage.unitPrice} c/u` : ""
+          }).`
+        : `Hola, vi ${BIOPROST_CONFIG.productName} en bismillah.com.pe${BIOPROST_CONFIG.route}.`;
+
   const lines = [
-    `Hola, vi ${BIOPROST_CONFIG.productName} en bismillah.com.pe${BIOPROST_CONFIG.route}.`,
+    introLine,
     "Deseo consultar disponibilidad, precio vigente y entrega.",
     details.name ? `Nombre: ${details.name}.` : undefined,
     details.phone ? `Celular: ${details.phone}.` : undefined,
