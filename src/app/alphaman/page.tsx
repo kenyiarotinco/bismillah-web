@@ -1,15 +1,16 @@
-import AlphaManLanding from "./AlphaManLanding";
+import { Metadata } from "next";
+import AlphamanLanding from "./AlphamanLanding";
 
-export const metadata = {
-  title: "AlphaMan | Fortaleza Masculina | Bismillah",
-  description: "AlphaMan: fórmula natural de 20 cápsulas para energía, vitalidad y bienestar masculino. Desde S/79.",
+export const metadata: Metadata = {
+  title: "AlphaMan | Premium Masculine Wellness by BISMILLAH",
+  description: "AlphaMan - Editorial masculine wellness. Premium fragrance-inspired grooming ritual for modern men. Pago contra entrega disponible.",
   openGraph: {
-    title: "AlphaMan | Fortaleza Masculina | Bismillah",
-    description: "AlphaMan: fórmula natural de 20 cápsulas para energía, vitalidad y bienestar masculino.",
-    type: "website",
+    title: "AlphaMan | BISMILLAH Wellness",
+    description: "Premium masculine wellness designed for the modern man.",
+    images: ["/images/alphaman/alphaman-front.png"],
   },
 };
 
-export default function AlphaManPage() {
-  return <AlphaManLanding />;
+export default function AlphamanPage() {
+  return <AlphamanLanding />;
 }
