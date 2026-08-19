@@ -39,6 +39,17 @@ const products = [
     imageAlt: "Frasco Bio Prost de 30 tabletas.",
     tone: "bioprost",
   },
+  {
+    name: "AlphaMan",
+    description:
+      "Fórmula natural de bienestar masculino en presentación de 20 cápsulas, desarrollada con ingredientes seleccionados para acompañar la energía, vitalidad y confianza.",
+    note: "Conoce su composición y consulta disponibilidad antes de coordinar tu pedido.",
+    href: "/alphaman",
+    cta: "Conocer AlphaMan",
+    image: "/images/alphaman/alphaman-front.png",
+    imageAlt: "Frasco AlphaMan de 20 cápsulas.",
+    tone: "alphaman",
+  },
 ] as const;
 
 const questions = [
