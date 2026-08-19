@@ -3,14 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { type ChangeEvent, type FormEvent, useEffect, useState } from "react";
-import {
-  ArrowRight,
-  ChevronDown,
-  CircleHelp,
-  MessageCircle,
-  ShieldCheck,
-  Zap,
-} from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { ALPHAMAN_CONFIG, buildAlphaManWhatsAppUrl } from "./alphaman.config";
 import styles from "./alphaman.module.css";
 
@@ -20,7 +13,6 @@ type OrderErrors = Partial<Record<OrderField | "consent", string>>;
 
 function trackAlphaManEvent(event: string, detail?: Record<string, string>) {
   if (typeof window === "undefined") return;
-
   const analyticsWindow = window as Window & {
     dataLayer?: Array<Record<string, unknown>>;
     gtag?: (command: string, eventName: string, eventDetail?: Record<string, string>) => void;
@@ -31,7 +23,6 @@ function trackAlphaManEvent(event: string, detail?: Record<string, string>) {
     presentation: `${ALPHAMAN_CONFIG.verifiedProductData.capsules} cápsulas`,
     ...detail,
   };
-
   analyticsWindow.dataLayer?.push({ event, ...eventDetail });
   analyticsWindow.gtag?.("event", event, eventDetail);
 }
@@ -65,7 +56,6 @@ export default function AlphaManLanding() {
         firedThresholds.add(85);
       }
     };
-
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -81,7 +71,6 @@ export default function AlphaManLanding() {
       district: details?.district,
       address: details?.address,
     });
-
     trackAlphaManEvent("click_alphaman_whatsapp", { cta_location: source });
     window.open(url, "_blank", "noopener,noreferrer");
   };
@@ -117,7 +106,6 @@ export default function AlphaManLanding() {
       setFormStatus("Revisa los campos indicados antes de continuar.");
       return;
     }
-
     trackAlphaManEvent("submit_alphaman_consultation", { offerId: order.offerId });
     setFormStatus("Abrimos WhatsApp con tu solicitud. Confirma los datos con el equipo antes de coordinar el pedido.");
     openWhatsApp("Formulario de pedido AlphaMan", order);
@@ -135,15 +123,15 @@ export default function AlphaManLanding() {
           <strong>AlphaMan</strong>
         </Link>
         <nav className={styles.navigation} aria-label="Navegación de AlphaMan">
+          <a href="#diferencia">Diferencia</a>
           <a href="#beneficios">Beneficios</a>
           <a href="#formula">Fórmula</a>
-          <a href="#ingredientes">Ingredientes</a>
-          <a href="#rutina">Rutina</a>
+          <a href="#rutina">Ritual</a>
           <a href="#precios">Precios</a>
           <a href="#faq">Preguntas</a>
         </nav>
         <button className={styles.headerCta} type="button" onClick={scrollToPricing}>
-          Pedir AlphaMan
+          Pedir por WhatsApp
         </button>
       </header>
 
@@ -151,14 +139,13 @@ export default function AlphaManLanding() {
         <section className={styles.hero} aria-labelledby="alphaman-title">
           <div className={styles.heroInner}>
             <div className={styles.heroContent}>
-              <p className={styles.eyebrow}>Bismillah Men&apos;s Wellness</p>
+              <p className={styles.eyebrow}>Bismillah Wellness Presenta</p>
               <h1 id="alphaman-title">AlphaMan</h1>
               <p className={styles.heroHeadline}>
-                Fortaleza masculina para acompañar tu mejor versión.
+                Vitalidad y fortaleza para acompañar tu mejor versión.
               </p>
               <p className={styles.heroCopy}>
-                Una fórmula natural de {ALPHAMAN_CONFIG.verifiedProductData.capsules} cápsulas desarrollada con
-                ingredientes seleccionados para acompañar la energía, la vitalidad y el bienestar masculino.
+                Una fórmula natural de {ALPHAMAN_CONFIG.verifiedProductData.capsules} cápsulas desarrollada con ingredientes botánicos seleccionados para acompañar la energía, la vitalidad y el bienestar masculino consciente.
               </p>
               <ul className={styles.heroChips} aria-label="Datos clave de AlphaMan">
                 <li className={styles.chip}>{ALPHAMAN_CONFIG.verifiedProductData.capsules} cápsulas</li>
@@ -176,44 +163,30 @@ export default function AlphaManLanding() {
                     type="button"
                     onClick={() => openWhatsApp("Hero - 1 unidad", { offerId: "single" })}
                   >
-                    Pedir 1
+                    Pedir Ahora
                   </button>
                 </div>
 
                 <div className={`${styles.priceCard} ${styles.highlighted}`}>
-                  <div className={styles.badge}>Más conveniente</div>
+                  <div className={styles.badge}>Más Conveniente</div>
                   <p className={styles.priceLabel}>2 AlphaMan</p>
                   <p className={styles.price}>S/129</p>
-                  <span className={styles.total}>total</span>
                   <button
                     className={styles.primaryButton}
                     type="button"
                     onClick={() => openWhatsApp("Hero - 2 unidades", { offerId: "double" })}
                   >
-                    Pedir 2
-                  </button>
-                </div>
-
-                <div className={styles.priceCard}>
-                  <p className={styles.priceLabel}>Distribuidor</p>
-                  <p className={styles.priceSmall}>Desde 5 unidades</p>
-                  <p className={styles.price}>S/275</p>
-                  <button
-                    className={styles.secondaryButton}
-                    type="button"
-                    onClick={() => openWhatsApp("Hero - Distribuidor", { offerId: "wholesale" })}
-                  >
-                    Consultar
+                    Pedir Ahora
                   </button>
                 </div>
               </div>
 
               <div className={styles.heroActions}>
                 <button className={styles.primaryButton} type="button" onClick={scrollToPricing}>
-                  Consultar AlphaMan <ArrowRight aria-hidden="true" size={16} />
+                  Consultar Completo <ArrowRight aria-hidden="true" size={16} />
                 </button>
-                <a className={styles.secondaryButton} href="#formula">
-                  Conocer la fórmula
+                <a className={styles.secondaryButton} href="#beneficios">
+                  Conocer Más
                 </a>
               </div>
 
@@ -224,12 +197,12 @@ export default function AlphaManLanding() {
 
             <div className={styles.heroVisual}>
               <Image
-                src={ALPHAMAN_CONFIG.images.front}
-                alt="Frasco AlphaMan de 20 cápsulas."
-                width={280}
-                height={380}
+                src={ALPHAMAN_CONFIG.images.routine}
+                alt="AlphaMan en contexto de rutina de bienestar masculino."
+                width={420}
+                height={500}
                 priority
-                sizes="(max-width: 900px) 70vw, 280px"
+                sizes="(max-width: 900px) 100vw, 420px"
                 className={styles.heroImage}
               />
             </div>
@@ -240,69 +213,83 @@ export default function AlphaManLanding() {
           <div className={styles.trustInner}>
             <div className={styles.trustItem}>
               <strong>{ALPHAMAN_CONFIG.verifiedProductData.capsules}</strong>
-              <span>Cápsulas</span>
+              <span>Cápsulas por Frasco</span>
             </div>
             <div className={styles.trustItem}>
               <strong>100%</strong>
-              <span>Natural</span>
+              <span>Ingredientes Naturales</span>
             </div>
             <div className={styles.trustItem}>
               <strong>10</strong>
-              <span>Ingredientes destacados</span>
+              <span>Componentes Botánicos</span>
             </div>
             <div className={styles.trustItem}>
-              <strong>1</strong>
-              <span>Fórmula</span>
+              <strong>{ALPHAMAN_CONFIG.verifiedProductData.origin}</strong>
+              <span>Origen</span>
             </div>
           </div>
         </section>
 
-        <section className={styles.section} aria-labelledby="story-title">
+        <section id="diferencia" className={styles.section} aria-labelledby="diferencia-title">
           <div className={styles.sectionHeading}>
-            <p className={styles.eyebrow}>Fortaleza masculina</p>
-            <h2 id="story-title">La energía también forma parte de cómo te sientes.</h2>
+            <p className={styles.eyebrow}>La Diferencia AlphaMan</p>
+            <h2 id="diferencia-title">Energía consciente para tu rutina diaria.</h2>
           </div>
           <p className={styles.body}>
-            Trabajo, responsabilidades, cansancio y rutina pueden afectar la forma en que vivimos nuestro bienestar.
-            AlphaMan propone incorporar una fórmula natural dentro de una rutina masculina más consciente, activa y
-            segura.
+            AlphaMan propone incorporar una fórmula natural dentro de una rutina masculina más consciente, activa y segura. Diseñada para acompañar la vitalidad, el vigor y el bienestar en tu día a día.
           </p>
         </section>
 
-        <section id="beneficios" className={styles.section} aria-labelledby="benefits-title">
+        <section id="beneficios" className={styles.section} aria-labelledby="beneficios-title">
           <div className={styles.sectionHeading}>
-            <p className={styles.eyebrow}>Tu bienestar</p>
-            <h2 id="benefits-title">Más energía. Más confianza. Más Alpha.</h2>
+            <p className={styles.eyebrow}>Pilares de Bienestar</p>
+            <h2 id="beneficios-title">Tres áreas de soporte natural.</h2>
           </div>
           <div className={styles.benefitsGrid}>
-            {ALPHAMAN_CONFIG.benefits.map((benefit) => (
-              <div key={benefit.n} className={styles.benefitCard}>
-                <div className={styles.benefitNumber}>{benefit.n}</div>
-                <h3 className={styles.benefitTitle}>{benefit.title}</h3>
-                <p className={styles.benefitSubtitle}>{benefit.subtitle}</p>
-                <p className={styles.benefitCopy}>{benefit.copy}</p>
-              </div>
-            ))}
+            <div className={styles.benefitCard}>
+              <div className={styles.benefitNumber}>01</div>
+              <h3 className={styles.benefitTitle}>Energía y Vitalidad</h3>
+              <p className={styles.benefitSubtitle}>Vigor para tu rutina activa</p>
+              <p className={styles.benefitCopy}>
+                Ingredientes como Guaraná, Maca Negra y Huanarpo Macho acompañan naturalmente la energía física y la vitalidad diaria.
+              </p>
+            </div>
+
+            <div className={styles.benefitCard}>
+              <div className={styles.benefitNumber}>02</div>
+              <h3 className={styles.benefitTitle}>Desempeño y Confianza</h3>
+              <p className={styles.benefitSubtitle}>Bienestar integral masculino</p>
+              <p className={styles.benefitCopy}>
+                Una fórmula pensada para acompañar el bienestar, la confianza y el desempeño en momentos importantes.
+              </p>
+            </div>
+
+            <div className={styles.benefitCard}>
+              <div className={styles.benefitNumber}>03</div>
+              <h3 className={styles.benefitTitle}>Soporte Antioxidante</h3>
+              <p className={styles.benefitSubtitle}>Protección natural</p>
+              <p className={styles.benefitCopy}>
+                Camu Camu y otros componentes botánicos ofrecen soporte antioxidante como parte del bienestar integral.
+              </p>
+            </div>
           </div>
         </section>
 
         <section id="formula" className={styles.section} aria-labelledby="formula-title">
           <div className={styles.sectionHeading}>
-            <p className={styles.eyebrow}>Fórmula AlphaMan</p>
+            <p className={styles.eyebrow}>Composición Natural</p>
             <h2 id="formula-title">Naturaleza, tradición y vitalidad en una sola fórmula.</h2>
           </div>
-          {ALPHAMAN_CONFIG.images.ingredients && (
-            <div className={styles.formulaImage}>
-              <Image
-                src={ALPHAMAN_CONFIG.images.ingredients}
-                alt="Ingredientes naturales de AlphaMan."
-                width={600}
-                height={400}
-                sizes="(max-width: 900px) 100vw, 600px"
-                className={styles.image}
-              />
-            </div>
-          )}
+          <div className={styles.formulaImage}>
+            <Image
+              src={ALPHAMAN_CONFIG.images.ingredients}
+              alt="AlphaMan acompañado de ingredientes naturales de su fórmula."
+              width={600}
+              height={400}
+              sizes="(max-width: 900px) 100vw, 600px"
+              className={styles.image}
+            />
+          </div>
           <div className={styles.formulaTags}>
             {ALPHAMAN_CONFIG.ingredients.map((ing) => (
               <span key={ing.name} className={styles.tag}>
@@ -312,10 +299,10 @@ export default function AlphaManLanding() {
           </div>
         </section>
 
-        <section id="ingredientes" className={styles.section} aria-labelledby="ingredients-title">
+        <section id="ingredientes" className={styles.section} aria-labelledby="ingredientes-title">
           <div className={styles.sectionHeading}>
-            <p className={styles.eyebrow}>Lo que hay dentro importa</p>
-            <h2 id="ingredients-title">Ingredientes de la fórmula.</h2>
+            <p className={styles.eyebrow}>Detalle de Ingredientes</p>
+            <h2 id="ingredientes-title">Lo que hay dentro importa.</h2>
           </div>
 
           <div className={styles.ingredientsGroups}>
@@ -346,34 +333,32 @@ export default function AlphaManLanding() {
           </div>
         </section>
 
-        <section id="rutina" className={styles.section} aria-labelledby="routine-title">
+        <section id="rutina" className={styles.section} aria-labelledby="rutina-title">
           <div className={styles.sectionHeading}>
-            <p className={styles.eyebrow}>Tu rutina AlphaMan</p>
-            <h2 id="routine-title">Una rutina sencilla para acompañar tu bienestar.</h2>
+            <p className={styles.eyebrow}>Tu Ritual AlphaMan</p>
+            <h2 id="rutina-title">Una rutina sencilla para acompañar tu bienestar.</h2>
           </div>
 
-          {ALPHAMAN_CONFIG.images.routine && (
-            <div className={styles.routineImage}>
-              <Image
-                src={ALPHAMAN_CONFIG.images.routine}
-                alt="Rutina de consumo de AlphaMan."
-                width={600}
-                height={400}
-                sizes="(max-width: 900px) 100vw, 600px"
-                className={styles.image}
-              />
-            </div>
-          )}
+          <div className={styles.routineImage}>
+            <Image
+              src={ALPHAMAN_CONFIG.images.routine}
+              alt="AlphaMan junto a un vaso de agua y cápsulas."
+              width={600}
+              height={400}
+              sizes="(max-width: 900px) 100vw, 600px"
+              className={styles.image}
+            />
+          </div>
 
           <div className={styles.usageGuide}>
             <div className={styles.usageOption}>
-              <h3>Si tienes actividad íntima frecuente</h3>
+              <h3>Actividad íntima frecuente</h3>
               <p className={styles.dosage}>{ALPHAMAN_CONFIG.usage.frequent.dosage}</p>
               <p>{ALPHAMAN_CONFIG.usage.frequent.copy}</p>
             </div>
 
             <div className={styles.usageOption}>
-              <h3>Si la actividad es menos frecuente</h3>
+              <h3>Actividad menos frecuente</h3>
               <p className={styles.dosage}>{ALPHAMAN_CONFIG.usage.occasional.dosage}</p>
               <p>{ALPHAMAN_CONFIG.usage.occasional.copy}</p>
             </div>
@@ -391,12 +376,12 @@ export default function AlphaManLanding() {
 
         <section id="precios" className={styles.section} aria-labelledby="pricing-title">
           <div className={styles.sectionHeading}>
-            <p className={styles.eyebrow}>Elige tu opción</p>
+            <p className={styles.eyebrow}>Opciones de Compra</p>
             <h2 id="pricing-title">AlphaMan según tu forma de comprar.</h2>
           </div>
 
           <div className={styles.pricingCards}>
-            {ALPHAMAN_CONFIG.offers.map((offer) => (
+            {ALPHAMAN_CONFIG.offers.slice(0, 2).map((offer) => (
               <div
                 key={offer.id}
                 className={`${styles.pricingCard} ${offer.highlighted ? styles.highlighted : ""}`}
@@ -409,9 +394,7 @@ export default function AlphaManLanding() {
                   className={offer.highlighted ? styles.primaryButton : styles.secondaryButton}
                   type="button"
                   onClick={() =>
-                    offer.id === "wholesale"
-                      ? openWhatsApp(`Pricing - ${offer.label}`, { offerId: offer.id })
-                      : openWhatsApp(`Pricing - ${offer.label}`, { offerId: offer.id })
+                    openWhatsApp(`Pricing - ${offer.label}`, { offerId: offer.id })
                   }
                 >
                   {offer.cta}
@@ -419,17 +402,33 @@ export default function AlphaManLanding() {
               </div>
             ))}
           </div>
+
+          <div style={{ textAlign: "center", marginTop: "3rem" }}>
+            <p style={{ marginBottom: "1.5rem", fontSize: "0.95rem", color: "var(--alphaman-text-light)" }}>
+              ¿Distribución mayorista?
+            </p>
+            <button
+              className={styles.secondaryButton}
+              type="button"
+              onClick={() =>
+                openWhatsApp("Pricing - Distribuidor", { offerId: "wholesale" })
+              }
+              style={{ fontSize: "0.9rem" }}
+            >
+              Consultar desde 5 unidades
+            </button>
+          </div>
         </section>
 
         <section className={styles.section} aria-labelledby="form-title">
           <form className={styles.consultForm} onSubmit={submitOrder}>
             <div className={styles.formHeading}>
-              <h2 id="form-title">Pedido asistido</h2>
+              <h2 id="form-title">Consulta Asistida</h2>
               <p>Completa tu información y abrimos WhatsApp para coordinar contigo.</p>
             </div>
 
             <div className={styles.formField}>
-              <label htmlFor="offer">Oferta</label>
+              <label htmlFor="offer">¿Qué cantidad?</label>
               <select
                 id="offer"
                 value={order.offerId}
@@ -458,7 +457,7 @@ export default function AlphaManLanding() {
             </div>
 
             <div className={styles.formField}>
-              <label htmlFor="phone">Celular peruano</label>
+              <label htmlFor="phone">Celular Peruano</label>
               <input
                 id="phone"
                 type="tel"
@@ -484,7 +483,7 @@ export default function AlphaManLanding() {
             </div>
 
             <div className={styles.formField}>
-              <label htmlFor="address">Dirección o referencia</label>
+              <label htmlFor="address">Dirección o Referencia</label>
               <input
                 id="address"
                 type="text"
@@ -515,15 +514,15 @@ export default function AlphaManLanding() {
             {formStatus && <p className={styles.formStatus}>{formStatus}</p>}
 
             <button type="submit" className={styles.primaryButton}>
-              Enviar consulta por WhatsApp
+              Enviar Consulta por WhatsApp
             </button>
           </form>
         </section>
 
         <section id="faq" className={styles.section} aria-labelledby="faq-title">
           <div className={styles.sectionHeading}>
-            <p className={styles.eyebrow}>Preguntas frecuentes</p>
-            <h2 id="faq-title">Información sencilla para elegir con calma.</h2>
+            <p className={styles.eyebrow}>Preguntas Frecuentes</p>
+            <h2 id="faq-title">Información clara y sencilla.</h2>
           </div>
 
           <div className={styles.faqList}>
@@ -572,10 +571,9 @@ export default function AlphaManLanding() {
 
       <footer className={styles.footer}>
         <p>
-          AlphaMan es un suplemento alimenticio. No sustituye el diagnóstico, tratamiento ni orientación de un
-          profesional de salud.
+          AlphaMan es un suplemento alimenticio. No sustituye el diagnóstico, tratamiento ni orientación de un profesional de salud.
         </p>
-        <p>Registro Sanitario DIGESA N8332621N/NAPAEI. Distribuido por Bismillah.</p>
+        <p>Registro Sanitario {ALPHAMAN_CONFIG.verifiedProductData.sanitaryRegistry}. Distribuido por Bismillah.</p>
       </footer>
     </main>
   );
