@@ -172,9 +172,9 @@ export default function BioProstLanding() {
             <div className={styles.heroVisual}>
               <Image
                 src={BIOPROST_CONFIG.images.front}
-                alt="Frasco de BioProst Premium en presentación de 30 tabletas."
+                alt="Frasco Bio Prost de 30 tabletas."
                 width={320}
-                height={420}
+                height={320}
                 priority
                 sizes="(max-width: 900px) 70vw, 320px"
                 className={styles.heroImage}

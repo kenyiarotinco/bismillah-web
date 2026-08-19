@@ -36,7 +36,7 @@ const products = [
     href: "/bioprost-premium",
     cta: "Conocer Bio Prost",
     image: "/images/bioprost-premium/bioprost-front-official.png",
-    imageAlt: "Frasco de BioProst Premium en presentación de 30 tabletas.",
+    imageAlt: "Frasco Bio Prost de 30 tabletas.",
     tone: "bioprost",
   },
 ] as const;
@@ -137,7 +137,7 @@ export default function Home() {
             <article className={styles.bioprostFrame}>
               <Image
                 src="/images/bioprost-premium/bioprost-front-official.png"
-                alt="Frasco de BioProst Premium en presentación de 30 tabletas."
+                alt="Frasco Bio Prost de 30 tabletas."
                 fill
                 sizes="(max-width: 760px) 35vw, 190px"
                 className={styles.bioprostImage}
