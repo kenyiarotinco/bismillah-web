@@ -2,7 +2,7 @@ import { buildWhatsAppUrl, WHATSAPP_CONFIG } from "../../presentation/config/wha
 
 export const BIOPROST_CONFIG = {
   route: "/bioprost-premium",
-  productName: "Bio Prost",
+  productName: "Bio Prost Premium",
   parentBrand: "BISMILLAH Men's Wellness",
   images: {
     front: "/images/bioprost-premium/bioprost-front-official.png",
@@ -17,135 +17,144 @@ export const BIOPROST_CONFIG = {
     ingredients: [
       {
         name: "Saw Palmetto",
-        copy: "Extracto botánico utilizado habitualmente en fórmulas orientadas al bienestar masculino.",
+        copy: "Ingrediente botánico utilizado habitualmente en suplementos orientados al bienestar masculino.",
       },
       {
         name: "Uña de gato",
-        copy: "Ingrediente botánico incorporado como parte de la combinación de Bio Prost.",
+        copy: "Ingrediente de origen botánico incorporado dentro de la combinación de Bio Prost.",
       },
       {
         name: "Licopeno",
-        copy: "Carotenoide incluido dentro del enfoque nutricional de la fórmula.",
+        copy: "Carotenoide con actividad antioxidante que contribuye al perfil nutricional de la fórmula.",
       },
       {
         name: "Vitaminas y minerales",
-        copy: "Micronutrientes que complementan la composición nutricional del producto.",
+        copy: "Micronutrientes que ayudan a complementar el aporte nutricional del producto.",
       },
     ],
     formulaTags: ["Saw Palmetto", "Uña de gato", "Licopeno", "Vitaminas", "Minerales"],
+    formulaMicrocopy: "Ingredientes seleccionados reunidos en una presentación práctica para hombres adultos.",
   },
+  pillarsIntro:
+    "Bio Prost reúne ingredientes seleccionados dentro de una presentación práctica que ayuda a complementar una rutina consciente de bienestar masculino.",
   pillars: [
     {
       n: "01",
       eyebrow: "Bienestar masculino",
-      title: "Cuidado integral",
-      copy: "Una fórmula orientada a complementar una rutina consciente de bienestar masculino.",
+      title: "Cuidado que también te incluye",
+      copy: "Una propuesta pensada para hombres adultos que buscan incorporar el cuidado personal dentro de su rutina cotidiana.",
     },
     {
       n: "02",
       eyebrow: "Fórmula botánica",
       title: "Ingredientes seleccionados",
-      copy: "Saw Palmetto, Uña de gato, Licopeno, vitaminas y minerales reunidos en una presentación práctica.",
+      copy: "Saw Palmetto, Uña de gato y Licopeno forman parte de una fórmula complementada con vitaminas y minerales.",
     },
     {
       n: "03",
       eyebrow: "Vitalidad",
-      title: "Rutina activa",
-      copy: "Una propuesta nutricional pensada para hombres adultos que buscan incorporar el cuidado personal a su día a día.",
+      title: "Acompaña una rutina activa",
+      copy: "Bio Prost ayuda a complementar hábitos de bienestar y cuidado personal dentro del ritmo diario.",
     },
     {
       n: "04",
       eyebrow: "Constancia",
-      title: "30 tabletas",
-      copy: "Un formato práctico diseñado para facilitar su incorporación dentro de una rutina.",
+      title: "Una presentación práctica",
+      copy: "Sus 30 tabletas ofrecen un formato sencillo para integrar el producto dentro de una rutina organizada.",
     },
   ],
+  routineNote: "Si utilizas medicamentos o tienes una condición médica, consulta con un profesional de salud.",
   routine: [
     {
       n: "01",
-      title: "Revisa la presentación",
-      copy: "Comprueba las indicaciones del envase antes de iniciar.",
+      title: "Conoce tu producto",
+      copy: "Revisa la presentación y la información del envase antes de iniciar.",
     },
     {
       n: "02",
-      title: "Sigue la indicación del envase",
-      copy: "Utiliza únicamente la cantidad indicada en el etiquetado o por un profesional.",
+      title: "Sigue la indicación",
+      copy: "Utiliza Bio Prost de acuerdo con las instrucciones presentes en el etiquetado.",
     },
     {
       n: "03",
-      title: "Incorpóralo a tu rutina",
-      copy: "La constancia permite convertir el cuidado personal en un hábito.",
+      title: "Crea constancia",
+      copy: "Organiza su consumo dentro de una rutina diaria que te resulte fácil de mantener.",
     },
     {
       n: "04",
-      title: "Consulta si lo necesitas",
-      copy: "Si utilizas medicamentos o tienes una condición médica, consulta con un profesional de salud.",
+      title: "Acompaña tu bienestar",
+      copy: "Combínalo con hábitos conscientes de alimentación, actividad y cuidado personal.",
     },
   ],
   facts: [
     { value: "30", label: "Tabletas" },
     { value: "1", label: "Frasco" },
-    { value: "Nueva", label: "Fórmula" },
     { value: "100%", label: "Natural" },
-    { value: "USA", label: "Made in" },
+    { value: "Nueva", label: "Fórmula" },
   ],
   comparison: {
-    generic: {
-      title: "Suplemento genérico",
-      points: ["Información limitada", "Compra sin acompañamiento", "Una única ruta comercial"],
-    },
-    bioprost: {
-      title: "Bio Prost + Bismillah",
+    product: {
+      title: "Bio Prost",
       points: [
-        "Información del producto",
+        "Presentación clara",
+        "Ingredientes destacados",
+        "30 tabletas",
+        "Fórmula botánica",
+        "Información antes de comprar",
+      ],
+    },
+    bismillah: {
+      title: "Bismillah",
+      points: [
         "Atención directa",
+        "Opciones retail",
+        "Precio mayorista",
         "Pago contra entrega",
         "Delivery según cobertura",
-        "Opciones retail y mayorista",
+        "Coordinación por WhatsApp",
       ],
     },
   },
   faqs: [
     {
       question: "¿Qué es Bio Prost?",
-      answer: "Bio Prost es un suplemento alimenticio orientado al bienestar masculino, presentado en un frasco de 30 tabletas.",
+      answer: "Bio Prost es un suplemento alimenticio de bienestar masculino presentado en un frasco de 30 tabletas.",
     },
     {
       question: "¿Cuántas tabletas contiene?",
-      answer: "Cada frasco de Bio Prost contiene 30 tabletas.",
+      answer: "30 tabletas.",
     },
     {
       question: "¿Qué ingredientes destacados contiene?",
-      answer:
-        "Saw Palmetto, Uña de gato, Licopeno, vitaminas y minerales. Consulta siempre el envase físico para verificar la composición vigente.",
+      answer: "Saw Palmetto, Uña de gato, Licopeno, vitaminas y minerales.",
+    },
+    {
+      question: "¿Para qué está pensado?",
+      answer: "Para ayudar a complementar una rutina consciente de bienestar y cuidado masculino.",
     },
     {
       question: "¿Cómo se utiliza?",
-      answer: "Sigue la indicación del envase o la recomendación de un profesional de salud.",
+      answer: "Siguiendo las indicaciones del envase físico.",
     },
     {
-      question: "¿Cuál es el precio?",
-      answer: "1 frasco cuesta S/89 (precio regular de referencia S/159).",
+      question: "¿Cuánto cuesta?",
+      answer: "1 frasco está disponible en promoción por S/89.",
     },
     {
-      question: "¿Cuál es la promoción por 2 unidades?",
-      answer: "2 frascos por S/149 en total, equivalente a S/74.50 c/u — ahorras S/169 frente al valor regular.",
+      question: "¿Cuánto cuestan 2?",
+      answer: "2 frascos cuestan S/149 total.",
     },
     {
-      question: "¿Tienen precio mayorista?",
-      answer: "Sí. Desde 5 unidades por S/295 en total (S/59 c/u). Escríbenos por WhatsApp para coordinar.",
+      question: "¿Existe precio mayorista?",
+      answer: "Sí. Desde 5 unidades por S/295 total.",
     },
     {
-      question: "¿Puedo pagar contra entrega?",
-      answer: "Sí, Bio Prost se puede pagar contra entrega.",
+      question: "¿Hay pago contra entrega?",
+      answer: "Sí, según cobertura.",
     },
     {
       question: "¿El delivery es gratis?",
-      answer: "El delivery es gratuito según cobertura disponible.",
-    },
-    {
-      question: "¿Cómo realizo mi pedido?",
-      answer: "Elige tu oferta y escríbenos por WhatsApp; el equipo confirma disponibilidad, precio vigente y entrega antes de coordinar.",
+      answer: "Sí, según cobertura disponible.",
     },
   ],
   commercial: {
@@ -178,7 +187,7 @@ export const BIOPROST_CONFIG = {
       {
         id: "wholesale",
         label: "Mayorista",
-        formLabel: "Mayorista 5 unidades — S/295",
+        formLabel: "5 Bio Prost Mayorista — S/295",
         units: 5,
         total: 295,
         unitPrice: 59,

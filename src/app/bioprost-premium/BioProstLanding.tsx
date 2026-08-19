@@ -11,7 +11,6 @@ import {
   MessageCircle,
   ShieldCheck,
   Truck,
-  X,
 } from "lucide-react";
 import { BIOPROST_CONFIG, type BioProstOfferId, buildBioProstWhatsAppUrl, getBioProstOffer } from "./bioprost.config";
 import styles from "./bioprost.module.css";
@@ -298,8 +297,9 @@ export default function BioProstLanding() {
         <section id="beneficios" className={styles.section} aria-labelledby="beneficios-title">
           <p className={styles.eyebrow}>Cuatro pilares</p>
           <div className={styles.sectionHeading}>
-            <h2 id="beneficios-title">Una fórmula pensada para acompañar tu bienestar masculino.</h2>
+            <h2 id="beneficios-title">Bienestar masculino pensado para tu día a día.</h2>
           </div>
+          <p className={styles.body}>{BIOPROST_CONFIG.pillarsIntro}</p>
           <div className={styles.pillarsGrid}>
             {BIOPROST_CONFIG.pillars.map((pillar) => (
               <div className={styles.pillarItem} key={pillar.n}>
@@ -316,25 +316,36 @@ export default function BioProstLanding() {
           </p>
         </section>
 
-        {/* FÓRMULA */}
-        <section id="formula" className={styles.section} aria-labelledby="formula-title">
-          <p className={styles.eyebrow}>Fórmula Bio Prost</p>
-          <div className={styles.sectionHeading}>
-            <h2 id="formula-title">Ingredientes seleccionados para una fórmula de bienestar masculino.</h2>
-          </div>
-
-          <div className={styles.formulaCore} aria-hidden="true">
-            <div className={styles.formulaMedallion}>
-              <span>Bio Prost</span>
-              <strong>{BIOPROST_CONFIG.verifiedProductData.units} tabletas</strong>
+        {/* FÓRMULA — sección protagonista */}
+        <section id="formula" className={styles.formulaSection} aria-labelledby="formula-title">
+          <div className={styles.formulaInner}>
+            <p className={styles.eyebrow}>Fórmula Bio Prost</p>
+            <div className={styles.sectionHeading}>
+              <h2 id="formula-title" className={styles.formulaHeading}>
+                Una fórmula botánica pensada para acompañar el bienestar masculino.
+              </h2>
             </div>
-            <ul className={styles.formulaTags}>
-              {BIOPROST_CONFIG.verifiedProductData.formulaTags.map((tag) => (
-                <li key={tag}>{tag}</li>
-              ))}
-            </ul>
-          </div>
 
+            <div className={styles.formulaCore}>
+              <div className={styles.formulaMedallion}>
+                <span>Bio Prost</span>
+                <strong>{BIOPROST_CONFIG.verifiedProductData.units} tabletas</strong>
+              </div>
+              <ul className={styles.formulaTags}>
+                {BIOPROST_CONFIG.verifiedProductData.formulaTags.map((tag) => (
+                  <li key={tag}>{tag}</li>
+                ))}
+              </ul>
+            </div>
+            <p className={styles.formulaMicrocopy}>{BIOPROST_CONFIG.verifiedProductData.formulaMicrocopy}</p>
+          </div>
+        </section>
+
+        {/* INGREDIENTES */}
+        <section id="ingredientes" className={styles.section} aria-labelledby="ingredientes-title">
+          <div className={styles.sectionHeading}>
+            <h2 id="ingredientes-title">Conoce lo que forma parte de Bio Prost.</h2>
+          </div>
           <ul className={styles.ingredientList}>
             {BIOPROST_CONFIG.verifiedProductData.ingredients.map((ingredient, index) => (
               <li className={styles.ingredientRow} key={ingredient.name}>
@@ -350,9 +361,9 @@ export default function BioProstLanding() {
 
         {/* RUTINA */}
         <section id="rutina" className={styles.section} aria-labelledby="routine-title">
-          <p className={styles.eyebrow}>Rutina de uso</p>
+          <p className={styles.eyebrow}>Tu rutina Bio Prost</p>
           <div className={styles.sectionHeading}>
-            <h2 id="routine-title">Tu rutina Bio Prost.</h2>
+            <h2 id="routine-title">Haz del cuidado personal parte de tu día.</h2>
           </div>
           <div className={styles.routineGrid}>
             {BIOPROST_CONFIG.routine.map((step) => (
@@ -363,28 +374,30 @@ export default function BioProstLanding() {
               </div>
             ))}
           </div>
+          <p className={styles.note}>{BIOPROST_CONFIG.routineNote}</p>
         </section>
 
-        {/* COMPARATIVA */}
+        {/* POR QUÉ BIO PROST */}
         <section className={styles.section} aria-labelledby="comparativa-title">
+          <p className={styles.eyebrow}>Una decisión informada</p>
           <div className={styles.sectionHeading}>
-            <h2 id="comparativa-title">De una compra aislada a una rutina informada.</h2>
+            <h2 id="comparativa-title">Más que comprar un suplemento: saber qué estás eligiendo.</h2>
           </div>
           <div className={styles.comparisonGrid}>
             <div className={styles.comparisonCard}>
-              <p className={styles.comparisonTitle}>{BIOPROST_CONFIG.comparison.generic.title}</p>
+              <p className={styles.comparisonTitle}>{BIOPROST_CONFIG.comparison.product.title}</p>
               <ul className={styles.comparisonList}>
-                {BIOPROST_CONFIG.comparison.generic.points.map((point) => (
+                {BIOPROST_CONFIG.comparison.product.points.map((point) => (
                   <li key={point}>
-                    <X aria-hidden="true" size={15} /> {point}
+                    <Check aria-hidden="true" size={15} /> {point}
                   </li>
                 ))}
               </ul>
             </div>
             <div className={`${styles.comparisonCard} ${styles.comparisonCardFeatured}`}>
-              <p className={styles.comparisonTitle}>{BIOPROST_CONFIG.comparison.bioprost.title}</p>
+              <p className={styles.comparisonTitle}>{BIOPROST_CONFIG.comparison.bismillah.title}</p>
               <ul className={styles.comparisonList}>
-                {BIOPROST_CONFIG.comparison.bioprost.points.map((point) => (
+                {BIOPROST_CONFIG.comparison.bismillah.points.map((point) => (
                   <li key={point}>
                     <Check aria-hidden="true" size={15} /> {point}
                   </li>
@@ -396,9 +409,9 @@ export default function BioProstLanding() {
 
         {/* PRECIOS (segunda aparición) */}
         <section id="precios" className={styles.section} aria-labelledby="precios-title">
-          <p className={styles.eyebrow}>Presentación comercial</p>
+          <p className={styles.eyebrow}>Elige tu opción</p>
           <div className={styles.sectionHeading}>
-            <h2 id="precios-title">Elige la opción que se adapta a tu compra.</h2>
+            <h2 id="precios-title">Una alternativa para cada forma de comprar.</h2>
           </div>
 
           <div className={styles.pricingGridFull}>
@@ -603,18 +616,22 @@ export default function BioProstLanding() {
 
         <section className={styles.closing} aria-labelledby="closing-title">
           <p className={styles.eyebrow}>Bio Prost · Bismillah Men&apos;s Wellness</p>
-          <h2 id="closing-title">Haz espacio para un cuidado que puedas entender.</h2>
-          <p>Consulta disponibilidad, precio vigente y entrega con el equipo de Bismillah.</p>
+          <h2 id="closing-title">Tu bienestar también merece un lugar en tu rutina.</h2>
+          <p>Conoce Bio Prost, elige tu presentación y coordina tu pedido directamente con Bismillah.</p>
           <div className={styles.heroActions} style={{ justifyContent: "center" }}>
-            <button className={styles.heroSecondaryButton} type="button" onClick={() => scrollToId("precios")}>
-              Ver precios <ArrowRight aria-hidden="true" size={16} />
-            </button>
             <button
-              className={styles.wholesaleButton}
+              className={styles.heroPrimaryButton}
               type="button"
               onClick={() => openWhatsAppOffer(DEFAULT_OFFER, "Cierre Bio Prost")}
             >
-              <MessageCircle aria-hidden="true" size={16} /> WhatsApp
+              <MessageCircle aria-hidden="true" size={16} /> Pedir Bio Prost
+            </button>
+            <button
+              className={styles.heroSecondaryButton}
+              type="button"
+              onClick={() => openWhatsAppOffer("wholesale", "Cierre Bio Prost mayorista")}
+            >
+              Consultar mayorista
             </button>
           </div>
         </section>
