@@ -31,12 +31,12 @@ const products = [
   {
     name: "BioProst Premium",
     description:
-      "Una presentación de 60 tabletas pensada para acompañar una rutina consciente de bienestar masculino.",
-    note: "Revisa su fórmula y consulta disponibilidad antes de coordinar tu pedido.",
+      "Fórmula de bienestar masculino en presentación de 30 tabletas, desarrollada con ingredientes seleccionados para acompañar una rutina consciente de cuidado masculino.",
+    note: "Conoce su composición y consulta disponibilidad antes de coordinar tu pedido.",
     href: "/bioprost-premium",
-    cta: "Conocer BioProst",
-    image: "/images/bioprost-premium/bioprost-front.png",
-    imageAlt: "Frasco de BioProst Premium en presentación de 60 tabletas.",
+    cta: "Conocer Bio Prost",
+    image: "/images/bioprost-premium/bioprost-front-official.png",
+    imageAlt: "Frasco de BioProst Premium en presentación de 30 tabletas.",
     tone: "bioprost",
   },
 ] as const;
@@ -136,8 +136,8 @@ export default function Home() {
             </article>
             <article className={styles.bioprostFrame}>
               <Image
-                src="/images/bioprost-premium/bioprost-front.png"
-                alt="Frasco de BioProst Premium en presentación de 60 tabletas."
+                src="/images/bioprost-premium/bioprost-front-official.png"
+                alt="Frasco de BioProst Premium en presentación de 30 tabletas."
                 fill
                 sizes="(max-width: 760px) 35vw, 190px"
                 className={styles.bioprostImage}

@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
-  title: "BioProst Premium 60 Tabletas | Bismillah",
+  title: "BioProst Premium 30 Tabletas | Bismillah",
   description:
-    "Conoce BioProst Premium en presentación de 60 tabletas. Revisa su fórmula, ingredientes e información de uso y consulta disponibilidad con Bismillah.",
+    "Conoce BioProst Premium en presentación de 30 tabletas. Revisa su fórmula, ingredientes e información de uso y consulta disponibilidad con Bismillah.",
   alternates: {
     canonical: "/bioprost-premium",
   },

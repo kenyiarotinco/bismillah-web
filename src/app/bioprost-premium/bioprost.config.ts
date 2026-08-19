@@ -6,45 +6,31 @@ export const BIOPROST_CONFIG = {
   parentBrand: "BISMILLAH Men's Wellness",
   heroMessage: "Cuidarte también es parte de ser fuerte.",
   images: {
-    front: "/images/bioprost-premium/bioprost-front.png",
+    front: "/images/bioprost-premium/bioprost-front-official.png",
+    pack: "/images/bioprost-premium/bioprost-pack-2-official.png",
   },
   verifiedProductData: {
     presentation: "Frasco Premium",
-    units: 60,
-    origin: "Perú",
+    units: 30,
+    origin: "Estados Unidos",
     sanitaryRegistry: "DIGESA N8332621N/NAPAEI",
-    usageNote: "Consulta el modo de uso indicado en el envase físico.",
-    durationNote:
-      "Hasta 30 días de uso según las indicaciones del producto (60 tabletas / 2 unidades diarias).",
+    usageNote: "Tomar según indicación del envase o recomendación profesional.",
     ingredients: [
-      {
-        name: "L-Arginina",
-        dose: "800 mg",
-        copy: "Aminoácido incluido en la formulación de BioProst Premium.",
-      },
-      {
-        name: "Maca",
-        copy: "Ingrediente de origen vegetal tradicionalmente incorporado en diferentes formulaciones nutricionales para adultos.",
-      },
       {
         name: "Saw Palmetto",
         copy: "Extracto botánico presente en fórmulas orientadas al bienestar masculino.",
       },
       {
-        name: "Ciruela Africana",
-        copy: "Ingrediente vegetal incorporado dentro de la combinación de BioProst Premium.",
+        name: "Uña de gato",
+        copy: "Ingrediente de origen vegetal incorporado dentro de la combinación de Bio Prost.",
       },
       {
-        name: "Clavo Huasca",
-        copy: "Componente botánico utilizado como parte de la mezcla.",
+        name: "Licopeno",
+        copy: "Carotenoide incluido dentro de la formulación nutricional.",
       },
       {
-        name: "Vitamina E",
-        copy: "Vitamina incluida dentro de la formulación nutricional.",
-      },
-      {
-        name: "Zinc",
-        copy: "Mineral esencial presente en BioProst Premium.",
+        name: "Vitaminas y minerales",
+        copy: "Complejo de vitaminas y minerales presente en la fórmula de Bio Prost.",
       },
     ],
   },
@@ -74,20 +60,20 @@ export const BIOPROST_CONFIG = {
     {
       question: "¿Qué es BioProst Premium?",
       answer:
-        "BioProst Premium es un suplemento nutricional para adultos presentado en un frasco de 60 tabletas y formulado con diferentes ingredientes nutricionales y botánicos.",
+        "BioProst Premium es un suplemento nutricional para adultos presentado en un frasco de 30 tabletas y formulado con diferentes ingredientes nutricionales y botánicos.",
     },
     {
       question: "¿Qué contiene?",
       answer:
-        "La información recopilada para esta presentación identifica L-Arginina, Maca, Saw Palmetto, Ciruela Africana, Clavo Huasca, Vitamina E y Zinc. Consulta siempre el envase físico para verificar la composición vigente.",
+        "La información recopilada para esta presentación identifica Saw Palmetto, Uña de gato, Licopeno, vitaminas y minerales. Consulta siempre el envase físico para verificar la composición vigente.",
     },
     {
       question: "¿Cuántas tabletas contiene?",
-      answer: "60 unidades.",
+      answer: "30 unidades.",
     },
     {
       question: "¿Cómo se toma?",
-      answer: "Consulta el modo de uso indicado en el envase físico.",
+      answer: "Tomar según indicación del envase o recomendación profesional.",
     },
     {
       question: "¿Es un medicamento?",
@@ -106,7 +92,7 @@ export const BIOPROST_CONFIG = {
     },
     {
       question: "¿Dónde se fabrica?",
-      answer: "Perú.",
+      answer: "Estados Unidos.",
     },
     {
       question: "¿Tiene registro sanitario?",

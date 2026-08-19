@@ -146,22 +146,20 @@ export default function BioProstLanding() {
         <section className={styles.hero} aria-labelledby="bioprost-title">
           <div className={styles.heroInner}>
             <div className={styles.heroContent}>
-              <p className={styles.eyebrow}>Bismillah Men&apos;s Wellness</p>
-              <h1 id="bioprost-title">Cuidarte también es parte de ser fuerte.</h1>
+              <p className={styles.eyebrow}>Bienestar masculino</p>
+              <h1 id="bioprost-title">Bio Prost</h1>
               <p className={styles.heroCopy}>
-                BioProst Premium reúne una selección de ingredientes en una presentación práctica de{" "}
-                {BIOPROST_CONFIG.verifiedProductData.units} tabletas, creada para acompañar una rutina consciente de
-                bienestar masculino y vitalidad diaria.
+                Una fórmula de bienestar masculino en presentación de {BIOPROST_CONFIG.verifiedProductData.units}{" "}
+                tabletas para acompañar una rutina consciente de cuidado y vitalidad.
               </p>
               <ul className={styles.heroChips} aria-label="Datos clave de BioProst Premium">
                 <li className={styles.chip}>{BIOPROST_CONFIG.verifiedProductData.units} tabletas</li>
-                <li className={styles.chip}>Fórmula multicomponente</li>
-                <li className={styles.chip}>Elaborado en {BIOPROST_CONFIG.verifiedProductData.origin}</li>
-                <li className={styles.chip}>Consulta personalizada</li>
+                <li className={styles.chip}>Nueva fórmula</li>
+                <li className={styles.chip}>Bienestar masculino</li>
               </ul>
               <div className={styles.heroActions}>
                 <button className={styles.primaryButton} type="button" onClick={scrollToOffer}>
-                  Consultar BioProst Premium <ArrowRight aria-hidden="true" size={16} />
+                  Consultar Bio Prost <ArrowRight aria-hidden="true" size={16} />
                 </button>
                 <a className={styles.secondaryButton} href="#formula">
                   Conocer la fórmula
@@ -174,7 +172,7 @@ export default function BioProstLanding() {
             <div className={styles.heroVisual}>
               <Image
                 src={BIOPROST_CONFIG.images.front}
-                alt="Frasco de BioProst Premium en presentación de 60 tabletas."
+                alt="Frasco de BioProst Premium en presentación de 30 tabletas."
                 width={320}
                 height={420}
                 priority
@@ -192,11 +190,11 @@ export default function BioProstLanding() {
               <span>Tabletas por frasco</span>
             </div>
             <div className={styles.stripItem}>
-              <strong>800 mg</strong>
-              <span>L-Arginina</span>
+              <strong>100%</strong>
+              <span>Natural</span>
             </div>
             <div className={styles.stripItem}>
-              <strong>Multicomponente</strong>
+              <strong>Nueva</strong>
               <span>Fórmula</span>
             </div>
             <div className={styles.stripItem}>
@@ -219,30 +217,25 @@ export default function BioProstLanding() {
         </section>
 
         <section id="formula" className={styles.section} aria-labelledby="formula-title">
-          <p className={styles.eyebrow}>Fórmula BioProst Premium</p>
+          <p className={styles.eyebrow}>Fórmula Bio Prost</p>
           <div className={styles.sectionHeading}>
             <h2 id="formula-title">Una combinación pensada para el bienestar masculino.</h2>
           </div>
-          <div className={styles.card} style={{ maxWidth: "22rem" }}>
-            <p className={styles.dose}>800 mg</p>
-            <p className={styles.ingredientCopy}>L-Arginina — dato confirmado de la ficha del producto.</p>
-          </div>
+          <p className={styles.body}>
+            Saw Palmetto, uña de gato, licopeno, vitaminas y minerales: ingredientes seleccionados reunidos en una
+            presentación práctica de {BIOPROST_CONFIG.verifiedProductData.units} tabletas.
+          </p>
         </section>
 
         <section id="ingredientes" className={styles.section} aria-labelledby="ingredients-title">
-          <p className={styles.eyebrow}>Lo que hay dentro importa</p>
+          <p className={styles.eyebrow}>Fórmula Bio Prost</p>
           <div className={styles.sectionHeading}>
             <h2 id="ingredients-title">Ingredientes de la fórmula.</h2>
           </div>
           <div className={`${styles.grid} ${styles.grid2}`}>
             {BIOPROST_CONFIG.verifiedProductData.ingredients.map((ingredient) => (
               <article className={styles.card} key={ingredient.name}>
-                <p className={styles.ingredientName}>
-                  {ingredient.name}
-                  {"dose" in ingredient && ingredient.dose ? (
-                    <span className={styles.ingredientDose}> · {ingredient.dose}</span>
-                  ) : null}
-                </p>
+                <p className={styles.ingredientName}>{ingredient.name}</p>
                 <p className={styles.ingredientCopy}>{ingredient.copy}</p>
               </article>
             ))}
@@ -275,9 +268,6 @@ export default function BioProstLanding() {
             <h2 id="routine-title">Modo de uso.</h2>
           </div>
           <p className={styles.body}>{BIOPROST_CONFIG.verifiedProductData.usageNote}</p>
-          <p className={styles.body} style={{ marginTop: "0.6rem" }}>
-            {BIOPROST_CONFIG.verifiedProductData.durationNote}
-          </p>
         </section>
 
         <section className={styles.section} aria-labelledby="transparency-title">
@@ -520,7 +510,10 @@ export default function BioProstLanding() {
         </section>
 
         <footer className={styles.footer}>
-          <p>BioProst Premium es un suplemento nutricional. No es un medicamento y no reemplaza tratamiento médico.</p>
+          <p>
+            Bio Prost es un suplemento alimenticio y no sustituye el diagnóstico, tratamiento ni orientación de un
+            profesional de salud.
+          </p>
           <p>Registro Sanitario {BIOPROST_CONFIG.verifiedProductData.sanitaryRegistry}. Distribuido por Bismillah.</p>
         </footer>
       </div>
