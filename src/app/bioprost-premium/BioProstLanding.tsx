@@ -11,13 +11,16 @@ import {
   MessageCircle,
   ShieldCheck,
   Truck,
+  X,
 } from "lucide-react";
-import { BIOPROST_CONFIG, type BioProstPackageId, buildBioProstWhatsAppUrl } from "./bioprost.config";
+import { BIOPROST_CONFIG, type BioProstOfferId, buildBioProstWhatsAppUrl, getBioProstOffer } from "./bioprost.config";
 import styles from "./bioprost.module.css";
 
 type OrderField = "name" | "phone" | "district" | "address";
-type OrderState = Record<OrderField, string> & { quantity: string; consent: boolean };
+type OrderState = Record<OrderField, string> & { offerId: BioProstOfferId; consent: boolean };
 type OrderErrors = Partial<Record<OrderField | "consent", string>>;
+
+const DEFAULT_OFFER: BioProstOfferId = "double";
 
 function trackBioProstEvent(event: string, detail?: Record<string, string>) {
   if (typeof window === "undefined") return;
@@ -29,12 +32,15 @@ function trackBioProstEvent(event: string, detail?: Record<string, string>) {
   const eventDetail = {
     product_slug: "bioprost-premium",
     product_name: BIOPROST_CONFIG.productName,
-    presentation: `${BIOPROST_CONFIG.verifiedProductData.units} tabletas`,
     ...detail,
   };
 
   analyticsWindow.dataLayer?.push({ event, ...eventDetail });
   analyticsWindow.gtag?.("event", event, eventDetail);
+}
+
+function scrollToId(id: string) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 export default function BioProstLanding() {
@@ -44,7 +50,7 @@ export default function BioProstLanding() {
     phone: "",
     district: "",
     address: "",
-    quantity: "1",
+    offerId: DEFAULT_OFFER,
     consent: false,
   });
   const [errors, setErrors] = useState<OrderErrors>({});
@@ -72,31 +78,17 @@ export default function BioProstLanding() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const openWhatsApp = (source: string, details?: Partial<OrderState>) => {
+  const openWhatsAppOffer = (offerId: BioProstOfferId, source: string, details?: Partial<OrderState>) => {
     const url = buildBioProstWhatsAppUrl({
+      offerId,
       source,
       name: details?.name,
       phone: details?.phone,
       district: details?.district,
       address: details?.address,
-      quantity: details?.quantity,
     });
 
-    trackBioProstEvent("click_bioprost_whatsapp", { cta_location: source });
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
-
-  const scrollToOffer = () => {
-    document.getElementById("pedido")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
-  const scrollToFormula = () => {
-    document.getElementById("formula")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
-  const openWhatsAppPackage = (packageId: BioProstPackageId, source: string) => {
-    const url = buildBioProstWhatsAppUrl({ source, packageId });
-    trackBioProstEvent("click_bioprost_whatsapp", { cta_location: source, package: packageId });
+    trackBioProstEvent("click_bioprost_whatsapp", { cta_location: source, offer: offerId });
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
@@ -126,10 +118,15 @@ export default function BioProstLanding() {
       return;
     }
 
-    trackBioProstEvent("submit_bioprost_consultation", { quantity: order.quantity });
+    trackBioProstEvent("submit_bioprost_consultation", { offer: order.offerId });
     setFormStatus("Abrimos WhatsApp con tu solicitud. Confirma los datos con el equipo antes de coordinar el pedido.");
-    openWhatsApp("Formulario de pedido BioProst Premium", order);
+    openWhatsAppOffer(order.offerId, "Formulario de pedido Bio Prost", order);
   };
+
+  const offers = BIOPROST_CONFIG.commercial.offers;
+  const singleOffer = getBioProstOffer("single")!;
+  const doubleOffer = getBioProstOffer("double")!;
+  const wholesaleOffer = getBioProstOffer("wholesale")!;
 
   return (
     <main className={styles.page}>
@@ -140,27 +137,31 @@ export default function BioProstLanding() {
       <header className={styles.header}>
         <Link className={styles.brand} href="/" aria-label="Ir al inicio de Bismillah">
           <span>BISMILLAH</span>
-          <strong>BioProst Premium</strong>
+          <strong>Bio Prost</strong>
         </Link>
-        <nav className={styles.navigation} aria-label="Navegación de BioProst Premium">
+        <nav className={styles.navigation} aria-label="Navegación de Bio Prost">
+          <a href="#beneficios">Beneficios</a>
           <a href="#formula">Fórmula</a>
-          <a href="#ingredientes">Ingredientes</a>
           <a href="#rutina">Rutina</a>
+          <a href="#precios">Precios</a>
           <a href="#faq">Preguntas</a>
         </nav>
-        <button className={styles.headerCta} type="button" onClick={scrollToOffer}>
-          Consultar disponibilidad
+        <button className={styles.headerCta} type="button" onClick={() => scrollToId("precios")}>
+          Pedir Bio Prost
         </button>
       </header>
 
       <div id="contenido">
+        {/* HERO */}
         <section className={styles.hero} aria-labelledby="bioprost-title">
           <div className={styles.heroInner}>
-            <p className={styles.eyebrow}>Bienestar masculino</p>
+            <p className={styles.eyebrow}>Bismillah Men&apos;s Wellness</p>
             <h1 id="bioprost-title">Bio Prost</h1>
+            <p className={styles.heroSubheadline}>Cuidado masculino que sí puede formar parte de tu rutina.</p>
             <p className={styles.heroCopy}>
               Una fórmula de bienestar masculino en presentación de {BIOPROST_CONFIG.verifiedProductData.units}{" "}
-              tabletas para acompañar una rutina consciente de cuidado y vitalidad.
+              tabletas, desarrollada con ingredientes seleccionados para acompañar una rutina consciente de cuidado y
+              vitalidad.
             </p>
 
             <div className={styles.heroVisual}>
@@ -177,6 +178,7 @@ export default function BioProstLanding() {
             <ul className={styles.heroChips} aria-label="Datos clave de Bio Prost">
               <li className={styles.chip}>{BIOPROST_CONFIG.verifiedProductData.units} tabletas</li>
               <li className={styles.chip}>Nueva fórmula</li>
+              <li className={styles.chip}>Fórmula botánica</li>
               <li className={styles.chip}>Bienestar masculino</li>
             </ul>
 
@@ -186,20 +188,32 @@ export default function BioProstLanding() {
               </p>
               <div className={styles.offerGridHero}>
                 <div className={styles.offerCard}>
-                  <span className={styles.offerLabel}>{BIOPROST_CONFIG.packages[0].name}</span>
-                  <strong className={styles.offerPrice}>S/{BIOPROST_CONFIG.packages[0].price}</strong>
-                  <span className={styles.offerSavings}>Ahorras S/{BIOPROST_CONFIG.packages[0].savings}</span>
+                  <span className={styles.offerLabel}>{singleOffer.label}</span>
+                  <strong className={styles.offerPrice}>S/{singleOffer.total}</strong>
+                  <span className={styles.offerSavings}>Ahorras S/{singleOffer.savings}</span>
+                  <button
+                    className={styles.offerCardCta}
+                    type="button"
+                    onClick={() => openWhatsAppOffer("single", "Hero card 1 frasco")}
+                  >
+                    {singleOffer.ctaLabel} <ArrowRight aria-hidden="true" size={14} />
+                  </button>
                 </div>
                 <div className={`${styles.offerCard} ${styles.offerCardFeatured}`}>
-                  {BIOPROST_CONFIG.packages[1].badge && (
-                    <span className={styles.offerBadge}>{BIOPROST_CONFIG.packages[1].badge}</span>
-                  )}
-                  <span className={styles.offerLabel}>{BIOPROST_CONFIG.packages[1].name}</span>
+                  {doubleOffer.badge && <span className={styles.offerBadge}>{doubleOffer.badge}</span>}
+                  <span className={styles.offerLabel}>{doubleOffer.label}</span>
                   <strong className={styles.offerPrice}>
-                    S/{BIOPROST_CONFIG.packages[1].price} <small>total</small>
+                    S/{doubleOffer.total} <small>total</small>
                   </strong>
-                  <span className={styles.offerUnit}>S/{BIOPROST_CONFIG.packages[1].unitPrice.toFixed(2)} c/u</span>
-                  <span className={styles.offerSavings}>Ahorras S/{BIOPROST_CONFIG.packages[1].savings}</span>
+                  <span className={styles.offerUnit}>S/{doubleOffer.unitPrice.toFixed(2)} c/u</span>
+                  <span className={styles.offerSavings}>Ahorras S/{doubleOffer.savings}</span>
+                  <button
+                    className={styles.offerCardCtaFeatured}
+                    type="button"
+                    onClick={() => openWhatsAppOffer("double", "Hero card 2 frascos")}
+                  >
+                    {doubleOffer.ctaLabel} <ArrowRight aria-hidden="true" size={14} />
+                  </button>
                 </div>
               </div>
             </div>
@@ -207,30 +221,22 @@ export default function BioProstLanding() {
             <div className={styles.heroWholesale}>
               <p className={styles.wholesaleEyebrow}>Mayorista</p>
               <p className={styles.wholesaleDetail}>
-                Desde {BIOPROST_CONFIG.wholesale.minUnits} unidades — {BIOPROST_CONFIG.wholesale.minUnits} por S/
-                {BIOPROST_CONFIG.wholesale.totalPrice}{" "}
-                <span>(S/{BIOPROST_CONFIG.wholesale.unitPrice} c/u)</span>
+                Desde {wholesaleOffer.units} unidades — {wholesaleOffer.units} por S/{wholesaleOffer.total}{" "}
+                <span>(S/{wholesaleOffer.unitPrice} c/u)</span>
               </p>
               <button
                 className={styles.wholesaleButton}
                 type="button"
-                onClick={() => openWhatsAppPackage("wholesale", "Mayorista hero")}
+                onClick={() => openWhatsAppOffer("wholesale", "Mayorista hero")}
               >
                 Consultar mayorista <ArrowRight aria-hidden="true" size={14} />
               </button>
             </div>
 
             <div className={styles.heroActions}>
-              <button
-                className={styles.heroPrimaryButton}
-                type="button"
-                onClick={() => openWhatsAppPackage("double", "Hero Bio Prost")}
-              >
-                <MessageCircle aria-hidden="true" size={16} /> Pedir Bio Prost
-              </button>
-              <button className={styles.heroSecondaryButton} type="button" onClick={scrollToFormula}>
-                Conocer la fórmula <ArrowRight aria-hidden="true" size={16} />
-              </button>
+              <a className={styles.heroSecondaryButton} href="#formula">
+                Conocer la fórmula
+              </a>
             </div>
 
             <div className={styles.heroTrust}>
@@ -250,40 +256,21 @@ export default function BioProstLanding() {
           </div>
         </section>
 
+        {/* PRODUCT FACTS */}
         <section className={styles.strip} aria-label="Datos clave del producto">
           <div className={styles.stripInner}>
-            <div className={styles.stripItem}>
-              <strong>{BIOPROST_CONFIG.verifiedProductData.units}</strong>
-              <span>Tabletas</span>
-            </div>
-            <div className={styles.stripItem}>
-              <strong>100%</strong>
-              <span>Natural</span>
-            </div>
-            <div className={styles.stripItem}>
-              <strong>Nueva</strong>
-              <span>Fórmula</span>
-            </div>
-            <div className={styles.stripItem}>
-              <strong>USA</strong>
-              <span>Origen declarado</span>
-            </div>
+            {BIOPROST_CONFIG.facts.map((fact) => (
+              <div className={styles.stripItem} key={fact.label}>
+                <strong>{fact.value}</strong>
+                <span>{fact.label}</span>
+              </div>
+            ))}
           </div>
         </section>
 
+        {/* EDITORIAL / STORYTELLING */}
         <section className={styles.section} aria-labelledby="context-title">
           <div className={`${styles.grid} ${styles.editorialGrid}`}>
-            <div>
-              <p className={styles.eyebrow}>Bienestar masculino</p>
-              <div className={styles.sectionHeading}>
-                <h2 id="context-title">Hay partes de tu bienestar que no deberían quedarse para después.</h2>
-              </div>
-              <p className={styles.body}>
-                Entre trabajo, responsabilidades y rutina, el cuidado personal masculino suele quedar en segundo
-                plano. BioProst Premium propone algo más sencillo: incorporar una decisión consciente dentro de tus
-                hábitos diarios.
-              </p>
-            </div>
             <div className={styles.editorialImageWrap}>
               <Image
                 src={BIOPROST_CONFIG.images.editorial}
@@ -293,44 +280,31 @@ export default function BioProstLanding() {
                 className={styles.editorialImage}
               />
             </div>
+            <div>
+              <p className={styles.eyebrow}>Bienestar masculino</p>
+              <div className={styles.sectionHeading}>
+                <h2 id="context-title">Cuidarte no debería quedar para después.</h2>
+              </div>
+              <p className={styles.body}>
+                Entre trabajo, responsabilidades y rutina, el cuidado personal suele quedar en segundo plano. Bio
+                Prost propone una forma simple de incorporar una decisión consciente dentro de tus hábitos
+                cotidianos.
+              </p>
+            </div>
           </div>
         </section>
 
-        <section id="formula" className={styles.section} aria-labelledby="formula-title">
-          <p className={styles.eyebrow}>Fórmula Bio Prost</p>
+        {/* BENEFICIOS */}
+        <section id="beneficios" className={styles.section} aria-labelledby="beneficios-title">
+          <p className={styles.eyebrow}>Cuatro pilares</p>
           <div className={styles.sectionHeading}>
-            <h2 id="formula-title">Una combinación pensada para el bienestar masculino.</h2>
+            <h2 id="beneficios-title">Una fórmula pensada para acompañar tu bienestar masculino.</h2>
           </div>
-          <p className={styles.body}>
-            Saw Palmetto, uña de gato, licopeno, vitaminas y minerales: ingredientes seleccionados reunidos en una
-            presentación práctica de {BIOPROST_CONFIG.verifiedProductData.units} tabletas.
-          </p>
-        </section>
-
-        <section id="ingredientes" className={styles.section} aria-labelledby="ingredients-title">
-          <p className={styles.eyebrow}>Fórmula Bio Prost</p>
-          <div className={styles.sectionHeading}>
-            <h2 id="ingredients-title">Ingredientes de la fórmula.</h2>
-          </div>
-          <div className={`${styles.grid} ${styles.grid2}`}>
-            {BIOPROST_CONFIG.verifiedProductData.ingredients.map((ingredient) => (
-              <article className={styles.card} key={ingredient.name}>
-                <p className={styles.ingredientName}>{ingredient.name}</p>
-                <p className={styles.ingredientCopy}>{ingredient.copy}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className={styles.section} aria-labelledby="pillars-title">
-          <p className={styles.eyebrow}>Una rutina pensada para ti</p>
-          <div className={styles.sectionHeading}>
-            <h2 id="pillars-title">Bienestar masculino desde una mirada integral.</h2>
-          </div>
-          <div className={`${styles.grid} ${styles.grid4}`}>
+          <div className={styles.pillarsGrid}>
             {BIOPROST_CONFIG.pillars.map((pillar) => (
-              <div key={pillar.n}>
+              <div className={styles.pillarItem} key={pillar.n}>
                 <p className={styles.pillarNumber}>{pillar.n}</p>
+                <p className={styles.pillarEyebrow}>{pillar.eyebrow}</p>
                 <p className={styles.pillarTitle}>{pillar.title}</p>
                 <p className={styles.pillarCopy}>{pillar.copy}</p>
               </div>
@@ -342,177 +316,230 @@ export default function BioProstLanding() {
           </p>
         </section>
 
+        {/* FÓRMULA */}
+        <section id="formula" className={styles.section} aria-labelledby="formula-title">
+          <p className={styles.eyebrow}>Fórmula Bio Prost</p>
+          <div className={styles.sectionHeading}>
+            <h2 id="formula-title">Ingredientes seleccionados para una fórmula de bienestar masculino.</h2>
+          </div>
+
+          <div className={styles.formulaCore} aria-hidden="true">
+            <div className={styles.formulaMedallion}>
+              <span>Bio Prost</span>
+              <strong>{BIOPROST_CONFIG.verifiedProductData.units} tabletas</strong>
+            </div>
+            <ul className={styles.formulaTags}>
+              {BIOPROST_CONFIG.verifiedProductData.formulaTags.map((tag) => (
+                <li key={tag}>{tag}</li>
+              ))}
+            </ul>
+          </div>
+
+          <ul className={styles.ingredientList}>
+            {BIOPROST_CONFIG.verifiedProductData.ingredients.map((ingredient, index) => (
+              <li className={styles.ingredientRow} key={ingredient.name}>
+                <span className={styles.ingredientIndex}>{String(index + 1).padStart(2, "0")}</span>
+                <div>
+                  <p className={styles.ingredientName}>{ingredient.name}</p>
+                  <p className={styles.ingredientCopy}>{ingredient.copy}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* RUTINA */}
         <section id="rutina" className={styles.section} aria-labelledby="routine-title">
           <p className={styles.eyebrow}>Rutina de uso</p>
           <div className={styles.sectionHeading}>
-            <h2 id="routine-title">Modo de uso.</h2>
+            <h2 id="routine-title">Tu rutina Bio Prost.</h2>
           </div>
-          <p className={styles.body}>{BIOPROST_CONFIG.verifiedProductData.usageNote}</p>
+          <div className={styles.routineGrid}>
+            {BIOPROST_CONFIG.routine.map((step) => (
+              <div className={styles.routineItem} key={step.n}>
+                <p className={styles.pillarNumber}>{step.n}</p>
+                <p className={styles.pillarTitle}>{step.title}</p>
+                <p className={styles.pillarCopy}>{step.copy}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
-        <section className={styles.section} aria-labelledby="transparency-title">
-          <p className={styles.eyebrow}>Información clara</p>
+        {/* COMPARATIVA */}
+        <section className={styles.section} aria-labelledby="comparativa-title">
           <div className={styles.sectionHeading}>
-            <h2 id="transparency-title">Antes de comprar, sabes qué estás eligiendo.</h2>
+            <h2 id="comparativa-title">De una compra aislada a una rutina informada.</h2>
           </div>
-          <div className={styles.transparencyTable}>
-            <div className={styles.transparencyRow}>
-              <span>Producto</span>
-              <span>{BIOPROST_CONFIG.productName}</span>
+          <div className={styles.comparisonGrid}>
+            <div className={styles.comparisonCard}>
+              <p className={styles.comparisonTitle}>{BIOPROST_CONFIG.comparison.generic.title}</p>
+              <ul className={styles.comparisonList}>
+                {BIOPROST_CONFIG.comparison.generic.points.map((point) => (
+                  <li key={point}>
+                    <X aria-hidden="true" size={15} /> {point}
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className={styles.transparencyRow}>
-              <span>Presentación</span>
-              <span>{BIOPROST_CONFIG.verifiedProductData.presentation}</span>
-            </div>
-            <div className={styles.transparencyRow}>
-              <span>Unidades</span>
-              <span>{BIOPROST_CONFIG.verifiedProductData.units} tabletas</span>
-            </div>
-            <div className={styles.transparencyRow}>
-              <span>Ingredientes</span>
-              <span>{BIOPROST_CONFIG.verifiedProductData.ingredients.map((i) => i.name).join(", ")}</span>
-            </div>
-            <div className={styles.transparencyRow}>
-              <span>Procedencia</span>
-              <span>{BIOPROST_CONFIG.verifiedProductData.origin}</span>
-            </div>
-            <div className={styles.transparencyRow}>
-              <span>Registro sanitario</span>
-              <span>{BIOPROST_CONFIG.verifiedProductData.sanitaryRegistry}</span>
+            <div className={`${styles.comparisonCard} ${styles.comparisonCardFeatured}`}>
+              <p className={styles.comparisonTitle}>{BIOPROST_CONFIG.comparison.bioprost.title}</p>
+              <ul className={styles.comparisonList}>
+                {BIOPROST_CONFIG.comparison.bioprost.points.map((point) => (
+                  <li key={point}>
+                    <Check aria-hidden="true" size={15} /> {point}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
-          <p className={styles.note}>
-            La información vigente del envase físico prevalece ante cualquier actualización comercial de esta
-            página.
-          </p>
         </section>
 
-        <section id="pedido" className={styles.section} aria-labelledby="offer-title">
-          <div className={`${styles.grid} ${styles.grid2} ${styles.offerGrid}`}>
-            <div>
-              <p className={styles.eyebrow}>Presentación comercial</p>
-              <div className={styles.sectionHeading}>
-                <h2 id="offer-title">
-                  {BIOPROST_CONFIG.productName} · {BIOPROST_CONFIG.verifiedProductData.units} tabletas
-                </h2>
-              </div>
-              <p className={styles.price}>Desde S/{BIOPROST_CONFIG.packages[1].unitPrice.toFixed(2)} c/u</p>
-              <span className={styles.availability}>{BIOPROST_CONFIG.commercial.availabilityLabel}</span>
-              <p className={styles.body}>
-                Precio referencial aprobado. Disponibilidad, entrega y medios de pago se confirman por WhatsApp
-                antes de coordinar tu pedido.
-              </p>
-              <button
-                className={styles.primaryButton}
-                type="button"
-                onClick={() => openWhatsApp("Presentación comercial")}
+        {/* PRECIOS (segunda aparición) */}
+        <section id="precios" className={styles.section} aria-labelledby="precios-title">
+          <p className={styles.eyebrow}>Presentación comercial</p>
+          <div className={styles.sectionHeading}>
+            <h2 id="precios-title">Elige la opción que se adapta a tu compra.</h2>
+          </div>
+
+          <div className={styles.pricingGridFull}>
+            {offers.map((offer) => (
+              <div
+                className={`${styles.pricingCard} ${offer.featured ? styles.pricingCardFeatured : ""}`}
+                key={offer.id}
               >
-                Consultar por WhatsApp <MessageCircle aria-hidden="true" size={16} />
-              </button>
-            </div>
-
-            <form className={styles.form} onSubmit={submitOrder} noValidate>
-              <p className={styles.formHeading}>Pedido asistido</p>
-              <div className={styles.field}>
-                <label htmlFor="bioprost-name">Nombre</label>
-                <input
-                  id="bioprost-name"
-                  value={order.name}
-                  onChange={updateField("name")}
-                  autoComplete="name"
-                  aria-invalid={Boolean(errors.name)}
-                  aria-describedby={errors.name ? "bioprost-name-error" : undefined}
-                />
-                {errors.name && (
-                  <p className={styles.fieldError} id="bioprost-name-error">
-                    {errors.name}
-                  </p>
-                )}
-              </div>
-              <div className={styles.field}>
-                <label htmlFor="bioprost-phone">Celular peruano</label>
-                <input
-                  id="bioprost-phone"
-                  value={order.phone}
-                  onChange={updateField("phone")}
-                  inputMode="numeric"
-                  autoComplete="tel"
-                  placeholder="9XXXXXXXX"
-                  aria-invalid={Boolean(errors.phone)}
-                  aria-describedby={errors.phone ? "bioprost-phone-error" : undefined}
-                />
-                {errors.phone && (
-                  <p className={styles.fieldError} id="bioprost-phone-error">
-                    {errors.phone}
-                  </p>
-                )}
-              </div>
-              <div className={styles.field}>
-                <label htmlFor="bioprost-district">Distrito</label>
-                <input
-                  id="bioprost-district"
-                  value={order.district}
-                  onChange={updateField("district")}
-                  autoComplete="address-level2"
-                  aria-invalid={Boolean(errors.district)}
-                  aria-describedby={errors.district ? "bioprost-district-error" : undefined}
-                />
-                {errors.district && (
-                  <p className={styles.fieldError} id="bioprost-district-error">
-                    {errors.district}
-                  </p>
-                )}
-              </div>
-              <div className={styles.field}>
-                <label htmlFor="bioprost-address">Dirección o referencia</label>
-                <input
-                  id="bioprost-address"
-                  value={order.address}
-                  onChange={updateField("address")}
-                  autoComplete="street-address"
-                  aria-invalid={Boolean(errors.address)}
-                  aria-describedby={errors.address ? "bioprost-address-error" : undefined}
-                />
-                {errors.address && (
-                  <p className={styles.fieldError} id="bioprost-address-error">
-                    {errors.address}
-                  </p>
-                )}
-              </div>
-              <div className={styles.field}>
-                <label htmlFor="bioprost-quantity">Cantidad de frascos</label>
-                <select
-                  id="bioprost-quantity"
-                  value={order.quantity}
-                  onChange={(event) => setOrder((current) => ({ ...current, quantity: event.target.value }))}
+                {offer.badge && <span className={styles.offerBadge}>{offer.badge}</span>}
+                <span className={styles.offerLabel}>{offer.label}</span>
+                <strong className={styles.offerPrice}>
+                  S/{offer.total} {offer.units > 1 && <small>total</small>}
+                </strong>
+                {offer.units > 1 && <span className={styles.offerUnit}>S/{offer.unitPrice.toFixed(2)} c/u</span>}
+                <span className={styles.offerSavings}>Ahorras S/{offer.savings}</span>
+                <button
+                  className={offer.featured ? styles.offerCardCtaFeatured : styles.offerCardCta}
+                  type="button"
+                  onClick={() => openWhatsAppOffer(offer.id, `Precios ${offer.id}`)}
                 >
-                  <option value="1">1 frasco</option>
-                  <option value="2">2 frascos</option>
-                  <option value="3">3 frascos</option>
-                </select>
+                  {offer.ctaLabel} <ArrowRight aria-hidden="true" size={14} />
+                </button>
               </div>
-              <label className={styles.consent}>
-                <input
-                  type="checkbox"
-                  checked={order.consent}
-                  onChange={(event) => {
-                    setOrder((current) => ({ ...current, consent: event.target.checked }));
-                    setErrors((current) => ({ ...current, consent: undefined }));
-                  }}
-                />
-                <span>Autorizo abrir WhatsApp para coordinar esta consulta comercial.</span>
-              </label>
-              {errors.consent && <p className={styles.fieldError}>{errors.consent}</p>}
-              <button className={styles.submitButton} type="submit">
-                <MessageCircle aria-hidden="true" size={16} /> Enviar consulta por WhatsApp
-              </button>
-              <p className={styles.formStatus} aria-live="polite">
-                {formStatus}
-              </p>
-            </form>
+            ))}
           </div>
+
+          <ul className={styles.trustListHero}>
+            <li>
+              <Check aria-hidden="true" size={15} /> {BIOPROST_CONFIG.commercial.paymentOnDelivery}
+            </li>
+            <li>
+              <Check aria-hidden="true" size={15} /> {BIOPROST_CONFIG.commercial.freeDelivery}
+            </li>
+          </ul>
+
+          <form className={styles.form} onSubmit={submitOrder} noValidate>
+            <p className={styles.formHeading}>Pedido asistido</p>
+            <div className={styles.field}>
+              <label htmlFor="bioprost-offer">Oferta</label>
+              <select
+                id="bioprost-offer"
+                value={order.offerId}
+                onChange={(event) =>
+                  setOrder((current) => ({ ...current, offerId: event.target.value as BioProstOfferId }))
+                }
+              >
+                {offers.map((offer) => (
+                  <option key={offer.id} value={offer.id}>
+                    {offer.formLabel}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className={styles.field}>
+              <label htmlFor="bioprost-name">Nombre</label>
+              <input
+                id="bioprost-name"
+                value={order.name}
+                onChange={updateField("name")}
+                autoComplete="name"
+                aria-invalid={Boolean(errors.name)}
+                aria-describedby={errors.name ? "bioprost-name-error" : undefined}
+              />
+              {errors.name && (
+                <p className={styles.fieldError} id="bioprost-name-error">
+                  {errors.name}
+                </p>
+              )}
+            </div>
+            <div className={styles.field}>
+              <label htmlFor="bioprost-phone">Celular peruano</label>
+              <input
+                id="bioprost-phone"
+                value={order.phone}
+                onChange={updateField("phone")}
+                inputMode="numeric"
+                autoComplete="tel"
+                placeholder="9XXXXXXXX"
+                aria-invalid={Boolean(errors.phone)}
+                aria-describedby={errors.phone ? "bioprost-phone-error" : undefined}
+              />
+              {errors.phone && (
+                <p className={styles.fieldError} id="bioprost-phone-error">
+                  {errors.phone}
+                </p>
+              )}
+            </div>
+            <div className={styles.field}>
+              <label htmlFor="bioprost-district">Distrito</label>
+              <input
+                id="bioprost-district"
+                value={order.district}
+                onChange={updateField("district")}
+                autoComplete="address-level2"
+                aria-invalid={Boolean(errors.district)}
+                aria-describedby={errors.district ? "bioprost-district-error" : undefined}
+              />
+              {errors.district && (
+                <p className={styles.fieldError} id="bioprost-district-error">
+                  {errors.district}
+                </p>
+              )}
+            </div>
+            <div className={styles.field}>
+              <label htmlFor="bioprost-address">Dirección o referencia</label>
+              <input
+                id="bioprost-address"
+                value={order.address}
+                onChange={updateField("address")}
+                autoComplete="street-address"
+                aria-invalid={Boolean(errors.address)}
+                aria-describedby={errors.address ? "bioprost-address-error" : undefined}
+              />
+              {errors.address && (
+                <p className={styles.fieldError} id="bioprost-address-error">
+                  {errors.address}
+                </p>
+              )}
+            </div>
+            <label className={styles.consent}>
+              <input
+                type="checkbox"
+                checked={order.consent}
+                onChange={(event) => {
+                  setOrder((current) => ({ ...current, consent: event.target.checked }));
+                  setErrors((current) => ({ ...current, consent: undefined }));
+                }}
+              />
+              <span>Autorizo abrir WhatsApp para coordinar esta consulta comercial.</span>
+            </label>
+            {errors.consent && <p className={styles.fieldError}>{errors.consent}</p>}
+            <button className={styles.submitButton} type="submit">
+              <MessageCircle aria-hidden="true" size={16} /> Enviar consulta por WhatsApp
+            </button>
+            <p className={styles.formStatus} aria-live="polite">
+              {formStatus}
+            </p>
+          </form>
         </section>
 
+        {/* CONFIANZA */}
         <section className={styles.section} aria-labelledby="support-title">
           <p className={styles.eyebrow}>Confianza Bismillah</p>
           <div className={styles.sectionHeading}>
@@ -537,6 +564,7 @@ export default function BioProstLanding() {
           </div>
         </section>
 
+        {/* FAQ */}
         <section id="faq" className={styles.section} aria-labelledby="faq-title">
           <p className={styles.eyebrow}>Preguntas frecuentes</p>
           <div className={styles.sectionHeading}>
@@ -574,14 +602,18 @@ export default function BioProstLanding() {
         </section>
 
         <section className={styles.closing} aria-labelledby="closing-title">
-          <p className={styles.eyebrow}>BioProst Premium · Bismillah Men&apos;s Wellness</p>
+          <p className={styles.eyebrow}>Bio Prost · Bismillah Men&apos;s Wellness</p>
           <h2 id="closing-title">Haz espacio para un cuidado que puedas entender.</h2>
           <p>Consulta disponibilidad, precio vigente y entrega con el equipo de Bismillah.</p>
           <div className={styles.heroActions} style={{ justifyContent: "center" }}>
-            <button className={styles.primaryButton} type="button" onClick={scrollToOffer}>
-              Consultar disponibilidad <ArrowRight aria-hidden="true" size={16} />
+            <button className={styles.heroSecondaryButton} type="button" onClick={() => scrollToId("precios")}>
+              Ver precios <ArrowRight aria-hidden="true" size={16} />
             </button>
-            <button className={styles.secondaryButton} type="button" onClick={() => openWhatsApp("Cierre BioProst Premium")}>
+            <button
+              className={styles.wholesaleButton}
+              type="button"
+              onClick={() => openWhatsAppOffer(DEFAULT_OFFER, "Cierre Bio Prost")}
+            >
               <MessageCircle aria-hidden="true" size={16} /> WhatsApp
             </button>
           </div>
@@ -589,7 +621,7 @@ export default function BioProstLanding() {
 
         <footer className={styles.footer}>
           <p>
-            Bio Prost es un suplemento alimenticio y no sustituye el diagnóstico, tratamiento ni orientación de un
+            Bio Prost es un suplemento alimenticio. No sustituye el diagnóstico, tratamiento ni orientación de un
             profesional de salud.
           </p>
           <p>Registro Sanitario {BIOPROST_CONFIG.verifiedProductData.sanitaryRegistry}. Distribuido por Bismillah.</p>
@@ -597,16 +629,19 @@ export default function BioProstLanding() {
       </div>
 
       <div className={styles.mobileCta}>
-        <span>{BIOPROST_CONFIG.commercial.availabilityLabel}</span>
-        <button type="button" onClick={scrollToOffer}>
-          Ver presentación <ArrowRight aria-hidden="true" size={14} />
+        <div className={styles.mobileCtaText}>
+          <strong>Bio Prost</strong>
+          <span>Desde S/{singleOffer.total}</span>
+        </div>
+        <button type="button" onClick={() => scrollToId("precios")}>
+          Pedir <ArrowRight aria-hidden="true" size={14} />
         </button>
       </div>
       <button
         className={styles.floatingWhatsApp}
         type="button"
-        onClick={() => openWhatsApp("Botón flotante BioProst Premium")}
-        aria-label="Consultar BioProst Premium por WhatsApp"
+        onClick={() => openWhatsAppOffer(DEFAULT_OFFER, "Botón flotante Bio Prost")}
+        aria-label="Consultar Bio Prost por WhatsApp"
       >
         <MessageCircle aria-hidden="true" />
       </button>

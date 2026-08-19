@@ -2,181 +2,230 @@ import { buildWhatsAppUrl, WHATSAPP_CONFIG } from "../../presentation/config/wha
 
 export const BIOPROST_CONFIG = {
   route: "/bioprost-premium",
-  productName: "BioProst Premium",
+  productName: "Bio Prost",
   parentBrand: "BISMILLAH Men's Wellness",
-  heroMessage: "Cuidarte también es parte de ser fuerte.",
   images: {
     front: "/images/bioprost-premium/bioprost-front-official.png",
-    pack: "/images/bioprost-premium/bioprost-pack-2-official.png",
     editorial: "/images/bioprost-premium/bioprost-editorial-lifestyle.png",
   },
   verifiedProductData: {
-    presentation: "Frasco Premium",
+    presentation: "1 frasco",
     units: 30,
-    origin: "Estados Unidos",
+    origin: "MADE IN USA",
     sanitaryRegistry: "DIGESA N8332621N/NAPAEI",
-    usageNote: "Tomar según indicación del envase o recomendación profesional.",
+    usageNote: "Sigue únicamente la indicación del envase o la recomendación de un profesional de salud.",
     ingredients: [
       {
         name: "Saw Palmetto",
-        copy: "Extracto botánico presente en fórmulas orientadas al bienestar masculino.",
+        copy: "Extracto botánico utilizado habitualmente en fórmulas orientadas al bienestar masculino.",
       },
       {
         name: "Uña de gato",
-        copy: "Ingrediente de origen vegetal incorporado dentro de la combinación de Bio Prost.",
+        copy: "Ingrediente botánico incorporado como parte de la combinación de Bio Prost.",
       },
       {
         name: "Licopeno",
-        copy: "Carotenoide incluido dentro de la formulación nutricional.",
+        copy: "Carotenoide incluido dentro del enfoque nutricional de la fórmula.",
       },
       {
         name: "Vitaminas y minerales",
-        copy: "Complejo de vitaminas y minerales presente en la fórmula de Bio Prost.",
+        copy: "Micronutrientes que complementan la composición nutricional del producto.",
       },
     ],
+    formulaTags: ["Saw Palmetto", "Uña de gato", "Licopeno", "Vitaminas", "Minerales"],
   },
   pillars: [
     {
       n: "01",
-      title: "Vitalidad diaria",
-      copy: "Una fórmula pensada para complementar una rutina activa.",
+      eyebrow: "Bienestar masculino",
+      title: "Cuidado integral",
+      copy: "Una fórmula orientada a complementar una rutina consciente de bienestar masculino.",
     },
     {
       n: "02",
-      title: "Bienestar masculino",
-      copy: "Una combinación desarrollada específicamente para el hombre adulto.",
+      eyebrow: "Fórmula botánica",
+      title: "Ingredientes seleccionados",
+      copy: "Saw Palmetto, Uña de gato, Licopeno, vitaminas y minerales reunidos en una presentación práctica.",
     },
     {
       n: "03",
-      title: "Constancia",
-      copy: "Un formato práctico que facilita incorporarlo a los hábitos cotidianos.",
+      eyebrow: "Vitalidad",
+      title: "Rutina activa",
+      copy: "Una propuesta nutricional pensada para hombres adultos que buscan incorporar el cuidado personal a su día a día.",
     },
     {
       n: "04",
-      title: "Elección informada",
-      copy: "Ingredientes, presentación e información de uso disponibles antes de decidir.",
+      eyebrow: "Constancia",
+      title: "30 tabletas",
+      copy: "Un formato práctico diseñado para facilitar su incorporación dentro de una rutina.",
     },
   ],
-  faqs: [
+  routine: [
     {
-      question: "¿Qué es BioProst Premium?",
-      answer:
-        "BioProst Premium es un suplemento nutricional para adultos presentado en un frasco de 30 tabletas y formulado con diferentes ingredientes nutricionales y botánicos.",
+      n: "01",
+      title: "Revisa la presentación",
+      copy: "Comprueba las indicaciones del envase antes de iniciar.",
     },
     {
-      question: "¿Qué contiene?",
-      answer:
-        "La información recopilada para esta presentación identifica Saw Palmetto, Uña de gato, Licopeno, vitaminas y minerales. Consulta siempre el envase físico para verificar la composición vigente.",
+      n: "02",
+      title: "Sigue la indicación del envase",
+      copy: "Utiliza únicamente la cantidad indicada en el etiquetado o por un profesional.",
+    },
+    {
+      n: "03",
+      title: "Incorpóralo a tu rutina",
+      copy: "La constancia permite convertir el cuidado personal en un hábito.",
+    },
+    {
+      n: "04",
+      title: "Consulta si lo necesitas",
+      copy: "Si utilizas medicamentos o tienes una condición médica, consulta con un profesional de salud.",
+    },
+  ],
+  facts: [
+    { value: "30", label: "Tabletas" },
+    { value: "1", label: "Frasco" },
+    { value: "Nueva", label: "Fórmula" },
+    { value: "100%", label: "Natural" },
+    { value: "USA", label: "Made in" },
+  ],
+  comparison: {
+    generic: {
+      title: "Suplemento genérico",
+      points: ["Información limitada", "Compra sin acompañamiento", "Una única ruta comercial"],
+    },
+    bioprost: {
+      title: "Bio Prost + Bismillah",
+      points: [
+        "Información del producto",
+        "Atención directa",
+        "Pago contra entrega",
+        "Delivery según cobertura",
+        "Opciones retail y mayorista",
+      ],
+    },
+  },
+  faqs: [
+    {
+      question: "¿Qué es Bio Prost?",
+      answer: "Bio Prost es un suplemento alimenticio orientado al bienestar masculino, presentado en un frasco de 30 tabletas.",
     },
     {
       question: "¿Cuántas tabletas contiene?",
-      answer: "30 unidades.",
+      answer: "Cada frasco de Bio Prost contiene 30 tabletas.",
     },
     {
-      question: "¿Cómo se toma?",
-      answer: "Tomar según indicación del envase o recomendación profesional.",
-    },
-    {
-      question: "¿Es un medicamento?",
+      question: "¿Qué ingredientes destacados contiene?",
       answer:
-        "No. BioProst Premium se comercializa como suplemento alimenticio/nutricional y no reemplaza tratamientos ni evaluaciones médicas.",
+        "Saw Palmetto, Uña de gato, Licopeno, vitaminas y minerales. Consulta siempre el envase físico para verificar la composición vigente.",
     },
     {
-      question: "¿Puede utilizarse para tratar enfermedades de la próstata?",
-      answer:
-        "BioProst Premium no se presenta como tratamiento de enfermedades. Si existen síntomas, diagnóstico previo o tratamiento médico, corresponde consultar con un profesional de salud.",
+      question: "¿Cómo se utiliza?",
+      answer: "Sigue la indicación del envase o la recomendación de un profesional de salud.",
     },
     {
-      question: "¿Puedo consumirlo si tomo medicamentos?",
-      answer:
-        "Quienes utilizan medicamentos o tienen una condición médica deben revisar la etiqueta y consultar con un profesional de salud antes de incorporar suplementos.",
+      question: "¿Cuál es el precio?",
+      answer: "1 frasco cuesta S/89 (precio regular de referencia S/159).",
     },
     {
-      question: "¿Dónde se fabrica?",
-      answer: "Estados Unidos.",
+      question: "¿Cuál es la promoción por 2 unidades?",
+      answer: "2 frascos por S/149 en total, equivalente a S/74.50 c/u — ahorras S/169 frente al valor regular.",
     },
     {
-      question: "¿Tiene registro sanitario?",
-      answer: "Sí. Registro Sanitario DIGESA N8332621N/NAPAEI, correspondiente a esta presentación.",
+      question: "¿Tienen precio mayorista?",
+      answer: "Sí. Desde 5 unidades por S/295 en total (S/59 c/u). Escríbenos por WhatsApp para coordinar.",
     },
     {
-      question: "¿Cómo consulto precio y entrega?",
-      answer:
-        "Mediante el canal oficial de WhatsApp de Bismillah. El equipo confirma disponibilidad, precio vigente, cobertura y condiciones antes de coordinar.",
+      question: "¿Puedo pagar contra entrega?",
+      answer: "Sí, Bio Prost se puede pagar contra entrega.",
+    },
+    {
+      question: "¿El delivery es gratis?",
+      answer: "El delivery es gratuito según cobertura disponible.",
+    },
+    {
+      question: "¿Cómo realizo mi pedido?",
+      answer: "Elige tu oferta y escríbenos por WhatsApp; el equipo confirma disponibilidad, precio vigente y entrega antes de coordinar.",
     },
   ],
-  packages: [
-    {
-      id: "single",
-      name: "1 frasco",
-      units: 1,
-      price: 89,
-      unitPrice: 89,
-      savings: 70,
-      badge: null as string | null,
-    },
-    {
-      id: "double",
-      name: "2 frascos",
-      units: 2,
-      price: 149,
-      unitPrice: 74.5,
-      savings: 169,
-      badge: "Más conveniente" as string | null,
-    },
-  ],
-  wholesale: {
-    minUnits: 5,
-    totalPrice: 295,
-    unitPrice: 59,
-  },
   commercial: {
     regularPrice: 159,
-    whatsappNumber: WHATSAPP_CONFIG.phoneNumber,
-    availabilityLabel: "Consultar disponibilidad",
+    offers: [
+      {
+        id: "single",
+        label: "1 frasco",
+        formLabel: "1 Bio Prost — S/89",
+        units: 1,
+        total: 89,
+        unitPrice: 89,
+        savings: 70,
+        featured: false,
+        badge: null as string | null,
+        ctaLabel: "Pedir 1 — S/89",
+      },
+      {
+        id: "double",
+        label: "2 frascos",
+        formLabel: "2 Bio Prost — S/149",
+        units: 2,
+        total: 149,
+        unitPrice: 74.5,
+        savings: 169,
+        featured: true,
+        badge: "Más conveniente" as string | null,
+        ctaLabel: "Pedir 2 — S/149",
+      },
+      {
+        id: "wholesale",
+        label: "Mayorista",
+        formLabel: "Mayorista 5 unidades — S/295",
+        units: 5,
+        total: 295,
+        unitPrice: 59,
+        savings: 500,
+        featured: false,
+        badge: null as string | null,
+        ctaLabel: "Consultar mayorista",
+      },
+    ],
     paymentOnDelivery: "Pago contra entrega",
+    freeDelivery: "Delivery gratis según cobertura",
+    whatsappNumber: WHATSAPP_CONFIG.phoneNumber,
     disclaimer: "Promociones, entrega y cobertura sujetas a disponibilidad.",
   },
 } as const;
 
-export type BioProstPackageId = (typeof BIOPROST_CONFIG.packages)[number]["id"] | "wholesale";
+export type BioProstOfferId = (typeof BIOPROST_CONFIG.commercial.offers)[number]["id"];
 
-export function getBioProstPackage(packageId: string) {
-  return BIOPROST_CONFIG.packages.find((item) => item.id === packageId);
+export function getBioProstOffer(offerId: string) {
+  return BIOPROST_CONFIG.commercial.offers.find((offer) => offer.id === offerId);
 }
 
+const OFFER_INTRO_MESSAGES: Record<BioProstOfferId, string> = {
+  single:
+    "Hola Bismillah, quiero pedir 1 Bio Prost por S/89. Deseo confirmar disponibilidad, delivery gratis y pago contra entrega.",
+  double:
+    "Hola Bismillah, quiero aprovechar la promoción de 2 Bio Prost por S/149 total. Deseo confirmar disponibilidad, delivery gratis y pago contra entrega.",
+  wholesale:
+    "Hola Bismillah, estoy interesado en Bio Prost al por mayor: 5 unidades por S/295. Quisiera confirmar disponibilidad y condiciones de entrega.",
+};
+
 export type BioProstOrderDetails = {
+  offerId: BioProstOfferId;
   source: string;
-  packageId?: BioProstPackageId;
   name?: string;
   phone?: string;
   district?: string;
   address?: string;
-  quantity?: string;
 };
 
 export function buildBioProstWhatsAppUrl(details: BioProstOrderDetails): string {
-  const selectedPackage = details.packageId && details.packageId !== "wholesale"
-    ? getBioProstPackage(details.packageId)
-    : undefined;
-
-  const introLine =
-    details.packageId === "wholesale"
-      ? `Hola, vi ${BIOPROST_CONFIG.productName} en bismillah.com.pe${BIOPROST_CONFIG.route} y quiero consultar el precio mayorista desde ${BIOPROST_CONFIG.wholesale.minUnits} unidades.`
-      : selectedPackage
-        ? `Hola, vi ${BIOPROST_CONFIG.productName} en bismillah.com.pe${BIOPROST_CONFIG.route} y quiero pedir ${selectedPackage.name} (S/${selectedPackage.price}${
-            selectedPackage.units > 1 ? ` · S/${selectedPackage.unitPrice} c/u` : ""
-          }).`
-        : `Hola, vi ${BIOPROST_CONFIG.productName} en bismillah.com.pe${BIOPROST_CONFIG.route}.`;
-
   const lines = [
-    introLine,
-    "Deseo consultar disponibilidad, precio vigente y entrega.",
+    OFFER_INTRO_MESSAGES[details.offerId],
     details.name ? `Nombre: ${details.name}.` : undefined,
     details.phone ? `Celular: ${details.phone}.` : undefined,
     details.district ? `Distrito: ${details.district}.` : undefined,
     details.address ? `Dirección: ${details.address}.` : undefined,
-    details.quantity ? `Cantidad: ${details.quantity}.` : undefined,
     `Origen: ${details.source}.`,
   ].filter(Boolean);
 

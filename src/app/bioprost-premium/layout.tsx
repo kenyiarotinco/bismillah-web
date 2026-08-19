@@ -1,15 +1,15 @@
 import type { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
-  title: "BioProst Premium 30 Tabletas | Bismillah",
+  title: "Bio Prost | Bienestar Masculino | Bismillah",
   description:
-    "Conoce BioProst Premium en presentación de 30 tabletas. Revisa su fórmula, ingredientes e información de uso y consulta disponibilidad con Bismillah.",
+    "Bio Prost en presentación de 30 tabletas. Conoce su fórmula, opciones de compra, precio retail y mayorista y consulta disponibilidad por WhatsApp.",
   alternates: {
     canonical: "/bioprost-premium",
   },
   openGraph: {
-    title: "BioProst Premium | BISMILLAH Men's Wellness",
-    description: "Cuidarte también es parte de ser fuerte.",
+    title: "Bio Prost | BISMILLAH Men's Wellness",
+    description: "Cuidado masculino que sí puede formar parte de tu rutina.",
     url: "/bioprost-premium",
     siteName: "BISMILLAH Wellness",
     locale: "es_PE",
@@ -17,8 +17,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "BioProst Premium | BISMILLAH Men's Wellness",
-    description: "Cuidarte también es parte de ser fuerte.",
+    title: "Bio Prost | BISMILLAH Men's Wellness",
+    description: "Cuidado masculino que sí puede formar parte de tu rutina.",
   },
 };
 

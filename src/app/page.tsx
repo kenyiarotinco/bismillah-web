@@ -29,7 +29,7 @@ const products = [
     tone: "renova",
   },
   {
-    name: "BioProst Premium",
+    name: "Bio Prost",
     description:
       "Fórmula de bienestar masculino en presentación de 30 tabletas, desarrollada con ingredientes seleccionados para acompañar una rutina consciente de cuidado masculino.",
     note: "Conoce su composición y consulta disponibilidad antes de coordinar tu pedido.",
@@ -142,7 +142,7 @@ export default function Home() {
                 sizes="(max-width: 760px) 35vw, 190px"
                 className={styles.bioprostImage}
               />
-              <span>BioProst Premium</span>
+              <span>Bio Prost</span>
             </article>
           </div>
         </section>
@@ -248,7 +248,7 @@ export default function Home() {
         </div>
         <div className={styles.footerLinks}>
           <Link href="/renova-plus">RENÖVA+</Link>
-          <Link href="/bioprost-premium">BioProst Premium</Link>
+          <Link href="/bioprost-premium">Bio Prost</Link>
           <a href={generalWhatsAppUrl} target="_blank" rel="noopener noreferrer">WhatsApp</a>
           <a href={`mailto:${SITE_CONFIG.email}`}>{SITE_CONFIG.email}</a>
         </div>
