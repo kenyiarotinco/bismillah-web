@@ -207,8 +207,7 @@ export const ALPHAMAN_CONFIG = {
   ],
 
   images: {
-    front: "/images/alphaman/alphaman-front.png",
-    editorial: "/images/alphaman/alphaman-editorial.png",
+    front: "/images/alphaman/alphaman-front-official.png",
     ingredients: "/images/alphaman/alphaman-ingredients.png",
     routine: "/images/alphaman/alphaman-routine.png",
   },

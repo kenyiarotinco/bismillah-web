@@ -309,12 +309,22 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 500px;
 }
 
 .heroImage {
   max-width: 100%;
+  width: 380px;
   height: auto;
-  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.4));
+  position: relative;
+  z-index: 10;
+}
+
+@media (max-width: 1024px) {
+  .heroImage {
+    width: 320px;
+  }
 }
 
 @media (max-width: 900px) {
@@ -325,6 +335,14 @@
   .heroInner {
     grid-template-columns: 1fr;
     gap: 2rem;
+  }
+
+  .heroVisual {
+    min-height: 400px;
+  }
+
+  .heroImage {
+    width: 300px;
   }
 
   .heroContent h1 {
@@ -347,6 +365,30 @@
   .heroActions a {
     width: 100%;
     text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .heroImage {
+    width: 260px;
+  }
+
+  .heroVisual {
+    min-height: 300px;
+  }
+
+  .heroContent h1 {
+    font-size: 2rem;
+  }
+
+  .heroPricing {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .priceCard {
+    padding: 1rem;
   }
 }
 

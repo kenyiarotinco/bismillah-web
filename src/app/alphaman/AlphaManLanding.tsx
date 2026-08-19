@@ -151,7 +151,7 @@ export default function AlphaManLanding() {
         <section className={styles.hero} aria-labelledby="alphaman-title">
           <div className={styles.heroInner}>
             <div className={styles.heroContent}>
-              <p className={styles.eyebrow}>Bismillah Men's Wellness</p>
+              <p className={styles.eyebrow}>Bismillah Men&apos;s Wellness</p>
               <h1 id="alphaman-title">AlphaMan</h1>
               <p className={styles.heroHeadline}>
                 Fortaleza masculina para acompañar tu mejor versión.
@@ -267,18 +267,6 @@ export default function AlphaManLanding() {
             AlphaMan propone incorporar una fórmula natural dentro de una rutina masculina más consciente, activa y
             segura.
           </p>
-          {ALPHAMAN_CONFIG.images.editorial && (
-            <div className={styles.storyImage}>
-              <Image
-                src={ALPHAMAN_CONFIG.images.editorial}
-                alt="AlphaMan como parte de una rutina de bienestar masculino."
-                width={600}
-                height={400}
-                sizes="(max-width: 900px) 100vw, 600px"
-                className={styles.image}
-              />
-            </div>
-          )}
         </section>
 
         <section id="beneficios" className={styles.section} aria-labelledby="benefits-title">
